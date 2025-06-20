@@ -13,8 +13,10 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, ArrowLeft, Eye, EyeOff, User, UserCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Signup = () => {
+  const { signup, isLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedGender, setSelectedGender] = useState<string>("");
@@ -28,10 +30,16 @@ const Signup = () => {
     age: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup logic here
-    console.log("Signup attempt:", { ...formData, gender: selectedGender });
+    if (formData.password !== formData.confirmPassword) {
+      console.error("Passwords don't match");
+      return;
+    }
+    const success = await signup({ ...formData, gender: selectedGender });
+    if (!success) {
+      console.error("Signup failed");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -304,9 +312,10 @@ const Signup = () => {
 
               <Button
                 type="submit"
+                disabled={isLoading}
                 className="w-full bg-herbal hover:bg-herbal-600 text-white py-6 text-lg font-medium"
               >
-                Create Account
+                {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
 
