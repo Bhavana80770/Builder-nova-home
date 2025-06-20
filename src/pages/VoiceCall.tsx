@@ -116,7 +116,7 @@ const VoiceCall = () => {
               Voice Call
             </Badge>
           </div>
-          <div className="w-9"></div> {/* Spacer */}
+          <div className="w-9"></div>
         </div>
       </div>
 
