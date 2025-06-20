@@ -28,6 +28,7 @@ const DoctorConnect = () => {
   const { user, logout } = useAuth();
   const [selectedConsultationType, setSelectedConsultationType] =
     useState<string>("video");
+  const [selectedTier, setSelectedTier] = useState<string>("all"); // all, free, affordable, premium
 
   const allDoctors = [
     // FREE VIDEO CONSULTATIONS
@@ -858,10 +859,61 @@ const DoctorConnect = () => {
     },
   ];
 
-  // Filter doctors based on selected consultation type
-  const doctors = allDoctors.filter((doctor) =>
-    doctor.consultationTypes.includes(selectedConsultationType),
-  );
+  // Filter doctors based on selected consultation type and tier
+  const doctors = allDoctors.filter((doctor) => {
+    const hasConsultationType = doctor.consultationTypes.includes(
+      selectedConsultationType,
+    );
+    const hasPricingForType =
+      doctor.pricing[selectedConsultationType as keyof typeof doctor.pricing];
+
+    if (!hasConsultationType || !hasPricingForType) return false;
+
+    if (selectedTier === "all") return true;
+
+    // For tier filtering
+    if (selectedTier === "free") {
+      return hasPricingForType.isFree;
+    } else if (selectedTier === "affordable") {
+      return !hasPricingForType.isFree && hasPricingForType.amount < 300;
+    } else if (selectedTier === "premium") {
+      return !hasPricingForType.isFree && hasPricingForType.amount >= 300;
+    }
+
+    return true;
+  });
+
+  // Get counts for each tier
+  const tierCounts = {
+    free: allDoctors.filter((d) => {
+      const pricing =
+        d.pricing[selectedConsultationType as keyof typeof d.pricing];
+      return (
+        d.consultationTypes.includes(selectedConsultationType) &&
+        pricing?.isFree
+      );
+    }).length,
+    affordable: allDoctors.filter((d) => {
+      const pricing =
+        d.pricing[selectedConsultationType as keyof typeof d.pricing];
+      return (
+        d.consultationTypes.includes(selectedConsultationType) &&
+        pricing &&
+        !pricing.isFree &&
+        pricing.amount < 300
+      );
+    }).length,
+    premium: allDoctors.filter((d) => {
+      const pricing =
+        d.pricing[selectedConsultationType as keyof typeof d.pricing];
+      return (
+        d.consultationTypes.includes(selectedConsultationType) &&
+        pricing &&
+        !pricing.isFree &&
+        pricing.amount >= 300
+      );
+    }).length,
+  };
 
   const getConsultationTypeInfo = (type: string) => {
     switch (type) {
