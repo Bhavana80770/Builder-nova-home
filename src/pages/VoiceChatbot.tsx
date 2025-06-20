@@ -27,6 +27,10 @@ const VoiceChatbot = () => {
   const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  // Check if this is a free consultation
+  const urlParams = new URLSearchParams(window.location.search);
+  const isFreeConsultation = urlParams.get("free") === "true";
+
   return (
     <div className="min-h-screen bg-sand">
       {/* Header */}
@@ -78,9 +82,16 @@ const VoiceChatbot = () => {
         <div className="max-w-2xl mx-auto">
           {/* Status Badge */}
           <div className="text-center mb-8">
-            <Badge className="bg-herbal-50 text-herbal border-herbal-100 mb-4">
-              🎙️ Voice Assistant Ready
-            </Badge>
+            <div className="flex justify-center gap-2 mb-4">
+              <Badge className="bg-herbal-50 text-herbal border-herbal-100">
+                🎙️ Voice Assistant Ready
+              </Badge>
+              {isFreeConsultation && (
+                <Badge className="bg-coral-50 text-coral border-coral-100">
+                  FREE Service
+                </Badge>
+              )}
+            </div>
             <h2 className="text-2xl font-bold text-indigo mb-2">
               Talk to AarogyaMitra
             </h2>
