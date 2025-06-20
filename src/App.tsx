@@ -14,6 +14,7 @@ import DoctorConnect from "./pages/DoctorConnect";
 import VideoCall from "./pages/VideoCall";
 import VoiceCall from "./pages/VoiceCall";
 import ChatConsultation from "./pages/ChatConsultation";
+import Payment from "./pages/Payment";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -91,6 +92,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <ChatConsultation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/payment"
+        element={
+          <ProtectedRoute>
+            <Payment />
           </ProtectedRoute>
         }
       />
