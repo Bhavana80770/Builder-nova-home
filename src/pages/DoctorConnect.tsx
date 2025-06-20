@@ -30,6 +30,7 @@ const DoctorConnect = () => {
     useState<string>("video");
 
   const allDoctors = [
+    // General Physicians
     {
       id: 1,
       name: "Dr. Priya Sharma",
@@ -42,12 +43,30 @@ const DoctorConnect = () => {
       pricing: {
         video: { amount: 299, isFree: false },
         voice: { amount: 199, isFree: false },
-        chat: { amount: 149, isFree: true }, // Free chat for basic health
+        chat: { amount: 149, isFree: true },
       },
       badges: ["Verified", "Rural Specialist"],
     },
     {
       id: 2,
+      name: "Dr. Anand Verma",
+      specialization: "General Physician",
+      experience: "12 years",
+      rating: 4.7,
+      availability: "Available in 20 min",
+      languages: ["Hindi", "English", "Punjabi"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 349, isFree: false },
+        voice: { amount: 249, isFree: false },
+        chat: { amount: 0, isFree: true },
+      },
+      badges: ["Free Chat", "Family Medicine"],
+    },
+
+    // Pediatricians
+    {
+      id: 3,
       name: "Dr. Rajesh Kumar",
       specialization: "Pediatrician",
       experience: "12 years",
@@ -63,7 +82,25 @@ const DoctorConnect = () => {
       badges: ["Premium", "Child Specialist"],
     },
     {
-      id: 3,
+      id: 4,
+      name: "Dr. Meera Joshi",
+      specialization: "Pediatrician",
+      experience: "9 years",
+      rating: 4.6,
+      availability: "Available Now",
+      languages: ["Hindi", "English", "Marathi"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 449, isFree: false },
+        voice: { amount: 349, isFree: false },
+        chat: { amount: 149, isFree: true },
+      },
+      badges: ["Newborn Care", "Vaccination Expert"],
+    },
+
+    // Gynecologists
+    {
+      id: 5,
       name: "Dr. Sunita Devi",
       specialization: "Gynecologist",
       experience: "10 years",
@@ -78,7 +115,25 @@ const DoctorConnect = () => {
       badges: ["Women's Health", "Verified"],
     },
     {
-      id: 4,
+      id: 6,
+      name: "Dr. Kavya Menon",
+      specialization: "Gynecologist",
+      experience: "14 years",
+      rating: 4.8,
+      availability: "Available in 45 min",
+      languages: ["English", "Malayalam", "Tamil"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 599, isFree: false },
+        voice: { amount: 449, isFree: false },
+        chat: { amount: 299, isFree: false },
+      },
+      badges: ["Pregnancy Care", "Premium"],
+    },
+
+    // Cardiologists
+    {
+      id: 7,
       name: "Dr. Amit Patel",
       specialization: "Cardiologist",
       experience: "15 years",
@@ -93,7 +148,25 @@ const DoctorConnect = () => {
       badges: ["Heart Specialist", "Premium"],
     },
     {
-      id: 5,
+      id: 8,
+      name: "Dr. Sandeep Aggarwal",
+      specialization: "Cardiologist",
+      experience: "18 years",
+      rating: 4.9,
+      availability: "Available at 4 PM",
+      languages: ["Hindi", "English"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 799, isFree: false },
+        voice: { amount: 599, isFree: false },
+        chat: { amount: 399, isFree: false },
+      },
+      badges: ["Senior Consultant", "Heart Surgery"],
+    },
+
+    // Dermatologists
+    {
+      id: 9,
       name: "Dr. Kavitha Reddy",
       specialization: "Dermatologist",
       experience: "7 years",
@@ -109,7 +182,24 @@ const DoctorConnect = () => {
       badges: ["Skin Expert", "Verified"],
     },
     {
-      id: 6,
+      id: 10,
+      name: "Dr. Rahul Khanna",
+      specialization: "Dermatologist",
+      experience: "11 years",
+      rating: 4.7,
+      availability: "Available Now",
+      languages: ["Hindi", "English", "Punjabi"],
+      consultationTypes: ["video", "chat"],
+      pricing: {
+        video: { amount: 649, isFree: false },
+        chat: { amount: 249, isFree: false },
+      },
+      badges: ["Acne Specialist", "Cosmetic"],
+    },
+
+    // Orthopedics
+    {
+      id: 11,
       name: "Dr. Manoj Singh",
       specialization: "Orthopedic",
       experience: "11 years",
@@ -124,7 +214,25 @@ const DoctorConnect = () => {
       badges: ["Bone Specialist", "Rural Expert"],
     },
     {
-      id: 7,
+      id: 12,
+      name: "Dr. Vikram Rao",
+      specialization: "Orthopedic",
+      experience: "16 years",
+      rating: 4.8,
+      availability: "Available in 2 hours",
+      languages: ["Hindi", "English", "Telugu"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 699, isFree: false },
+        voice: { amount: 549, isFree: false },
+        chat: { amount: 349, isFree: false },
+      },
+      badges: ["Joint Replacement", "Sports Medicine"],
+    },
+
+    // Mental Health
+    {
+      id: 13,
       name: "Dr. Sita Gupta",
       specialization: "Mental Health",
       experience: "9 years",
@@ -134,12 +242,30 @@ const DoctorConnect = () => {
       consultationTypes: ["voice", "chat"],
       pricing: {
         voice: { amount: 449, isFree: false },
-        chat: { amount: 0, isFree: true }, // Free mental health support
+        chat: { amount: 0, isFree: true },
       },
       badges: ["Free Support", "Counselor"],
     },
     {
-      id: 8,
+      id: 14,
+      name: "Dr. Arjun Mehta",
+      specialization: "Mental Health",
+      experience: "13 years",
+      rating: 4.9,
+      availability: "Available in 40 min",
+      languages: ["Hindi", "English", "Gujarati"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 599, isFree: false },
+        voice: { amount: 399, isFree: false },
+        chat: { amount: 199, isFree: true },
+      },
+      badges: ["Anxiety Specialist", "Depression Care"],
+    },
+
+    // ENT Specialists
+    {
+      id: 15,
       name: "Dr. Ramesh Nair",
       specialization: "ENT Specialist",
       experience: "13 years",
@@ -150,9 +276,95 @@ const DoctorConnect = () => {
       pricing: {
         video: { amount: 399, isFree: false },
         voice: { amount: 299, isFree: false },
-        chat: { amount: 149, isFree: true }, // Free for basic ENT queries
+        chat: { amount: 149, isFree: true },
       },
       badges: ["ENT Expert", "Verified"],
+    },
+    {
+      id: 16,
+      name: "Dr. Neha Saxena",
+      specialization: "ENT Specialist",
+      experience: "8 years",
+      rating: 4.6,
+      availability: "Available Now",
+      languages: ["Hindi", "English"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 449, isFree: false },
+        voice: { amount: 349, isFree: false },
+        chat: { amount: 0, isFree: true },
+      },
+      badges: ["Hearing Care", "Free Chat"],
+    },
+
+    // Diabetologists
+    {
+      id: 17,
+      name: "Dr. Suresh Yadav",
+      specialization: "Diabetologist",
+      experience: "14 years",
+      rating: 4.8,
+      availability: "Available in 25 min",
+      languages: ["Hindi", "English"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 549, isFree: false },
+        voice: { amount: 399, isFree: false },
+        chat: { amount: 249, isFree: false },
+      },
+      badges: ["Diabetes Care", "Diet Planning"],
+    },
+
+    // Neurologists
+    {
+      id: 18,
+      name: "Dr. Ravi Krishnan",
+      specialization: "Neurologist",
+      experience: "17 years",
+      rating: 4.9,
+      availability: "Available at 5 PM",
+      languages: ["English", "Tamil", "Malayalam"],
+      consultationTypes: ["video", "voice"],
+      pricing: {
+        video: { amount: 799, isFree: false },
+        voice: { amount: 649, isFree: false },
+      },
+      badges: ["Brain Specialist", "Premium"],
+    },
+
+    // Ophthalmologists
+    {
+      id: 19,
+      name: "Dr. Asha Iyer",
+      specialization: "Ophthalmologist",
+      experience: "10 years",
+      rating: 4.7,
+      availability: "Available Now",
+      languages: ["English", "Hindi", "Kannada"],
+      consultationTypes: ["video", "chat"],
+      pricing: {
+        video: { amount: 499, isFree: false },
+        chat: { amount: 249, isFree: false },
+      },
+      badges: ["Eye Care", "Verified"],
+    },
+
+    // Gastroenterologists
+    {
+      id: 20,
+      name: "Dr. Mukesh Jain",
+      specialization: "Gastroenterologist",
+      experience: "12 years",
+      rating: 4.6,
+      availability: "Available in 50 min",
+      languages: ["Hindi", "English"],
+      consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 649, isFree: false },
+        voice: { amount: 499, isFree: false },
+        chat: { amount: 299, isFree: false },
+      },
+      badges: ["Digestive Health", "IBS Specialist"],
     },
   ];
 
