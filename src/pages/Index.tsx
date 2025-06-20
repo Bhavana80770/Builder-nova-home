@@ -45,12 +45,12 @@ const Index = () => {
                   Login
                 </Button>
               </Link>
-              <Link to="/signup">
+              <Link to="/phone-verification">
                 <Button
                   size="sm"
                   className="bg-herbal hover:bg-herbal-600 text-white"
                 >
-                  Sign Up
+                  Get Started
                 </Button>
               </Link>
             </div>
@@ -75,7 +75,7 @@ const Index = () => {
               rural communities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/login">
+              <Link to="/phone-verification">
                 <Button
                   size="lg"
                   className="bg-herbal hover:bg-herbal-600 text-white px-8 py-6 text-lg"
@@ -84,7 +84,7 @@ const Index = () => {
                   Start Free Consultation
                 </Button>
               </Link>
-              <Link to="/login">
+              <Link to="/phone-verification">
                 <Button
                   variant="outline"
                   size="lg"
