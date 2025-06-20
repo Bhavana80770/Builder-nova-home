@@ -11,6 +11,9 @@ import Signup from "./pages/Signup";
 import VoiceChatbot from "./pages/VoiceChatbot";
 import SymptomInput from "./pages/SymptomInput";
 import DoctorConnect from "./pages/DoctorConnect";
+import VideoCall from "./pages/VideoCall";
+import VoiceCall from "./pages/VoiceCall";
+import ChatConsultation from "./pages/ChatConsultation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,6 +67,30 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <DoctorConnect />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/consultation/video"
+        element={
+          <ProtectedRoute>
+            <VideoCall />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/consultation/voice"
+        element={
+          <ProtectedRoute>
+            <VoiceCall />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/consultation/chat"
+        element={
+          <ProtectedRoute>
+            <ChatConsultation />
           </ProtectedRoute>
         }
       />
