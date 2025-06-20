@@ -28,6 +28,15 @@ const Login = () => {
     if (!success) {
       // Handle login error - for now just log it
       console.error("Login failed");
+    } else {
+      // Check if coming from verification
+      const urlParams = new URLSearchParams(window.location.search);
+      const isVerified = urlParams.get("verified") === "true";
+
+      if (isVerified) {
+        // Redirect to profile completion
+        window.location.href = "/profile-details";
+      }
     }
     // Success case is handled by the auth context and routing
   };
