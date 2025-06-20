@@ -12,18 +12,24 @@ import { Separator } from "@/components/ui/separator";
 import { Heart, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Login = () => {
+  const { login, isLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login attempt:", formData);
+    const success = await login(formData.email, formData.password);
+    if (!success) {
+      // Handle login error - for now just log it
+      console.error("Login failed");
+    }
+    // Success case is handled by the auth context and routing
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,9 +135,10 @@ const Login = () => {
 
               <Button
                 type="submit"
+                disabled={isLoading}
                 className="w-full bg-herbal hover:bg-herbal-600 text-white py-6 text-lg font-medium"
               >
-                Sign In
+                {isLoading ? "Signing In..." : "Sign In"}
               </Button>
             </form>
 
