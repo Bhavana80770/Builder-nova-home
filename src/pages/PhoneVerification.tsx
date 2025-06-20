@@ -11,25 +11,45 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { smsService } from "@/services/smsService";
 
 const PhoneVerification = () => {
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<"phone" | "sending">("phone");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Request notification permission for development OTP display
+    smsService.requestNotificationPermission();
+  }, []);
 
   const handleSendOTP = async () => {
     if (!phoneNumber || phoneNumber.length !== 10) return;
 
     setIsLoading(true);
     setStep("sending");
+    setError("");
 
-    // Simulate OTP sending
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Send OTP via SMS service
+      const result = await smsService.sendOTP(phoneNumber);
 
-    // Navigate to OTP verification
-    navigate(`/verify-otp?phone=${phoneNumber}`);
+      if (result.success) {
+        // Navigate to OTP verification
+        navigate(`/verify-otp?phone=${phoneNumber}`);
+      } else {
+        setError(result.error || "Failed to send OTP. Please try again.");
+        setStep("phone");
+      }
+    } catch (error) {
+      setError("Network error. Please check your connection and try again.");
+      setStep("phone");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const formatPhoneNumber = (value: string) => {
@@ -125,10 +145,16 @@ const PhoneVerification = () => {
                           maxLength={10}
                         />
                       </div>
-                      {phoneNumber && phoneNumber.length === 10 && (
+                      {phoneNumber && phoneNumber.length === 10 && !error && (
                         <div className="flex items-center text-herbal text-sm animate-slide-in-up">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Valid mobile number
+                        </div>
+                      )}
+                      {error && (
+                        <div className="flex items-center text-soft-red text-sm animate-slide-in-up">
+                          <span className="mr-2">⚠️</span>
+                          {error}
                         </div>
                       )}
                     </div>

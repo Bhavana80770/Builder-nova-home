@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { smsService } from "@/services/smsService";
 
 const OtpVerification = () => {
   const navigate = useNavigate();
@@ -22,12 +23,19 @@ const OtpVerification = () => {
   const [timeLeft, setTimeLeft] = useState(60);
   const [canResend, setCanResend] = useState(false);
   const [isResending, setIsResending] = useState(false);
+  const [error, setError] = useState("");
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     // Focus first input on mount
     inputRefs.current[0]?.focus();
-  }, []);
+
+    // Get actual remaining time from SMS service
+    const remainingTime = smsService.getOTPTimeRemaining(phoneNumber);
+    if (remainingTime > 0) {
+      setTimeLeft(remainingTime);
+    }
+  }, [phoneNumber]);
 
   useEffect(() => {
     // Countdown timer
@@ -69,26 +77,54 @@ const OtpVerification = () => {
     if (otpToVerify.length !== 6) return;
 
     setIsVerifying(true);
+    setError("");
 
-    // Simulate OTP verification
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Verify OTP using SMS service
+      const result = await smsService.verifyOTP(phoneNumber, otpToVerify);
 
-    // Navigate to login page
-    navigate("/login?verified=true");
+      if (result.success) {
+        // Navigate to login page
+        navigate("/login?verified=true");
+      } else {
+        setError(result.error || "Invalid OTP. Please try again.");
+        // Clear OTP fields on error
+        setOtp(["", "", "", "", "", ""]);
+        inputRefs.current[0]?.focus();
+      }
+    } catch (error) {
+      setError("Verification failed. Please try again.");
+      setOtp(["", "", "", "", "", ""]);
+      inputRefs.current[0]?.focus();
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   const handleResendOtp = async () => {
     setIsResending(true);
     setCanResend(false);
-    setTimeLeft(60);
+    setError("");
 
-    // Simulate resending OTP
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Resend OTP via SMS service
+      const result = await smsService.sendOTP(phoneNumber);
 
-    setIsResending(false);
-    // Clear OTP fields
-    setOtp(["", "", "", "", "", ""]);
-    inputRefs.current[0]?.focus();
+      if (result.success) {
+        setTimeLeft(60);
+        // Clear OTP fields
+        setOtp(["", "", "", "", "", ""]);
+        inputRefs.current[0]?.focus();
+      } else {
+        setError(result.error || "Failed to resend OTP. Please try again.");
+        setCanResend(true);
+      }
+    } catch (error) {
+      setError("Failed to resend OTP. Please check your connection.");
+      setCanResend(true);
+    } finally {
+      setIsResending(false);
+    }
   };
 
   const formatTime = (seconds: number) => {
@@ -177,6 +213,16 @@ const OtpVerification = () => {
                     />
                   ))}
                 </div>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="text-center mb-4">
+                    <div className="flex items-center justify-center text-soft-red text-sm animate-slide-in-up">
+                      <span className="mr-2">⚠️</span>
+                      {error}
+                    </div>
+                  </div>
+                )}
 
                 {/* Timer */}
                 <div className="text-center mb-4">
