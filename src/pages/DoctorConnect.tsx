@@ -21,12 +21,15 @@ import {
   Settings,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const DoctorConnect = () => {
   const { user, logout } = useAuth();
+  const [selectedConsultationType, setSelectedConsultationType] =
+    useState<string>("video");
 
-  const doctors = [
+  const allDoctors = [
     {
       id: 1,
       name: "Dr. Priya Sharma",
@@ -36,6 +39,7 @@ const DoctorConnect = () => {
       availability: "Available Now",
       languages: ["Hindi", "English"],
       consultationFee: "₹299",
+      consultationTypes: ["video", "voice", "chat"],
     },
     {
       id: 2,
@@ -46,6 +50,7 @@ const DoctorConnect = () => {
       availability: "Available in 15 min",
       languages: ["Hindi", "English", "Bengali"],
       consultationFee: "₹399",
+      consultationTypes: ["video", "voice", "chat"],
     },
     {
       id: 3,
@@ -56,8 +61,104 @@ const DoctorConnect = () => {
       availability: "Available at 6 PM",
       languages: ["Hindi", "English"],
       consultationFee: "₹499",
+      consultationTypes: ["video", "chat"],
+    },
+    {
+      id: 4,
+      name: "Dr. Amit Patel",
+      specialization: "Cardiologist",
+      experience: "15 years",
+      rating: 4.9,
+      availability: "Available Now",
+      languages: ["Hindi", "English", "Gujarati"],
+      consultationFee: "₹699",
+      consultationTypes: ["video", "voice"],
+    },
+    {
+      id: 5,
+      name: "Dr. Kavitha Reddy",
+      specialization: "Dermatologist",
+      experience: "7 years",
+      rating: 4.6,
+      availability: "Available in 30 min",
+      languages: ["English", "Telugu", "Tamil"],
+      consultationFee: "₹549",
+      consultationTypes: ["video", "voice", "chat"],
+    },
+    {
+      id: 6,
+      name: "Dr. Manoj Singh",
+      specialization: "Orthopedic",
+      experience: "11 years",
+      rating: 4.8,
+      availability: "Available at 3 PM",
+      languages: ["Hindi", "English"],
+      consultationFee: "₹599",
+      consultationTypes: ["video", "chat"],
+    },
+    {
+      id: 7,
+      name: "Dr. Sita Gupta",
+      specialization: "Mental Health",
+      experience: "9 years",
+      rating: 4.7,
+      availability: "Available Now",
+      languages: ["Hindi", "English"],
+      consultationFee: "₹449",
+      consultationTypes: ["voice", "chat"],
+    },
+    {
+      id: 8,
+      name: "Dr. Ramesh Nair",
+      specialization: "ENT Specialist",
+      experience: "13 years",
+      rating: 4.5,
+      availability: "Available in 1 hour",
+      languages: ["English", "Malayalam", "Tamil"],
+      consultationFee: "₹399",
+      consultationTypes: ["video", "voice", "chat"],
     },
   ];
+
+  // Filter doctors based on selected consultation type
+  const doctors = allDoctors.filter((doctor) =>
+    doctor.consultationTypes.includes(selectedConsultationType),
+  );
+
+  const getConsultationTypeInfo = (type: string) => {
+    switch (type) {
+      case "video":
+        return {
+          title: "Video Call Consultation",
+          description: "Face-to-face consultation with high-quality video",
+          icon: Video,
+          color: "gender-blue",
+        };
+      case "voice":
+        return {
+          title: "Voice Call Consultation",
+          description: "Audio-only consultation for privacy and convenience",
+          icon: Phone,
+          color: "gender-pink",
+        };
+      case "chat":
+        return {
+          title: "Chat Consultation",
+          description: "Text-based consultation with quick responses",
+          icon: MessageCircle,
+          color: "coral",
+        };
+      default:
+        return {
+          title: "Consultation",
+          description: "Professional medical consultation",
+          icon: Video,
+          color: "herbal",
+        };
+    }
+  };
+
+  const consultationInfo = getConsultationTypeInfo(selectedConsultationType);
 
   return (
     <div className="min-h-screen bg-sand">
@@ -128,67 +229,132 @@ const DoctorConnect = () => {
             </p>
           </div>
 
-          {/* Consultation Options */}
+          {/* Consultation Type Selector */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <Card className="border-gray-border hover:shadow-lg transition-all duration-300">
+            <Card
+              className={`border-gray-border hover:shadow-lg transition-all duration-300 cursor-pointer ${
+                selectedConsultationType === "video"
+                  ? "ring-2 ring-gender-blue bg-gender-blue-50"
+                  : ""
+              }`}
+              onClick={() => setSelectedConsultationType("video")}
+            >
               <CardContent className="pt-6 text-center">
-                <div className="w-12 h-12 bg-gender-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Video className="w-6 h-6 text-gender-blue" />
+                <div
+                  className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+                    selectedConsultationType === "video"
+                      ? "bg-gender-blue text-white"
+                      : "bg-gender-blue-100 text-gender-blue"
+                  }`}
+                >
+                  <Video className="w-6 h-6" />
                 </div>
                 <h3 className="font-semibold text-indigo mb-2">Video Call</h3>
                 <p className="text-sm text-indigo/70 mb-4">
                   Face-to-face consultation with doctor
                 </p>
-                <Button
-                  size="sm"
-                  className="bg-gender-blue hover:bg-gender-blue-600 text-white"
+                <Badge
+                  variant={
+                    selectedConsultationType === "video" ? "default" : "outline"
+                  }
                 >
-                  Start Video Call
-                </Button>
+                  {doctors.length} doctors available
+                </Badge>
               </CardContent>
             </Card>
 
-            <Card className="border-gray-border hover:shadow-lg transition-all duration-300">
+            <Card
+              className={`border-gray-border hover:shadow-lg transition-all duration-300 cursor-pointer ${
+                selectedConsultationType === "voice"
+                  ? "ring-2 ring-gender-pink bg-gender-pink-50"
+                  : ""
+              }`}
+              onClick={() => setSelectedConsultationType("voice")}
+            >
               <CardContent className="pt-6 text-center">
-                <div className="w-12 h-12 bg-gender-pink-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Phone className="w-6 h-6 text-gender-pink" />
+                <div
+                  className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+                    selectedConsultationType === "voice"
+                      ? "bg-gender-pink text-white"
+                      : "bg-gender-pink-100 text-gender-pink"
+                  }`}
+                >
+                  <Phone className="w-6 h-6" />
                 </div>
                 <h3 className="font-semibold text-indigo mb-2">Voice Call</h3>
                 <p className="text-sm text-indigo/70 mb-4">
                   Audio consultation with expert
                 </p>
-                <Button
-                  size="sm"
-                  className="bg-gender-pink hover:bg-gender-pink-600 text-white"
+                <Badge
+                  variant={
+                    selectedConsultationType === "voice" ? "default" : "outline"
+                  }
                 >
-                  Start Voice Call
-                </Button>
+                  {
+                    allDoctors.filter((d) =>
+                      d.consultationTypes.includes("voice"),
+                    ).length
+                  }{" "}
+                  doctors available
+                </Badge>
               </CardContent>
             </Card>
 
-            <Card className="border-gray-border hover:shadow-lg transition-all duration-300">
+            <Card
+              className={`border-gray-border hover:shadow-lg transition-all duration-300 cursor-pointer ${
+                selectedConsultationType === "chat"
+                  ? "ring-2 ring-coral bg-coral-50"
+                  : ""
+              }`}
+              onClick={() => setSelectedConsultationType("chat")}
+            >
               <CardContent className="pt-6 text-center">
-                <div className="w-12 h-12 bg-coral-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <MessageCircle className="w-6 h-6 text-coral" />
+                <div
+                  className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+                    selectedConsultationType === "chat"
+                      ? "bg-coral text-white"
+                      : "bg-coral-100 text-coral"
+                  }`}
+                >
+                  <MessageCircle className="w-6 h-6" />
                 </div>
                 <h3 className="font-semibold text-indigo mb-2">Chat</h3>
                 <p className="text-sm text-indigo/70 mb-4">
                   Text-based consultation
                 </p>
-                <Button
-                  size="sm"
-                  className="bg-coral hover:bg-coral-600 text-white"
+                <Badge
+                  variant={
+                    selectedConsultationType === "chat" ? "default" : "outline"
+                  }
                 >
-                  Start Chat
-                </Button>
+                  {
+                    allDoctors.filter((d) =>
+                      d.consultationTypes.includes("chat"),
+                    ).length
+                  }{" "}
+                  doctors available
+                </Badge>
               </CardContent>
             </Card>
           </div>
 
-          {/* Available Doctors */}
+          {/* Available Doctors for Selected Consultation Type */}
           <Card className="border-gray-border shadow-lg">
             <CardHeader>
-              <CardTitle className="text-indigo">Available Doctors</CardTitle>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-indigo flex items-center gap-2">
+                    <consultationInfo.icon className="w-5 h-5" />
+                    {consultationInfo.title}
+                  </CardTitle>
+                  <p className="text-sm text-indigo/70 mt-1">
+                    {consultationInfo.description}
+                  </p>
+                </div>
+                <Badge className="bg-herbal-50 text-herbal">
+                  {doctors.length} Available
+                </Badge>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -248,9 +414,21 @@ const DoctorConnect = () => {
                       </p>
                       <Button
                         size="sm"
-                        className="bg-herbal hover:bg-herbal-600 text-white"
+                        className={`text-white ${
+                          selectedConsultationType === "video"
+                            ? "bg-gender-blue hover:bg-gender-blue-600"
+                            : selectedConsultationType === "voice"
+                              ? "bg-gender-pink hover:bg-gender-pink-600"
+                              : "bg-coral hover:bg-coral-600"
+                        }`}
                       >
-                        Consult Now
+                        <consultationInfo.icon className="w-4 h-4 mr-1" />
+                        Start{" "}
+                        {selectedConsultationType === "video"
+                          ? "Video"
+                          : selectedConsultationType === "voice"
+                            ? "Call"
+                            : "Chat"}
                       </Button>
                     </div>
                   </div>
