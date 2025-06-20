@@ -16,6 +16,9 @@ import VoiceCall from "./pages/VoiceCall";
 import ChatConsultation from "./pages/ChatConsultation";
 import Payment from "./pages/Payment";
 import Pricing from "./pages/Pricing";
+import PhoneVerification from "./pages/PhoneVerification";
+import OtpVerification from "./pages/OtpVerification";
+import ProfileDetails from "./pages/ProfileDetails";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,12 +34,32 @@ const AppRoutes = () => {
         element={user ? <Navigate to="/dashboard" replace /> : <Index />}
       />
       <Route
+        path="/phone-verification"
+        element={
+          user ? <Navigate to="/dashboard" replace /> : <PhoneVerification />
+        }
+      />
+      <Route
+        path="/verify-otp"
+        element={
+          user ? <Navigate to="/dashboard" replace /> : <OtpVerification />
+        }
+      />
+      <Route
         path="/login"
         element={user ? <Navigate to="/dashboard" replace /> : <Login />}
       />
       <Route
         path="/signup"
         element={user ? <Navigate to="/dashboard" replace /> : <Signup />}
+      />
+      <Route
+        path="/profile-details"
+        element={
+          <ProtectedRoute>
+            <ProfileDetails />
+          </ProtectedRoute>
+        }
       />
 
       {/* Protected routes */}
