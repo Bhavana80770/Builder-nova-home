@@ -40,7 +40,8 @@ const OtpVerification = () => {
   }, [timeLeft]);
 
   const handleOtpChange = (index: number, value: string) => {
-    if (value.length > 1) return;
+    // Only allow numeric values and single characters
+    if (value.length > 1 || (value && !/^\d$/.test(value))) return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
