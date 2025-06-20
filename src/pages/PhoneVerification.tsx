@@ -38,6 +38,13 @@ const PhoneVerification = () => {
       const result = await smsService.sendOTP(phoneNumber);
 
       if (result.success) {
+        // Show success message for development
+        if (import.meta.env.VITE_APP_ENV === "development") {
+          console.log(
+            "🎉 OTP sent successfully! Check your browser notifications or console for the OTP code.",
+          );
+        }
+
         // Navigate to OTP verification
         navigate(`/verify-otp?phone=${phoneNumber}`);
       } else {
