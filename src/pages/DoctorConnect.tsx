@@ -1230,6 +1230,52 @@ const DoctorConnect = () => {
                 </Card>
               </div>
             )}
+
+            {/* Tier Filter */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex bg-white rounded-lg p-1 shadow-sm border border-gray-border">
+                <button
+                  onClick={() => setSelectedTier("all")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    selectedTier === "all"
+                      ? "bg-indigo text-white shadow-sm"
+                      : "text-indigo/70 hover:text-indigo"
+                  }`}
+                >
+                  All ({doctors.length})
+                </button>
+                <button
+                  onClick={() => setSelectedTier("free")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    selectedTier === "free"
+                      ? "bg-herbal text-white shadow-sm"
+                      : "text-indigo/70 hover:text-herbal"
+                  }`}
+                >
+                  Free ({tierCounts.free})
+                </button>
+                <button
+                  onClick={() => setSelectedTier("affordable")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    selectedTier === "affordable"
+                      ? "bg-coral text-white shadow-sm"
+                      : "text-indigo/70 hover:text-coral"
+                  }`}
+                >
+                  Affordable ({tierCounts.affordable})
+                </button>
+                <button
+                  onClick={() => setSelectedTier("premium")}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    selectedTier === "premium"
+                      ? "bg-gender-blue text-white shadow-sm"
+                      : "text-indigo/70 hover:text-gender-blue"
+                  }`}
+                >
+                  Premium ({tierCounts.premium})
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Available Doctors for Selected Consultation Type */}
@@ -1300,18 +1346,29 @@ const DoctorConnect = () => {
                             </Badge>
                           ))}
                         </div>
-                        <div className="flex gap-1 mt-2">
+                        <div className="flex gap-1 mt-2 flex-wrap">
                           {doctor.badges.map((badge) => (
                             <Badge
                               key={badge}
                               className={`text-xs ${
-                                badge === "Free Support" ||
+                                badge.includes("Free") ||
                                 badge === "Rural Expert" ||
-                                badge === "Rural Specialist"
+                                badge === "Rural Specialist" ||
+                                badge === "Volunteer"
                                   ? "bg-herbal-50 text-herbal border-herbal"
-                                  : badge === "Premium"
-                                    ? "bg-coral-50 text-coral border-coral"
-                                    : "bg-gender-blue-50 text-gender-blue border-gender-blue"
+                                  : badge === "Premium" ||
+                                      badge.includes("Senior") ||
+                                      badge.includes("15+")
+                                    ? "bg-gender-blue-50 text-gender-blue border-gender-blue"
+                                    : badge === "Affordable" ||
+                                        badge.includes("Child") ||
+                                        badge.includes("Expert")
+                                      ? "bg-coral-50 text-coral border-coral"
+                                      : badge.includes("Student") ||
+                                          badge.includes("Trainee") ||
+                                          badge.includes("Learning")
+                                        ? "bg-gender-pink-50 text-gender-pink border-gender-pink"
+                                        : "bg-gray-50 text-gray-600 border-gray-200"
                               }`}
                             >
                               {badge}
@@ -1328,23 +1385,41 @@ const DoctorConnect = () => {
                           ];
                         const isFree = pricing?.isFree || false;
                         const amount = pricing?.amount || 0;
+                        const duration = pricing?.duration || "30 min";
+                        const tier = pricing?.tier || "standard";
 
                         return (
                           <>
-                            <div className="mb-2">
+                            <div className="mb-3">
                               {isFree ? (
                                 <div className="flex flex-col items-end">
-                                  <Badge className="bg-herbal text-white mb-1">
+                                  <Badge className="bg-herbal text-white mb-2 px-3 py-1">
                                     FREE
                                   </Badge>
-                                  <p className="text-sm text-indigo/60 line-through">
-                                    ₹{amount}
+                                  <p className="text-sm text-indigo/70">
+                                    {duration} consultation
                                   </p>
                                 </div>
                               ) : (
-                                <p className="text-lg font-bold text-indigo">
-                                  ₹{amount}
-                                </p>
+                                <div className="flex flex-col items-end">
+                                  <p className="text-2xl font-bold text-indigo mb-1">
+                                    ₹{amount}
+                                  </p>
+                                  <p className="text-sm text-indigo/70 mb-1">
+                                    {duration} consultation
+                                  </p>
+                                  <Badge
+                                    className={`text-xs ${
+                                      tier === "premium"
+                                        ? "bg-gender-blue-50 text-gender-blue border-gender-blue"
+                                        : "bg-coral-50 text-coral border-coral"
+                                    }`}
+                                  >
+                                    {tier === "premium"
+                                      ? "Premium"
+                                      : "Standard"}
+                                  </Badge>
+                                </div>
                               )}
                             </div>
                             <Link
@@ -1353,27 +1428,20 @@ const DoctorConnect = () => {
                                   ? `/consultation/${selectedConsultationType}?doctorId=${doctor.id}&free=true`
                                   : `/payment?doctorId=${doctor.id}&type=${selectedConsultationType}`
                               }
-                              className="inline-block"
+                              className="inline-block w-full"
                             >
                               <Button
                                 size="sm"
-                                className={`text-white ${
+                                className={`w-full text-white transition-all duration-300 hover:scale-105 ${
                                   isFree
                                     ? "bg-herbal hover:bg-herbal-600"
-                                    : selectedConsultationType === "video"
+                                    : tier === "premium"
                                       ? "bg-gender-blue hover:bg-gender-blue-600"
-                                      : selectedConsultationType === "voice"
-                                        ? "bg-gender-pink hover:bg-gender-pink-600"
-                                        : "bg-coral hover:bg-coral-600"
+                                      : "bg-coral hover:bg-coral-600"
                                 }`}
                               >
-                                <consultationInfo.icon className="w-4 h-4 mr-1" />
-                                {isFree ? "Start Free" : "Pay & Start"}{" "}
-                                {selectedConsultationType === "video"
-                                  ? "Video"
-                                  : selectedConsultationType === "voice"
-                                    ? "Call"
-                                    : "Chat"}
+                                <consultationInfo.icon className="w-4 h-4 mr-2" />
+                                {isFree ? "Start Free" : "Book Now"}
                               </Button>
                             </Link>
                           </>
