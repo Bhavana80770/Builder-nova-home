@@ -412,24 +412,29 @@ const DoctorConnect = () => {
                       <p className="text-lg font-bold text-indigo mb-2">
                         {doctor.consultationFee}
                       </p>
-                      <Button
-                        size="sm"
-                        className={`text-white ${
-                          selectedConsultationType === "video"
-                            ? "bg-gender-blue hover:bg-gender-blue-600"
-                            : selectedConsultationType === "voice"
-                              ? "bg-gender-pink hover:bg-gender-pink-600"
-                              : "bg-coral hover:bg-coral-600"
-                        }`}
+                      <Link
+                        to={`/consultation/${selectedConsultationType}?doctorId=${doctor.id}`}
+                        className="inline-block"
                       >
-                        <consultationInfo.icon className="w-4 h-4 mr-1" />
-                        Start{" "}
-                        {selectedConsultationType === "video"
-                          ? "Video"
-                          : selectedConsultationType === "voice"
-                            ? "Call"
-                            : "Chat"}
-                      </Button>
+                        <Button
+                          size="sm"
+                          className={`text-white ${
+                            selectedConsultationType === "video"
+                              ? "bg-gender-blue hover:bg-gender-blue-600"
+                              : selectedConsultationType === "voice"
+                                ? "bg-gender-pink hover:bg-gender-pink-600"
+                                : "bg-coral hover:bg-coral-600"
+                          }`}
+                        >
+                          <consultationInfo.icon className="w-4 h-4 mr-1" />
+                          Start{" "}
+                          {selectedConsultationType === "video"
+                            ? "Video"
+                            : selectedConsultationType === "voice"
+                              ? "Call"
+                              : "Chat"}
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 ))}
