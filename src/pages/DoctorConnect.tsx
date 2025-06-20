@@ -38,8 +38,13 @@ const DoctorConnect = () => {
       rating: 4.8,
       availability: "Available Now",
       languages: ["Hindi", "English"],
-      consultationFee: "₹299",
       consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 299, isFree: false },
+        voice: { amount: 199, isFree: false },
+        chat: { amount: 149, isFree: true }, // Free chat for basic health
+      },
+      badges: ["Verified", "Rural Specialist"],
     },
     {
       id: 2,
@@ -49,8 +54,13 @@ const DoctorConnect = () => {
       rating: 4.9,
       availability: "Available in 15 min",
       languages: ["Hindi", "English", "Bengali"],
-      consultationFee: "₹399",
       consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 399, isFree: false },
+        voice: { amount: 299, isFree: false },
+        chat: { amount: 199, isFree: false },
+      },
+      badges: ["Premium", "Child Specialist"],
     },
     {
       id: 3,
@@ -60,8 +70,12 @@ const DoctorConnect = () => {
       rating: 4.7,
       availability: "Available at 6 PM",
       languages: ["Hindi", "English"],
-      consultationFee: "₹499",
       consultationTypes: ["video", "chat"],
+      pricing: {
+        video: { amount: 499, isFree: false },
+        chat: { amount: 249, isFree: false },
+      },
+      badges: ["Women's Health", "Verified"],
     },
     {
       id: 4,
@@ -71,8 +85,12 @@ const DoctorConnect = () => {
       rating: 4.9,
       availability: "Available Now",
       languages: ["Hindi", "English", "Gujarati"],
-      consultationFee: "₹699",
       consultationTypes: ["video", "voice"],
+      pricing: {
+        video: { amount: 699, isFree: false },
+        voice: { amount: 499, isFree: false },
+      },
+      badges: ["Heart Specialist", "Premium"],
     },
     {
       id: 5,
@@ -82,8 +100,13 @@ const DoctorConnect = () => {
       rating: 4.6,
       availability: "Available in 30 min",
       languages: ["English", "Telugu", "Tamil"],
-      consultationFee: "₹549",
       consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 549, isFree: false },
+        voice: { amount: 399, isFree: false },
+        chat: { amount: 199, isFree: false },
+      },
+      badges: ["Skin Expert", "Verified"],
     },
     {
       id: 6,
@@ -93,8 +116,12 @@ const DoctorConnect = () => {
       rating: 4.8,
       availability: "Available at 3 PM",
       languages: ["Hindi", "English"],
-      consultationFee: "₹599",
       consultationTypes: ["video", "chat"],
+      pricing: {
+        video: { amount: 599, isFree: false },
+        chat: { amount: 299, isFree: false },
+      },
+      badges: ["Bone Specialist", "Rural Expert"],
     },
     {
       id: 7,
@@ -104,8 +131,12 @@ const DoctorConnect = () => {
       rating: 4.7,
       availability: "Available Now",
       languages: ["Hindi", "English"],
-      consultationFee: "₹449",
       consultationTypes: ["voice", "chat"],
+      pricing: {
+        voice: { amount: 449, isFree: false },
+        chat: { amount: 0, isFree: true }, // Free mental health support
+      },
+      badges: ["Free Support", "Counselor"],
     },
     {
       id: 8,
@@ -115,8 +146,13 @@ const DoctorConnect = () => {
       rating: 4.5,
       availability: "Available in 1 hour",
       languages: ["English", "Malayalam", "Tamil"],
-      consultationFee: "₹399",
       consultationTypes: ["video", "voice", "chat"],
+      pricing: {
+        video: { amount: 399, isFree: false },
+        voice: { amount: 299, isFree: false },
+        chat: { amount: 149, isFree: true }, // Free for basic ENT queries
+      },
+      badges: ["ENT Expert", "Verified"],
     },
   ];
 
@@ -406,35 +442,85 @@ const DoctorConnect = () => {
                             </Badge>
                           ))}
                         </div>
+                        <div className="flex gap-1 mt-2">
+                          {doctor.badges.map((badge) => (
+                            <Badge
+                              key={badge}
+                              className={`text-xs ${
+                                badge === "Free Support" ||
+                                badge === "Rural Expert" ||
+                                badge === "Rural Specialist"
+                                  ? "bg-herbal-50 text-herbal border-herbal"
+                                  : badge === "Premium"
+                                    ? "bg-coral-50 text-coral border-coral"
+                                    : "bg-gender-blue-50 text-gender-blue border-gender-blue"
+                              }`}
+                            >
+                              {badge}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-indigo mb-2">
-                        {doctor.consultationFee}
-                      </p>
-                      <Link
-                        to={`/consultation/${selectedConsultationType}?doctorId=${doctor.id}`}
-                        className="inline-block"
-                      >
-                        <Button
-                          size="sm"
-                          className={`text-white ${
-                            selectedConsultationType === "video"
-                              ? "bg-gender-blue hover:bg-gender-blue-600"
-                              : selectedConsultationType === "voice"
-                                ? "bg-gender-pink hover:bg-gender-pink-600"
-                                : "bg-coral hover:bg-coral-600"
-                          }`}
-                        >
-                          <consultationInfo.icon className="w-4 h-4 mr-1" />
-                          Start{" "}
-                          {selectedConsultationType === "video"
-                            ? "Video"
-                            : selectedConsultationType === "voice"
-                              ? "Call"
-                              : "Chat"}
-                        </Button>
-                      </Link>
+                      {(() => {
+                        const pricing =
+                          doctor.pricing[
+                            selectedConsultationType as keyof typeof doctor.pricing
+                          ];
+                        const isFree = pricing?.isFree || false;
+                        const amount = pricing?.amount || 0;
+
+                        return (
+                          <>
+                            <div className="mb-2">
+                              {isFree ? (
+                                <div className="flex flex-col items-end">
+                                  <Badge className="bg-herbal text-white mb-1">
+                                    FREE
+                                  </Badge>
+                                  <p className="text-sm text-indigo/60 line-through">
+                                    ₹{amount}
+                                  </p>
+                                </div>
+                              ) : (
+                                <p className="text-lg font-bold text-indigo">
+                                  ₹{amount}
+                                </p>
+                              )}
+                            </div>
+                            <Link
+                              to={
+                                isFree
+                                  ? `/consultation/${selectedConsultationType}?doctorId=${doctor.id}&free=true`
+                                  : `/payment?doctorId=${doctor.id}&type=${selectedConsultationType}`
+                              }
+                              className="inline-block"
+                            >
+                              <Button
+                                size="sm"
+                                className={`text-white ${
+                                  isFree
+                                    ? "bg-herbal hover:bg-herbal-600"
+                                    : selectedConsultationType === "video"
+                                      ? "bg-gender-blue hover:bg-gender-blue-600"
+                                      : selectedConsultationType === "voice"
+                                        ? "bg-gender-pink hover:bg-gender-pink-600"
+                                        : "bg-coral hover:bg-coral-600"
+                                }`}
+                              >
+                                <consultationInfo.icon className="w-4 h-4 mr-1" />
+                                {isFree ? "Start Free" : "Pay & Start"}{" "}
+                                {selectedConsultationType === "video"
+                                  ? "Video"
+                                  : selectedConsultationType === "voice"
+                                    ? "Call"
+                                    : "Chat"}
+                              </Button>
+                            </Link>
+                          </>
+                        );
+                      })()}
                     </div>
                   </div>
                 ))}
