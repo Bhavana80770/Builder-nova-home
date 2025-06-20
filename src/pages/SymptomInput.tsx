@@ -1,10 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, ArrowLeft, Plus, X } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Heart,
+  ArrowLeft,
+  Plus,
+  X,
+  LogOut,
+  User,
+  Settings,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const SymptomInput = () => {
+  const { user, logout } = useAuth();
+
   return (
     <div className="min-h-screen bg-sand">
       {/* Header */}
@@ -13,7 +31,7 @@ const SymptomInput = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Link
-                to="/"
+                to="/dashboard"
                 className="p-2 hover:bg-sand rounded-lg transition-colors"
               >
                 <ArrowLeft className="w-5 h-5 text-indigo" />
@@ -25,18 +43,35 @@ const SymptomInput = () => {
                 <h1 className="text-lg font-bold text-indigo">
                   Symptom Checker
                 </h1>
-                <p className="text-xs text-indigo/70">Describe your symptoms</p>
+                <p className="text-xs text-indigo/70">Welcome, {user?.name}</p>
               </div>
             </div>
-            <Link to="/chat">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-herbal text-herbal hover:bg-herbal-50"
-              >
-                Voice Chat
-              </Button>
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Avatar className="w-6 h-6 mr-2">
+                    <AvatarFallback className="bg-herbal text-white text-xs">
+                      {user?.name?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  Menu
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>
+                  <User className="w-4 h-4 mr-2" />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Settings className="w-4 h-4 mr-2" />
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={logout}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
