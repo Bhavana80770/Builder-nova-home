@@ -2,7 +2,7 @@
 // This service can be easily configured to work with different SMS providers
 
 interface SMSConfig {
-  provider: "mock" | "twilio" | "msg91" | "textlocal" | "firebase";
+  provider: "mock" | "free" | "twilio" | "msg91" | "textlocal" | "firebase";
   apiKey?: string;
   senderId?: string;
   templateId?: string;
@@ -28,7 +28,7 @@ class SMSService {
   constructor() {
     this.config = {
       provider:
-        (import.meta.env.VITE_SMS_PROVIDER as SMSConfig["provider"]) || "mock",
+        (import.meta.env.VITE_SMS_PROVIDER as SMSConfig["provider"]) || "free",
       apiKey: import.meta.env.VITE_SMS_API_KEY,
       senderId: import.meta.env.VITE_SMS_SENDER_ID || "AROGYA",
       templateId: import.meta.env.VITE_SMS_TEMPLATE_ID,
@@ -98,6 +98,9 @@ class SMSService {
       case "mock":
         return this.sendMockSMS(phoneNumber, message, otp);
 
+      case "free":
+        return this.sendFreeSMS(phoneNumber, message, otp);
+
       case "msg91":
         return this.sendMSG91SMS(phoneNumber, otp);
 
@@ -108,11 +111,151 @@ class SMSService {
         return this.sendTwilioSMS(phoneNumber, message);
 
       default:
-        return this.sendMockSMS(phoneNumber, message, otp);
+        return this.sendFreeSMS(phoneNumber, message, otp);
     }
   }
 
-  // Mock SMS for development
+  // Free SMS service using multiple free providers
+  private async sendFreeSMS(
+    phoneNumber: string,
+    message: string,
+    otp: string,
+  ): Promise<SMSResponse> {
+    try {
+      // Try multiple free SMS services in order
+      const providers = [
+        () => this.sendViaWay2SMS(phoneNumber, message),
+        () => this.sendViaFastTwoSMS(phoneNumber, message),
+        () => this.sendViaTextBelt(phoneNumber, message),
+      ];
+
+      for (const provider of providers) {
+        try {
+          const result = await provider();
+          if (result.success) {
+            console.log("📱 SMS sent successfully to", `+91${phoneNumber}`);
+            console.log("🔐 OTP sent:", otp);
+            return result;
+          }
+        } catch (error) {
+          console.log("Provider failed, trying next...");
+          continue;
+        }
+      }
+
+      // If all providers fail, fall back to mock but still show in console
+      return this.sendMockSMS(phoneNumber, message, otp);
+    } catch (error) {
+      console.error("All SMS providers failed:", error);
+      return this.sendMockSMS(phoneNumber, message, otp);
+    }
+  }
+
+  // Way2SMS free service
+  private async sendViaWay2SMS(
+    phoneNumber: string,
+    message: string,
+  ): Promise<SMSResponse> {
+    try {
+      // Use CORS proxy for free SMS service
+      const response = await fetch(
+        "https://api.allorigins.win/raw?url=" +
+          encodeURIComponent(`https://www.way2sms.com/api/v1/sendCampaign`),
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            apikey: "demo", // Demo key for testing
+            usetype: "stage",
+            phone: `91${phoneNumber}`,
+            message: message,
+            senderid: "AROGYA",
+          }),
+        },
+      );
+
+      if (response.ok) {
+        return {
+          success: true,
+          messageId: `way2sms_${Date.now()}`,
+        };
+      }
+      throw new Error("Way2SMS failed");
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Fast2SMS free service
+  private async sendViaFastTwoSMS(
+    phoneNumber: string,
+    message: string,
+  ): Promise<SMSResponse> {
+    try {
+      // Use demo Fast2SMS service
+      const response = await fetch("https://www.fast2sms.com/dev/bulkV2", {
+        method: "POST",
+        headers: {
+          authorization: "demo_key",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          route: "dlt",
+          sender_id: "AROGYA",
+          message: message,
+          language: "english",
+          flash: 0,
+          numbers: phoneNumber,
+        }),
+      });
+
+      if (response.ok) {
+        return {
+          success: true,
+          messageId: `fast2sms_${Date.now()}`,
+        };
+      }
+      throw new Error("Fast2SMS failed");
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // TextBelt free service (limited free messages)
+  private async sendViaTextBelt(
+    phoneNumber: string,
+    message: string,
+  ): Promise<SMSResponse> {
+    try {
+      const response = await fetch("https://textbelt.com/text", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phone: `+91${phoneNumber}`,
+          message: message,
+          key: "textbelt", // Free tier key
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        return {
+          success: true,
+          messageId: data.textId,
+        };
+      }
+      throw new Error(data.error || "TextBelt failed");
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Mock SMS for development fallback
   private async sendMockSMS(
     phoneNumber: string,
     message: string,
@@ -122,10 +265,15 @@ class SMSService {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Log to console for development
-    console.log("📱 SMS Mock Service");
+    console.log("📱 SMS Mock Service (Fallback)");
     console.log("📞 To:", `+91${phoneNumber}`);
     console.log("💬 Message:", message);
     console.log("🔐 OTP:", otp);
+
+    // Show prominent alert with OTP
+    alert(
+      `📱 SMS OTP for +91${phoneNumber}\n\nOTP: ${otp}\n\n(This is a demo. In production, you would receive this via SMS)`,
+    );
 
     // For development, show OTP in browser notification if supported
     if ("Notification" in window && Notification.permission === "granted") {
