@@ -75,7 +75,7 @@ const Index = () => {
               rural communities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/chat">
+              <Link to="/login">
                 <Button
                   size="lg"
                   className="bg-herbal hover:bg-herbal-600 text-white px-8 py-6 text-lg"
@@ -84,7 +84,7 @@ const Index = () => {
                   Start Free Consultation
                 </Button>
               </Link>
-              <Link to="/symptoms">
+              <Link to="/login">
                 <Button
                   variant="outline"
                   size="lg"
@@ -94,6 +94,22 @@ const Index = () => {
                   Check Symptoms
                 </Button>
               </Link>
+            </div>
+
+            {/* Free Services Notice */}
+            <div className="mt-8 p-4 bg-herbal-50 border border-herbal-100 rounded-lg max-w-2xl mx-auto">
+              <div className="text-center">
+                <Badge className="bg-herbal text-white mb-2">
+                  FREE SERVICES
+                </Badge>
+                <p className="text-sm text-indigo">
+                  ✅ Basic health chat consultation • ✅ Mental health support •
+                  ✅ Emergency guidance
+                </p>
+                <p className="text-xs text-indigo/70 mt-1">
+                  No registration fee • Available 24/7 • Rural India focus
+                </p>
+              </div>
             </div>
           </div>
         </div>
