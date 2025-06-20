@@ -477,113 +477,217 @@ const DoctorConnect = () => {
             </p>
           </div>
 
-          {/* Consultation Type Selector */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <Card
-              className={`border-gray-border hover:shadow-lg transition-all duration-300 cursor-pointer ${
-                selectedConsultationType === "video"
-                  ? "ring-2 ring-gender-blue bg-gender-blue-50"
-                  : ""
-              }`}
-              onClick={() => setSelectedConsultationType("video")}
-            >
-              <CardContent className="pt-6 text-center">
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+          {/* Consultation Type Selector with Pricing Tiers */}
+          <div className="mb-8">
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex bg-white rounded-lg p-1 shadow-sm border border-gray-border">
+                <button
+                  onClick={() => setSelectedConsultationType("video")}
+                  className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     selectedConsultationType === "video"
-                      ? "bg-gender-blue text-white"
-                      : "bg-gender-blue-100 text-gender-blue"
+                      ? "bg-gender-blue text-white shadow-sm"
+                      : "text-indigo hover:text-gender-blue"
                   }`}
                 >
-                  <Video className="w-6 h-6" />
-                </div>
-                <h3 className="font-semibold text-indigo mb-2">Video Call</h3>
-                <p className="text-sm text-indigo/70 mb-4">
-                  Face-to-face consultation with doctor
-                </p>
-                <Badge
-                  variant={
-                    selectedConsultationType === "video" ? "default" : "outline"
-                  }
-                >
-                  {doctors.length} doctors available
-                </Badge>
-              </CardContent>
-            </Card>
-
-            <Card
-              className={`border-gray-border hover:shadow-lg transition-all duration-300 cursor-pointer ${
-                selectedConsultationType === "voice"
-                  ? "ring-2 ring-gender-pink bg-gender-pink-50"
-                  : ""
-              }`}
-              onClick={() => setSelectedConsultationType("voice")}
-            >
-              <CardContent className="pt-6 text-center">
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+                  <Video className="w-4 h-4 inline mr-2" />
+                  Video Calls
+                </button>
+                <button
+                  onClick={() => setSelectedConsultationType("voice")}
+                  className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     selectedConsultationType === "voice"
-                      ? "bg-gender-pink text-white"
-                      : "bg-gender-pink-100 text-gender-pink"
+                      ? "bg-gender-pink text-white shadow-sm"
+                      : "text-indigo hover:text-gender-pink"
                   }`}
                 >
-                  <Phone className="w-6 h-6" />
-                </div>
-                <h3 className="font-semibold text-indigo mb-2">Voice Call</h3>
-                <p className="text-sm text-indigo/70 mb-4">
-                  Audio consultation with expert
-                </p>
-                <Badge
-                  variant={
-                    selectedConsultationType === "voice" ? "default" : "outline"
-                  }
-                >
-                  {
-                    allDoctors.filter((d) =>
-                      d.consultationTypes.includes("voice"),
-                    ).length
-                  }{" "}
-                  doctors available
-                </Badge>
-              </CardContent>
-            </Card>
-
-            <Card
-              className={`border-gray-border hover:shadow-lg transition-all duration-300 cursor-pointer ${
-                selectedConsultationType === "chat"
-                  ? "ring-2 ring-coral bg-coral-50"
-                  : ""
-              }`}
-              onClick={() => setSelectedConsultationType("chat")}
-            >
-              <CardContent className="pt-6 text-center">
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+                  <Phone className="w-4 h-4 inline mr-2" />
+                  Voice Calls
+                </button>
+                <button
+                  onClick={() => setSelectedConsultationType("chat")}
+                  className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     selectedConsultationType === "chat"
-                      ? "bg-coral text-white"
-                      : "bg-coral-100 text-coral"
+                      ? "bg-coral text-white shadow-sm"
+                      : "text-indigo hover:text-coral"
                   }`}
                 >
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-                <h3 className="font-semibold text-indigo mb-2">Chat</h3>
-                <p className="text-sm text-indigo/70 mb-4">
-                  Text-based consultation
-                </p>
-                <Badge
-                  variant={
-                    selectedConsultationType === "chat" ? "default" : "outline"
-                  }
-                >
-                  {
-                    allDoctors.filter((d) =>
-                      d.consultationTypes.includes("chat"),
-                    ).length
-                  }{" "}
-                  doctors available
-                </Badge>
-              </CardContent>
-            </Card>
+                  <MessageCircle className="w-4 h-4 inline mr-2" />
+                  Chat
+                </button>
+              </div>
+            </div>
+
+            {/* Pricing Tiers for Selected Consultation Type */}
+            {(selectedConsultationType === "video" ||
+              selectedConsultationType === "voice") && (
+              <div className="grid md:grid-cols-4 gap-4 mb-6">
+                {/* Free Tier 1 */}
+                <Card className="border-herbal-200 bg-herbal-50 relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <Badge className="bg-herbal text-white">FREE</Badge>
+                  </div>
+                  <CardContent className="pt-8 pb-4 text-center">
+                    <h4 className="font-semibold text-indigo mb-2">
+                      {selectedConsultationType === "video"
+                        ? "Basic Video"
+                        : "Basic Voice"}
+                    </h4>
+                    <p className="text-2xl font-bold text-herbal mb-2">₹0</p>
+                    <p className="text-sm text-indigo/70 mb-3">
+                      15 min consultation
+                    </p>
+                    <ul className="text-xs text-indigo/80 space-y-1">
+                      <li>• General health queries</li>
+                      <li>• Basic symptom check</li>
+                      <li>• Health tips</li>
+                    </ul>
+                    <Badge variant="outline" className="mt-3 text-xs">
+                      {selectedConsultationType === "video" ? "2" : "3"} doctors
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                {/* Free Tier 2 */}
+                <Card className="border-herbal-200 bg-herbal-50 relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <Badge className="bg-herbal text-white">FREE</Badge>
+                  </div>
+                  <CardContent className="pt-8 pb-4 text-center">
+                    <h4 className="font-semibold text-indigo mb-2">
+                      {selectedConsultationType === "video"
+                        ? "Student Doctor"
+                        : "Trainee Support"}
+                    </h4>
+                    <p className="text-2xl font-bold text-herbal mb-2">₹0</p>
+                    <p className="text-sm text-indigo/70 mb-3">
+                      20 min consultation
+                    </p>
+                    <ul className="text-xs text-indigo/80 space-y-1">
+                      <li>• Medical students</li>
+                      <li>• Supervised guidance</li>
+                      <li>• Educational purpose</li>
+                    </ul>
+                    <Badge variant="outline" className="mt-3 text-xs">
+                      {selectedConsultationType === "video" ? "3" : "2"} doctors
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                {/* Paid Tier 1 */}
+                <Card className="border-coral-200 bg-coral-50 relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <Badge className="bg-coral text-white">AFFORDABLE</Badge>
+                  </div>
+                  <CardContent className="pt-8 pb-4 text-center">
+                    <h4 className="font-semibold text-indigo mb-2">
+                      {selectedConsultationType === "video"
+                        ? "Standard Video"
+                        : "Standard Voice"}
+                    </h4>
+                    <p className="text-2xl font-bold text-coral mb-2">
+                      ₹{selectedConsultationType === "video" ? "199" : "149"}
+                    </p>
+                    <p className="text-sm text-indigo/70 mb-3">
+                      30 min consultation
+                    </p>
+                    <ul className="text-xs text-indigo/80 space-y-1">
+                      <li>• Qualified doctors</li>
+                      <li>• Digital prescription</li>
+                      <li>• Follow-up support</li>
+                    </ul>
+                    <Badge variant="outline" className="mt-3 text-xs">
+                      {selectedConsultationType === "video" ? "8" : "6"} doctors
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                {/* Paid Tier 2 */}
+                <Card className="border-gender-blue-200 bg-gender-blue-50 relative">
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <Badge className="bg-gender-blue text-white">PREMIUM</Badge>
+                  </div>
+                  <CardContent className="pt-8 pb-4 text-center">
+                    <h4 className="font-semibold text-indigo mb-2">
+                      {selectedConsultationType === "video"
+                        ? "Expert Video"
+                        : "Expert Voice"}
+                    </h4>
+                    <p className="text-2xl font-bold text-gender-blue mb-2">
+                      ₹{selectedConsultationType === "video" ? "499" : "399"}
+                    </p>
+                    <p className="text-sm text-indigo/70 mb-3">
+                      45 min consultation
+                    </p>
+                    <ul className="text-xs text-indigo/80 space-y-1">
+                      <li>• Senior specialists</li>
+                      <li>• Detailed analysis</li>
+                      <li>• Priority support</li>
+                    </ul>
+                    <Badge variant="outline" className="mt-3 text-xs">
+                      {selectedConsultationType === "video" ? "7" : "5"} doctors
+                    </Badge>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* Chat is always free */}
+            {selectedConsultationType === "chat" && (
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <Card className="border-herbal-200 bg-herbal-50">
+                  <CardContent className="pt-6 text-center">
+                    <div className="w-16 h-16 bg-herbal rounded-full flex items-center justify-center mx-auto mb-4">
+                      <MessageCircle className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-indigo mb-2">
+                      Free Chat Support
+                    </h3>
+                    <p className="text-coral text-3xl font-bold mb-4">₹0</p>
+                    <p className="text-indigo/70 mb-4">
+                      Get unlimited text-based health consultations with our AI
+                      and human experts
+                    </p>
+                    <Badge className="bg-herbal text-white">
+                      {
+                        allDoctors.filter((d) =>
+                          d.consultationTypes.includes("chat"),
+                        ).length
+                      }{" "}
+                      doctors available
+                    </Badge>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-gray-border">
+                  <CardContent className="pt-6 text-center">
+                    <div className="w-16 h-16 bg-coral rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Heart className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-indigo mb-2">
+                      Why Chat is Free?
+                    </h3>
+                    <div className="text-left text-sm text-indigo/80 space-y-2">
+                      <p>
+                        • <strong>Accessible Healthcare:</strong> No barriers
+                        for basic health queries
+                      </p>
+                      <p>
+                        • <strong>Rural Focus:</strong> Text works even with
+                        slow internet
+                      </p>
+                      <p>
+                        • <strong>24/7 Support:</strong> AI + human experts
+                        always available
+                      </p>
+                      <p>
+                        • <strong>Community Care:</strong> Building trust
+                        through free services
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
 
           {/* Available Doctors for Selected Consultation Type */}
