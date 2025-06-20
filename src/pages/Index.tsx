@@ -350,8 +350,8 @@ const Index = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/how-it-works" className="hover:text-white">
-                    How It Works
+                  <Link to="/pricing" className="hover:text-white">
+                    Pricing Plans
                   </Link>
                 </li>
                 <li>
