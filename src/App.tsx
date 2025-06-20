@@ -15,6 +15,7 @@ import VideoCall from "./pages/VideoCall";
 import VoiceCall from "./pages/VoiceCall";
 import ChatConsultation from "./pages/ChatConsultation";
 import Payment from "./pages/Payment";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -103,6 +104,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/pricing" element={<Pricing />} />
 
       {/* Catch all route */}
       <Route path="*" element={<NotFound />} />
