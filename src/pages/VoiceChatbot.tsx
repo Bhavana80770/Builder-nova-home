@@ -341,7 +341,7 @@ const VoiceChatbot = () => {
         stomach:
           "পেটের ব্যথার জন্য তাৎক্ষণিক যত্ন:\n\n• 2-3 ঘন্টা শক্ত খাবার এড়িয়ে চলুন\n• পরিষ্কার তরল পান করুন (পানি, পরিষ্কার স্যুপ)\n• BRAT ডায়েট: কলা, ভাত, আপেল সস, টোস্ট\n• দুধ, মসলাদার বা তৈলাক্ত খাবার এড়িয়ে চলুন\n• বিশ্রাম নিন এবং চাপ এড়িয়ে চলুন\n\nঅবিলম্বে সাহায্য নিন যদি:\n• তীব্র ব্যথা হয়\n• বমি/মলে রক্ত থাক��\n• উচ্চ জ্বর হয়\n• ডিহাইড্রেশনের লক্ষণ থাকে\n\nডাক্তারের পরামর্শ নিতে চান?",
         doctor:
-          "আমি আপনাকে যোগ্য ডাক্তারদের সাথে যোগাযোগ করিয়ে দিতে পারি। আমাদের আছে:\n\n🆓 বিনামূল্যে অপশন:\n• বেসিক ভিডিও পরামর্শ (15-20 মিনিট)\n• চ্যাট সাপোর্ট (সীমাহীন)\n• ছাত্র ডাক্তার (তত্ত্বাবধানে)\n\n💰 সাশ্রয়ী অপশন:\n• স্ট্যান্ডার্ড পরামর্শ (₹149-₹199)\n• বিশেষজ্ঞ পরামর্শ (₹399-₹499)\n\nবেছে নিন: ভিডিও কল, ভয়েস কল, বা চ্যাট পরামর্শ?",
+          "আমি আপনাকে যোগ্য ডাক্তারদের সাথে যোগাযোগ করিয়ে দিতে পারি। আমাদের আছে:\n\n🆓 বিনামূল্যে অপশন:\n• বেসিক ভিডিও পরামর্শ (15-20 মিনিট)\n• চ্যাট সাপোর্ট (সীমাহীন)\n• ছাত্র ডাক্তার (তত্ত্বাবধানে)\n\n💰 সাশ্রয়ী অপশন:\n• স্ট্যান্ডার্ড পরামর��শ (₹149-₹199)\n• বিশেষজ্ঞ পরামর্শ (₹399-₹499)\n\nবেছে নিন: ভিডিও কল, ভয়েস কল, বা চ্যাট পরামর্শ?",
         emergency:
           "🚨 এটি একটি জরুরি অবস্থা মনে হচ্ছে!\n\nতৎক্ষণাৎ সাহায্যের জন্য:\n📞 108 কল করুন (জাতীয় জরুরি)\n📞 102 কল করুন (চিকিৎসা জরুরি)\n\nজরু���ি লক্ষণ:\n• বুকে ব্যথা\n• শ্বাসকষ্ট\n• অতিরিক্ত রক্তপাত\n• অজ্ঞান হওয়া\n• গুরুতর পোড়া\n\nআমি কি এখনই আপনার জন্য 108 ডায়াল করব?",
         default:
@@ -686,16 +686,21 @@ const VoiceChatbot = () => {
                   <div className="flex justify-center">
                     <button
                       onClick={toggleListening}
+                      disabled={!isMicrophoneSupported}
                       className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 ${
-                        isListening
-                          ? "bg-coral scale-110 shadow-lg animate-pulse"
-                          : "bg-herbal hover:bg-herbal-600 hover:scale-105"
+                        !isMicrophoneSupported
+                          ? "bg-gray-300 cursor-not-allowed"
+                          : isListening
+                            ? "bg-coral scale-110 shadow-lg animate-pulse"
+                            : "bg-herbal hover:bg-herbal-600 hover:scale-105"
                       }`}
                     >
                       {isListening ? (
                         <MicOff className="w-8 h-8 text-white" />
                       ) : (
-                        <Mic className="w-8 h-8 text-white" />
+                        <Mic
+                          className={`w-8 h-8 ${!isMicrophoneSupported ? "text-gray-500" : "text-white"}`}
+                        />
                       )}
                     </button>
                   </div>
@@ -703,8 +708,28 @@ const VoiceChatbot = () => {
                   {/* Status Text */}
                   <div className="space-y-2">
                     <p className="text-lg font-medium text-indigo">
-                      {isListening ? "Listening..." : "Tap to speak"}
+                      {!isMicrophoneSupported
+                        ? "Voice not supported"
+                        : isListening
+                          ? "Listening..."
+                          : "Tap to speak"}
                     </p>
+
+                    {/* Error Message */}
+                    {microphoneError && (
+                      <p className="text-xs text-soft-red bg-soft-red/10 p-2 rounded border border-soft-red/20">
+                        {microphoneError}
+                      </p>
+                    )}
+
+                    {/* Browser Support Info */}
+                    {!isMicrophoneSupported && (
+                      <p className="text-xs text-gray-600 bg-gray-50 p-2 rounded">
+                        Use Chrome or Edge for voice features
+                      </p>
+                    )}
+
+                    {/* Current Transcript */}
                     {currentTranscript && (
                       <p className="text-sm text-coral bg-coral-50 p-2 rounded">
                         "{currentTranscript}"
