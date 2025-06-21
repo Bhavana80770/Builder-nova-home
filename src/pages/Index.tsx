@@ -66,8 +66,8 @@ const Index = () => {
               🌿 Bringing Healthcare to Rural India
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold text-indigo mb-6 leading-tight">
-              Your Trusted
-              <span className="text-herbal block">AI Health Assistant</span>
+              <span className="text-herbal">Your Health,</span>
+              <span className="block">our priority</span>
             </h1>
             <p className="text-lg md:text-xl text-indigo/80 mb-8 leading-relaxed">
               Get instant health advice, connect with doctors, and manage your
