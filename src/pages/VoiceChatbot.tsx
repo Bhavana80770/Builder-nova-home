@@ -85,7 +85,19 @@ const VoiceChatbot = () => {
 
   // Initialize speech recognition
   useEffect(() => {
-    if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+    // Check browser support
+    const isSupported =
+      "SpeechRecognition" in window || "webkitSpeechRecognition" in window;
+
+    if (!isSupported) {
+      console.warn("Speech Recognition not supported in this browser");
+      addAssistantMessage(
+        "Voice recognition is not supported in your browser. Please use Google Chrome for voice features, or use the chat interface instead.",
+      );
+      return;
+    }
+
+    try {
       const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
@@ -96,6 +108,7 @@ const VoiceChatbot = () => {
       recognition.lang = selectedLanguage;
 
       recognition.onstart = () => {
+        console.log("Speech recognition started");
         setIsListening(true);
         setCurrentTranscript("");
       };
@@ -125,11 +138,55 @@ const VoiceChatbot = () => {
         console.error("Speech recognition error:", event.error);
         setIsListening(false);
         setCurrentTranscript("");
+
+        // Provide user-friendly error messages
+        let errorMessage = "Voice recognition encountered an error. ";
+        switch (event.error) {
+          case "not-allowed":
+            errorMessage +=
+              "Please allow microphone access in your browser settings and try again.";
+            break;
+          case "no-speech":
+            errorMessage +=
+              "No speech was detected. Please try speaking again.";
+            break;
+          case "audio-capture":
+            errorMessage +=
+              "No microphone was found. Please check your microphone connection.";
+            break;
+          case "network":
+            errorMessage +=
+              "Network error occurred. Please check your internet connection.";
+            break;
+          default:
+            errorMessage += "Please try again or use the chat interface.";
+        }
+
+        addAssistantMessage(errorMessage);
       };
 
       recognition.onend = () => {
+        console.log("Speech recognition ended");
         setIsListening(false);
       };
+
+      // Test microphone access on initialization
+      navigator.mediaDevices
+        ?.getUserMedia({ audio: true })
+        .then(() => {
+          console.log("Microphone access granted");
+        })
+        .catch((error) => {
+          console.error("Microphone access denied:", error);
+          addAssistantMessage(
+            "Microphone access is required for voice features. Please allow microphone access in your browser settings.",
+          );
+        });
+    } catch (error) {
+      console.error("Error initializing speech recognition:", error);
+      addAssistantMessage(
+        "Unable to initialize voice recognition. Please try refreshing the page or use the chat interface.",
+      );
     }
 
     // Add initial greeting
@@ -141,7 +198,11 @@ const VoiceChatbot = () => {
 
     return () => {
       if (recognitionRef.current) {
-        recognitionRef.current.stop();
+        try {
+          recognitionRef.current.stop();
+        } catch (error) {
+          console.log("Error stopping recognition:", error);
+        }
       }
     };
   }, [selectedLanguage]);
@@ -255,7 +316,7 @@ const VoiceChatbot = () => {
         doctor:
           "मैं आपको योग्य डॉक्टरों से जोड़ सकता हूं। हमारे पास है:\n\n🆓 मुफ्त विकल्प:\n• बेसिक वीडियो कंसल्टेशन (15-20 मिनट)\n• चैट सपोर्ट (असीमित)\n• छात्र डॉक्टर (निरीक्षित)\n\n💰 किफायती विकल्प:\n• स्टैंडर्ड कंसल्टेशन (₹149-₹199)\n• विशेषज्ञ कंसल्टेशन (₹399-₹499)\n\nचुनें: वीडियो कॉल, वॉयस कॉल, या चैट कंसल्टेशन?",
         emergency:
-          "🚨 यह एक आपातकाल लगता है!\n\nतत्काल मदद के लिए:\n📞 108 कॉल करें (राष्ट्रीय आपातकाल)\n📞 102 कॉल करें (चिकित्सा आपातकाल)\n\nआपातकालीन संकेत:\n• छाती में दर्द\n• सांस लेने ��ें कठिनाई\n• अधिक खून बहना\n• बेहोशी\n• गंभीर जलन\n\nक्या मैं अभी आपके लिए 108 डायल करूं?",
+          "🚨 यह एक आपातकाल लगता है!\n\nतत्काल ���दद के लिए:\n📞 108 कॉल करें (राष्ट्रीय आपातकाल)\n📞 102 कॉल करें (चिकित्सा आपातकाल)\n\nआपातकालीन संकेत:\n• छाती में दर्द\n• सांस लेने ��ें कठिनाई\n• अधिक खून बहना\n• बेहोशी\n• गंभीर जलन\n\nक्या मैं अभी आपके लिए 108 डायल करूं?",
         default:
           "मैं आपकी स्वास्थ्य चिंता समझ गया। बेहतर सहायता के लिए बताएं:\n\n• आपके मुख्य लक्षण क्या हैं?\n• यह कब शुरू हुआ?\n• कितना गंभीर है (1-10)?\n• कोई अन्य संबंधित समस्या?\n\nमैं तुरंत देखभाल की सलाह दे सकता हूं और जरूरत हो तो डॉक्टरों से जोड़ सकता हूं। मैं आपकी कैसे मदद कर सकता हूं?",
       },
@@ -281,7 +342,7 @@ const VoiceChatbot = () => {
         fever:
           "உங்களுக்கு காய்ச்சல் இருப்பது புரிகிறது. இதை செய்யுங்கள்:\n\n• ஓய்வெடுத்து நிறைய தண்ணீர் குடியுங்கள்\n• காய்ச்சல் 100°F க்கு மேல் இருந்தால் 6 மணி நேரத்திற்கு ஒருமுறை பாராசிட்டமால் (500mg) எடுங்கள்\n• நெற்றியில் குளிர்ந்த துணி வையுங்கள்\n• வெப்பநிலையை தொடர்ந்து சரிபார்க்கவும்\n• காய்ச்சல் 3 நாட்களுக்கு மேல் நீடித்தால் அல்லது 103°F க்கு மேல் சென்றால் உடனே மருத்துவரை பாருங்கள்\n\nமருத்துவ ஆலோசனைக்காக உங்களை இணைக்கட்டுமா?",
         headache:
-          "தலைவலிக்கு இதை செய்யுங்கள்:\n\n• அமைதியான, இருண்ட அறையில் ஓய்வெடுங்கள்\n• தலை/கழுத்தில் குளிர்ந்த அல்லது சூடான துணி வையுங்கள்\n• நிறைய தண்ணீர் குடியுங்கள்\n• தேவைப்பட்டால் பாராசிட்டமால் 500mg எடுங்கள்\n• திரையிலிருந்து விலகி இருங்கள்\n• கழுத்தின் லேசான பயிற்சி செய்யுங்கள்\n\nதலைவலி கடுமையானதாக, திடீரென்று, அல்லது காய்ச்சல்/பார்வை பிரச்சனையுடன் இருந்தால் உடனே மருத்துவ உதவி பெறுங்கள். மருத்துவருடன் இணைக்கட்டுமா?",
+          "தலைவலிக்கு இதை செய்யுங்கள்:\n\n• அமைதியான, இருண்ட அறையில் ஓய்வெடுங்கள்\n• தலை/கழுத்தில் குளிர்ந்த அல்லது சூடான துணி வையுங்கள்\n• நிறைய தண்ணீர் குடியுங்கள்\n• தேவைப்பட்டால் பாராசிட்டமால் 500mg எடுங்கள்\n• திரையிலிருந்து விலகி இருங்கள்\n• கழுத்தின் லேசான பயிற்சி செய்யுங்கள்\n\nதலைவலி கடுமையானதாக, திடீரென்று, அல்லது காய்ச்சல்/பார்வை பிரச்சனையுடன் இருந்தால் உடன�� மருத்துவ உதவி பெறுங்கள். மருத்துவருடன் இணைக்கட்டுமா?",
         stomach:
           "வயிற்று வலிக்கு உடனடி கவனிப்பு:\n\n• 2-3 மணி நேரம் திட உணவை தவிர்க்கவும்\n• தெளிவான திரவங்கள் குடியுங்கள் (தண்ணீர், தெளிவான சூப்)\n• BRAT உணவு: வாழைப்பழம், அரிசி, ஆப்பிள் சாஸ், டோஸ்ட்\n• பால், காரமான அல்லது எண்ணெய் உணவை தவிர்க்கவும்\n• ஓய்வெடுத்து மன அழுத்தத்தை தவிர்க்கவும்\n\nஉடனடி உதவி பெறுங்கள் இது இருந்தால்:\n• கடுமையான வலி\n• வாந்தி/மலத்தில் இரத்தம்\n• அதிக காய்ச்சல்\n• நீரிழப்பு அறிகுறிகள்\n\nமருத்துவ ஆலோசனை பெற விரும்புகிறீர்களா?",
         doctor:
@@ -305,7 +366,7 @@ const VoiceChatbot = () => {
         emergency:
           "🚨 ఇది అత్యవసర పరిస్థితిలా అనిపిస్తుంది!\n\nతక్షణ సహాయం కోసం:\n📞 108 కాల��� చేయండి (జాతీయ అత్యవసరం)\n📞 102 కాల్ చేయండి (వైద్య అత్యవసరం)\n\nఅత్యవసర సంకేతాలు:\n• ఛాతీ నొప్పి\n• ఊపిరాడక\n• తీవ్రమైన రక్తస్రావం\n• మూర్ఛ\n• తీవ్రమైన కాలిపోవడం\n\nనేను ఇప్పుడే మీ కోసం 108 డయల్ చేయాలా?",
         default:
-          "మీ ఆరోగ్య ఆందోళన అర్థమైంది. మెరుగైన సహాయం కోసం చెప్పండి:\n\n• మీ ప్రధాన లక్షణాలు ఏమిటి?\n• ఇది ఎప్పుడు మొదలైంది?\n• ఎంత తీవ్రమైనది (1-10)?\n• ఏదైనా ఇతర సంబంధిత సమస్య?\n\nనేను తక్షణ సంరక్షణ సలహా ఇవ్వగలను మరియు అవసరమైతే వైద్యులతో కలిపించగలను. నేను మీకు ప్రత్యేకంగా ఎలా సహాయం చేయగలను?",
+          "మీ ఆరోగ్య ఆందోళన అర్థమైంది. మెరుగైన సహాయం కోసం చెప్పండి:\n\n• మీ ప్రధాన లక్షణాలు ఏమిటి?\n• ఇది ఎప్పుడు మొదలైంది?\n• ఎంత తీవ్రమైనది (1-10)?\n• ఏదైనా ఇతర సంబంధిత సమస్య?\n\nనేను తక్షణ సంరక్షణ సలహా ఇవ్వగలను మరియు అవసరమైతే వైద్యులతో కలిపించగలను. నేను మీకు ప్రత్యేకంగా ఎలా సహా��ం చేయగలను?",
       },
     };
 
