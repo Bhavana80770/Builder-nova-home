@@ -8,6 +8,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import About from "./pages/About";
 import VoiceChatbot from "./pages/VoiceChatbot";
 import SymptomInput from "./pages/SymptomInput";
 import DoctorConnect from "./pages/DoctorConnect";
