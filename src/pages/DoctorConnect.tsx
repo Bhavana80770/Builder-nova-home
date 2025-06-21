@@ -20,12 +20,13 @@ import {
   User,
   Settings,
 } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const DoctorConnect = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const urlType = searchParams.get("type");
   const [selectedConsultationType, setSelectedConsultationType] =
@@ -675,11 +676,11 @@ const DoctorConnect = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/profile")}>
                   <User className="w-4 h-4 mr-2" />
                   Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/settings")}>
                   <Settings className="w-4 h-4 mr-2" />
                   Settings
                 </DropdownMenuItem>
