@@ -181,12 +181,135 @@ const VoiceChatbot = () => {
     addAssistantMessage(response);
     setIsProcessing(false);
 
+    // Check if it's an emergency and show quick action
+    if (
+      text.includes("emergency") ||
+      text.includes("urgent") ||
+      text.includes("आपातकाल") ||
+      text.includes("জরুরি") ||
+      text.includes("அவசரம்") ||
+      text.includes("అత్యవసర") ||
+      response.includes("108") ||
+      response.includes("emergency")
+    ) {
+      // Auto-prompt for emergency call after 3 seconds
+      setTimeout(() => {
+        const langCode = selectedLanguage.split("-")[0];
+        const messages = {
+          en: "Should I dial 108 emergency number for you now?",
+          hi: "क्या मैं अभी आपके लिए 108 आपातकालीन नंबर डायल करूं?",
+          bn: "আমি কি এখনই আপনার জন্য 108 জরুরি নম্বর ডায়াল করব?",
+          ta: "நான் இப்போது உங்களுக்காக 108 அவசர எண்ணை டயல் செய்யட்டுமா?",
+          te: "నేను ఇప్పుడే మీ కోసం 108 అత్యవసర నంబర్ డయల్ చేయాలా?",
+        };
+
+        const message = messages[langCode] || messages.en;
+
+        if (confirm(message)) {
+          makeEmergencyCall();
+        }
+      }, 3000);
+    }
+
     // Speak the response if language is supported
     speakText(response, selectedLanguage);
   };
 
   const generateResponse = (userText: string): string => {
     const text = userText.toLowerCase();
+    const langCode = selectedLanguage.split("-")[0];
+
+    // Language-specific responses
+    const responses = {
+      en: {
+        greeting:
+          "Hello! I'm AarogyaMitra, your AI health assistant. I can help you with health concerns, connect you with doctors, or provide medical advice. How can I assist you today?",
+        fever:
+          "I understand you have fever. Here's what you should do:\n\n• Rest and drink plenty of fluids\n• Take paracetamol (500mg) every 6 hours if temperature is above 100°F\n• Use cold compress on forehead\n• Monitor temperature regularly\n• If fever persists for more than 3 days or goes above 103°F, consult a doctor immediately\n\nWould you like me to connect you with a doctor for consultation?",
+        headache:
+          "For headache relief, try these steps:\n\n• Rest in a quiet, dark room\n• Apply cold or warm compress to head/neck\n• Stay hydrated - drink water\n• Take paracetamol 500mg if needed\n• Avoid screen time\n• Try gentle neck stretches\n\nIf headache is severe, sudden, or with fever/vision problems, seek immediate medical help. Should I connect you with a doctor?",
+        stomach:
+          "For stomach pain, here are immediate care tips:\n\n• Avoid solid food for 2-3 hours\n• Drink clear fluids (water, clear soup)\n• Try BRAT diet: Bananas, Rice, Applesauce, Toast\n• Avoid dairy, spicy, or fatty foods\n• Rest and avoid stress\n\nSeek immediate help if you have:\n• Severe pain\n• Blood in vomit/stool\n• High fever\n• Signs of dehydration\n\nWould you like to consult with a doctor?",
+        cough:
+          "For cough relief:\n\n• Drink warm water with honey and lemon\n• Stay hydrated\n• Use steam inhalation (hot water vapors)\n• Avoid cold drinks and ice cream\n• Sleep with head elevated\n• Avoid smoking and dust\n\nConsult a doctor if:\n• Cough persists more than 2 weeks\n• Blood in sputum\n• High fever\n• Breathing difficulty\n\nShall I help you connect with a doctor?",
+        cold: "For cold and flu symptoms:\n\n• Rest and sleep well\n• Drink warm fluids (tea, soup, warm water)\n• Gargle with warm salt water\n• Use steam inhalation\n• Take vitamin C rich foods\n• Wash hands frequently\n\nAvoid antibiotics unless prescribed. See a doctor if symptoms worsen or persist beyond 7 days. Need medical consultation?",
+        doctor:
+          "I can connect you with qualified doctors. We have:\n\n🆓 FREE options:\n• Basic video consultations (15-20 min)\n• Chat support (unlimited)\n• Student doctors (supervised)\n\n💰 Affordable options:\n• Standard consultations (₹149-₹199)\n• Specialist consultations (₹399-₹499)\n\nChoose: Video call, Voice call, or Chat consultation?",
+        emergency:
+          "🚨 This sounds like an EMERGENCY! \n\nFor immediate help:\n📞 Call 108 (National Emergency)\n📞 Call 102 (Medical Emergency)\n\nEmergency signs:\n• Chest pain\n• Difficulty breathing\n• Severe bleeding\n• Unconsciousness\n• Severe burns\n\nShould I dial 108 for you right now?",
+        default:
+          "I understand your health concern. For better assistance, please describe:\n\n• Your main symptoms\n• When did it start?\n• How severe is it (1-10)?\n• Any other related issues?\n\nI can provide immediate care tips and connect you with doctors if needed. How can I help you specifically?",
+      },
+      hi: {
+        greeting:
+          "नमस्ते! मैं आरोग्यमित्र हूं, आपका AI स्वास्थ्य सहायक। मैं आपकी स्वास्थ्य समस्याओं में मदद कर सकता हूं, डॉक्टरों से जोड़ सकता हूं, या चिकित्सा सलाह दे सकता हूं। आज मैं आपकी कैसे सेवा कर सकता हूं?",
+        fever:
+          "मैं समझ गया कि आपको बुखार है। यह करें:\n\n• आराम करें और खूब पानी पिएं\n• अगर बुखार 100°F से ज्यादा है तो हर 6 घंटे में पैरासिटामोल (500mg) लें\n• माथे पर ठंडी पट्टी रखें\n• नियमित तापमान चेक करें\n• अगर बुखार 3 दिन से ज्यादा रहे या 103°F से ज्यादा हो तो तुरंत डॉक्टर से मिलें\n\nक्या मैं आपको डॉक्टर से सलाह के लिए जोड़ दूं?",
+        headache:
+          "सिर दर्द के लिए यह करें:\n\n• शांत, अंधेरे कमरे में आराम करें\n• सिर/गर्दन पर ठंडी या गर्म पट्टी लगाएं\n• खूब पानी पिएं\n• जरूरत हो तो पैरासिटामोल 500mg लें\n• स्क्रीन से दूर रहें\n• गर्दन की हल्की स्ट्रेचिंग करें\n\nअगर सिर दर्द तेज़, अचानक, या बुखार/दिखने में समस्या के साथ है तो तुरंत इलाज लें। डॉक्टर से जोड़ दूं?",
+        stomach:
+          "पेट दर्द के लिए तुरंत यह करें:\n\n• 2-3 घंटे तक ठोस खाना न खाएं\n• साफ तरल पदार्थ पिएं (पानी, साफ सूप)\n• BRAT डाइट लें: केला, चावल, सेब का सॉस, टोस्ट\n• दूध, मसालेदार या तैलीय खाना न खाएं\n• आराम करें और तनाव न लें\n\nतुरंत मदद लें अगर:\n• तेज़ दर्द हो\n• उल्टी/मल में खून हो\n• तेज़ बुखार हो\n• डिहाइड्रेशन के लक्षण हों\n\nडॉक्टर से सलाह लेना चाहते हैं?",
+        cough:
+          "खांसी के लिए:\n\n• शहद और नींबू के साथ गर्म पानी पिएं\n• खूब पानी पिएं\n• भाप लें (गर्म पानी की भाप)\n• ठंडे पेय और आइसक्रीम से बचें\n• सिर ऊंचा करके सोएं\n• धूम्रपान और धूल से बचें\n\nडॉक्टर से मिलें अगर:\n• खांसी 2 हफ्ते से ज्यादा रहे\n• कफ में खून आए\n• तेज़ बुखार हो\n• सांस लेने में दिक्कत हो\n\nडॉक्टर से जोड़ने में मदद करूं?",
+        cold: "सर्दी-जुकाम के लिए:\n\n• आराम करें और अच्छी नींद लें\n• गर्म तरल पदार्थ पिएं (चाय, सूप, गर्म पान���)\n• गर्म नमक के पानी से गरारे करें\n• भाप लें\n• विटामिन C वाले फल खाएं\n• बार-बार हाथ धोएं\n\nबिना डॉक्टर की सलाह के एंटीबायोटिक न लें। अगर लक्षण 7 दिन से ज्यादा रहें तो डॉक्टर से मिलें। चिकित्सा सलाह चाहिए?",
+        doctor:
+          "मैं आपको योग्य डॉक्टरों से जोड़ सकता हूं। हमारे पास है:\n\n🆓 मुफ्त विकल्प:\n• बेसिक वीडियो कंस��्टेशन (15-20 मिनट)\n• चैट सपोर्ट (असीमित)\n• छात्र डॉक्टर (निरीक्षित)\n\n💰 किफायती विकल्प:\n• स्टैंडर्ड कंसल्टेशन (₹149-₹199)\n• विशेषज्ञ कंसल्टेशन (₹399-₹499)\n\nचुनें: वीडियो कॉल, वॉयस कॉल, या चैट कंसल्टेशन?",
+        emergency:
+          "🚨 यह एक आपातकाल लगता है!\n\nतत्काल मदद के लिए:\n📞 108 कॉल करें (राष्ट्रीय आपातकाल)\n📞 102 कॉल करें (चिकित्सा आपातकाल)\n\nआपातकालीन संकेत:\n• छाती में दर्द\n• सांस लेने में कठिनाई\n• अधिक खून बहना\n• बेहोशी\n• गंभीर जलन\n\nक्या मैं अभी आपके लिए 108 डायल करूं?",
+        default:
+          "मैं आपकी स्वास्थ्य चिंता समझ गया। बेहतर सहायता के लिए बताएं:\n\n• आपके मुख्य ��क्षण क्या हैं?\n• यह कब शुरू हुआ?\n• कितना गंभीर है (1-10)?\n• कोई अन्य संबंधित समस्या?\n\nमैं तुरंत देखभाल की सलाह दे सकता हूं और जरूरत हो तो डॉक्टरों से जोड़ सकता हूं। मैं आपकी कैसे मदद कर सकता हूं?",
+      },
+      bn: {
+        greeting:
+          "হ্যালো! আমি আরোগ্যমিত্র, আপনার AI স্বাস্থ্য সহায়ক। আমি আপনার স্বাস্থ্য সমস্যায় সাহায্য করতে পারি, ডাক্তারদের সাথে যোগাযোগ করাতে পারি বা চিকিৎসা পরামর্শ দিতে পারি। আজ আমি কীভাবে আপনাকে সাহায্য করতে পারি?",
+        fever:
+          "আমি বুঝতে পারছি আপনার জ্বর হয়েছে। এটি করুন:\n\n• বিশ্রাম নিন এবং প্রচুর পানি পান করুন\n• জ্বর 100°F এর বেশি হলে প্রতি 6 ঘন্টায় প্যারাসিটামল (500mg) খান\n• কপালে ঠান্ডা কাপড় দিন\n• নিয়মিত তাপমাত্রা পরীক্ষা করুন\n• জ্বর 3 দিনের বেশি থাকলে বা 103°F এর বেশি হলে অবিলম্বে ডাক্তার দেখান\n\nআমি কি আপনাকে ডাক্তারের পরামর্শের জন্য যোগাযোগ করিয়ে দিব?",
+        headache:
+          "মাথাব্যথার জন্য এগুলো করুন:\n\n• শান্ত, অন্ধকার ঘরে বিশ্রাম নিন\n• মাথা/ঘাড়ে ঠান্ডা বা গরম কাপড় দিন\n• প্রচুর পানি পান করুন\n• প্রয়োজনে প্যারাসিটামল 500mg খান\n• স্ক্রিন থেকে দূ���ে থাকুন\n• ঘাড়ের হালকা ব্যায়াম করুন\n\nমাথাব্যথা যদি তীব্র, হঠাৎ, বা জ্বর/দৃষ্টি সমস্যার সাথে হয় তাহলে অবিলম্বে চিকিৎসা নিন। ডাক্তারের সাথে যোগাযোগ করব?",
+        stomach:
+          "পেটের ব্যথার জন্য তাৎক্ষণিক যত্ন:\n\n• 2-3 ঘন্টা শক্ত খাবার এড়িয়ে চলুন\n• পরিষ্কার তরল পান করুন (পানি, পরিষ্কার স্যুপ)\n• BRAT ডায়েট: কলা, ভাত, আপেল সস, টোস্ট\n• দুধ, মসলাদার বা তৈলাক্ত খাবার এড়িয়ে চলুন\n• বিশ্রাম নিন এবং চাপ এড়িয়ে চলুন\n\nঅবিলম্বে সাহায���য নিন যদি:\n• তীব্র ব্যথা হয়\n• বমি/মলে রক্ত থাকে\n• উচ্চ জ্বর হয়\n• ডিহাইড্রেশনের লক্ষণ থাকে\n\nডাক্তারের পরামর্শ নিতে চান?",
+        doctor:
+          "আমি আপনাকে যোগ্য ডাক্তারদের সাথে যোগাযোগ করিয়ে দিতে পারি। আমাদের আছে:\n\n🆓 বিনামূল্যে অপশন:\n• বেসিক ভিডিও পরামর্শ (15-20 মিনিট)\n• চ্যাট সাপোর্ট (সীমাহীন)\n• ছাত্র ডাক্তার (তত্ত্বাবধানে)\n\n💰 সাশ্রয়ী অপশন:\n• স্ট্যান্ডার্ড পরামর্শ (₹149-₹199)\n• বিশেষজ্ঞ পরামর্শ (₹399-₹499)\n\nবেছে নিন: ভিডিও কল, ভয়েস কল, বা চ্যাট পরামর্শ?",
+        emergency:
+          "🚨 এটি একটি জরুরি অ���স্থা মনে হচ্ছে!\n\nতৎক্ষণাৎ সাহায্যের জন্য:\n📞 108 কল করুন (জাতীয় জরুরি)\n📞 102 কল করুন (চিকিৎসা জরুরি)\n\nজরুরি লক্ষণ:\n• বুকে ব্যথা\n• শ্বাসকষ্ট\n• অতিরিক্ত রক্তপাত\n• অজ্ঞান হওয়া\n• গুরুতর পোড়া\n\nআমি কি এখনই আপনার জন্য 108 ডায়াল করব?",
+        default:
+          "আমি আপনার স্বাস্থ্য সমস্যা বুঝতে পারছি। ভাল সাহায্যের জন্য বলুন:\n\n• আপনার প্রধান লক্ষণ কী?\n• এটি কখন শুরু হয়েছে?\n• কতটা গুরুতর (1-10)?\n• অন্য কোন সংশ্লিষ্ট সমস্যা?\n\nআমি তাৎক্ষণিক যত্নের পরামর্শ দিতে পারি এবং প্রয়োজনে ডাক্তারদের সাথে যোগাযোগ করিয়ে দিতে পারি। আমি কীভাবে আপনাকে সাহায��য করতে পারি?",
+      },
+      ta: {
+        greeting:
+          "வணக்கம்! நான் ஆரோக்யமித்ரா, உங்கள் AI ஆரோக்ய உதவியாளர். உங்கள் ஆரோக்ய பிரச்சனைகளில் உதவ முடியும், மருத்துவர்களுடன் இணைக்க முடியும், அல்லது மருத்துவ ஆலோசனை வழங்க முடியும். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+        fever:
+          "உங்களுக்கு காய்ச்சல் இருப்பது புரிகிறது. இதை செய்யுங்கள்:\n\n• ஓய்வெடுத்து நிறைய தண்ணீர் குடியுங்கள்\n• காய்ச்சல் 100°F க்கு மேல் இருந்தால் 6 மணி நேரத்திற்கு ஒருமுறை பாராசிட்டமால் (500mg) எடுங்கள்\n• நெற்றியில் குளிர்ந்த துணி வையுங்கள்\n• வெப்பநிலையை தொடர்ந்து சரிபா��்க்கவும்\n• காய்ச்சல் 3 நாட்களுக்கு மேல் நீடித்தால் அல்லது 103°F க்கு மேல் சென்றால் உடனே மருத்துவரை பாருங்கள்\n\nமருத்துவ ஆலோசனைக்காக உங்களை இணைக்கட்டுமா?",
+        headache:
+          "தலைவலிக்கு இதை செய்யுங்கள்:\n\n• அமைதியான, இருண்ட அறையில் ஓய்வெடுங்கள்\n• தலை/கழுத்தில் குளிர்ந்த அல்லது சூடான துணி வையுங்கள்\n• நிறைய தண்ணீர் குடியுங்கள்\n• தேவைப்பட்டால் பாராசிட்டமால் 500mg எடுங்கள்\n• திரையிலிருந்து விலகி இருங்கள்\n• கழுத்தின் லேசான பயிற்சி செய்யுங்கள்\n\nதலைவலி கடுமையானதாக, திடீரென்று, அல்லது காய்ச்சல்/பார்வை பிரச்சனையுடன் இருந்தால் உடனே மருத்துவ உதவி பெறுங்கள். மருத்துவருடன் இணைக்கட்டுமா?",
+        stomach:
+          "வயிற்று வலிக்கு உடனடி கவனிப்பு:\n\n• 2-3 மணி நேரம் திட உணவை தவிர்க்கவும்\n• தெளிவான திரவங்கள் குடியுங்கள் (தண்ணீர், தெளிவான சூப்)\n• BRAT உணவு: வாழைப்பழம், அரிசி, ஆப்பிள் சாஸ், டோஸ்ட்\n• பால், காரமான அல்லது எண்ணெய் உணவை தவிர்க்கவும��\n• ஓய்வெடுத்து மன அழுத்தத்தை தவிர்க்கவும்\n\nஉடனடி உதவி பெறுங்கள் இது இருந்தால்:\n• கடுமையான வலி\n• வாந்தி/மலத்தில் இரத்தம்\n• அதிக காய்ச்சல்\n• நீரிழப்பு அறிகுறிகள்\n\nமருத்துவ ஆலோசனை பெற விரும்புகிறீர்களா?",
+        doctor:
+          "நான் உங்களை தகுதிவாய்ந்த மருத்துவர்களுடன் இணைக்க முடியும். எங்களிடம் உள்ளது:\n\n🆓 இலவச விருப்பங்கள்:\n• அடிப்படை வீடியோ ஆலோசனை (15-20 நிமிடங்கள்)\n• சாட் ஆதரவு (வரம்பற்ற)\n• மாணவர் மருத்துவர்கள் (மேற்பார்வையில்)\n\n💰 மலிவு விருப்பங்கள்:\n• நிலையான ஆ���ோசனை (₹149-₹199)\n• நிபுணர் ஆலோசனை (₹399-₹499)\n\nதேர்வு செய்யுங்கள்: வீடியோ கால், குரல் அழைப்பு, அல்லது சாட் ஆலோசனை?",
+        emergency:
+          "🚨 இது அவசரநிலை போல் தெரிகிறது!\n\nஉடனடி உதவிக்கு:\n📞 108 அழைக்கவும் (தேசிய அவசரநிலை)\n📞 102 அழைக்கவும் (மருத்துவ அவசரநிலை)\n\nஅவசர அறிகுறிகள்:\n• மார்பு வலி\n• மூச்சுத்திணறல்\n• கடுமையான இரத்தப்போக்கு\n• மயக்கம்\n• கடுமையான தீப்பிடிப்பு\n\nநான் இப்போதே உங்களுக்காக 108 டயல் செய்யட்டுமா?",
+        default:
+          "உங்கள் ஆரோக்ய கவலை புரிகிறது. சிறந்த உதவிக்காக சொல்லுங்கள்:\n\n• உங்கள் முக்கிய அறிகுறிகள் என்ன?\n• இது எப்போது தொட���்கியது?\n• எவ்வளவு கடுமையானது (1-10)?\n• வேறு ஏதேனும் தொடர்புடைய பிரச்சனை?\n\nநான் உடனடி கவனிப்பு ஆலோசனை வழங்க முடியும் மற்றும் தேவைப்பட்டால் மருத்துவர்களுடன் இணைக்க முடியும். நான் உங்களுக்கு எப்படி குறிப்பாக உதவ முடியும்?",
+      },
+      te: {
+        greeting:
+          "హలో! నేను ఆరోగ్యమిత్రను, మీ AI ఆరోగ్య సహాయకుడను. నేను మీ ఆరోగ్య సమస్యలలో సహాయం చేయగలను, వైద్యులతో కలుపుతాను లేదా వైద్య సలహా ఇవ్వగలను. ఈరోజు నేను మీకు ఎలా సహాయం చేయగలను?",
+        fever:
+          "మీకు జ్వరం వచ్చిందని అర్థమైంది. ఇలా చేయండి:\n\n• విశ్రమించి చాలా నీళ్లు తాగండి\n• జ్వరం 100°F కంటే ఎక్కువ ఉంటే 6 గంటలకు ఒకసారి పారాసిటమాల్ (500mg) తీసుకోండి\n• నుదిటిపై చల్లని గుడ్డ వేయండి\n• ఉష్ణోగ్రతను క్రమం తప్పకుండా తనిఖీ చేయండి\n• జ్వరం 3 రోజులకు మించి ఉంటే లేదా 103°F కంటే ఎక్కువ అయితే వెంటనే వైద్యుడిని చూపించండి\n\nవైద్య సలహా కోసం మిమ్మల్ని కలిపించాలా?",
+        headache:
+          "తలనొప్పికి ఇలా చేయండి:\n\n• నిశ్శబ్ద, చీకటి గదిలో విశ్రమించండి\n• తల/మెడపై చల్లని లేదా వేడిమైన గుడ్డ వేయండి\n• చాలా నీళ్లు తాగండి\n• అవసరమైతే పారాసిటమాల్ 500mg తీసుకోండి\n• స్క్రీన్ నుండి దూరంగా ఉండండి\n• మెడ యొక్క తేలికపాటి వ్యాయామాలు చేయండి\n\nతలనొప్పి తీవ్రంగా, అకస్మాత్తుగా లేదా జ్వరం/దృష్టి సమస్యలతో ఉంటే వెంటనే వైద్య సహాయం పొందండి. వైద్యుడితో కలిపించాలా?",
+        stomach:
+          "కడుపు నొప్పికి తక్షణ సంరక్షణ:\n\n• 2-3 గంటలపాటు దృఢమైన ఆహారాన్ని తవ్వండి\n• స్పష్టమైన ద్రవాలు తాగండి (నీళ్లు, స్పష్టమైన సూప్)\n• BRAT ఆహారం: అరటిపండు, అన్నం, ఆపిల్ సాస్, టోస్ట్\n• పాలు, కారంమసాలా లేదా నూనె ఆహారాన్ని తవ్వండి\n• విశ్రమించి ఒత్తిడిని తవ్వండి\n\nతక్షణ సహాయం పొందండి ఇవి ఉంటే:\n• తీవ్రమైన నొప్పి\n• వాంతి/మలంలో రక్తం\n• అధిక జ్వరం\n• నిర్జలీకరణ లక్షణాలు\n\nవైద్య సలహా తీసుకోవాలనుకుంటున్నారా?",
+        doctor:
+          "నేను మిమ్మల్ని అర్హులైన వైద్యులతో కలిపించగలను. మా దగ్గర ఉంది:\n\n🆓 ఉచిత ఎంపికలు:\n• ప్రాథమిక వీడియో సలహా (15-20 నిమిషాలు)\n• చాట్ మద్దతు (అపరిమిత)\n• విద్యార్థి వైద్యులు (పర్యవేక్షణలో)\n\n💰 సరసమైన ఎంపికలు:\n• ప్రామాణిక సలహా (₹149-₹199)\n• నిపుణుల సలహా (₹399-₹499)\n\nఎంచుకోండ���: వీడియో కాల్, వాయిస్ కాల్ లేదా చాట్ సలహా?",
+        emergency:
+          "🚨 ఇది అత్యవసర పరిస్థితిలా అనిపిస్తుంది!\n\nతక్షణ సహాయం కోసం:\n📞 108 కాల్ చేయండి (జాతీయ అత్యవసరం)\n📞 102 కాల్ చేయండి (వైద్య అత్యవసరం)\n\nఅత్యవసర సంకేతాలు:\n• ఛాతీ నొప్పి\n• ఊపిరాడక\n• తీవ్రమైన రక్తస్రావం\n• మూర్ఛ\n• తీవ్రమైన కాలిపోవడం\n\nనేను ఇప్పుడే మీ కోసం 108 డయల్ చేయాలా?",
+        default:
+          "మీ ఆరోగ్య ఆందోళన అర్థమైంది. మెరుగైన సహాయం కోసం చెప్పండి:\n\n• మీ ప్రధాన లక్షణాలు ఏమిటి?\n• ఇది ఎప్పుడు మొదలైంది?\n• ఎంత తీవ్రమైనది (1-10)?\n• ఏదైనా ఇత�� సంబంధిత సమస్య?\n\nనేను తక్షణ సంరక్షణ సలహా ఇవ్వగలను మరియు అవసరమైతే వైద్యులతో కలిపించగలను. నేను మీకు ప్రత్యేకంగా ఎలా సహాయం చేయగలను?",
+      },
+    };
+
+    const currentLang = responses[langCode] || responses.en;
 
     // Greetings in multiple languages
     if (
@@ -202,10 +325,10 @@ const VoiceChatbot = () => {
       text.includes("హాయ్") ||
       text.includes("హలో")
     ) {
-      return "Hello! I'm here to help with your health concerns. You can tell me about any symptoms, ask health questions, or request to connect with a doctor.";
+      return currentLang.greeting;
     }
 
-    // Health-related queries
+    // Health-related queries with detailed solutions
     if (
       text.includes("fever") ||
       text.includes("बुखार") ||
@@ -213,7 +336,7 @@ const VoiceChatbot = () => {
       text.includes("காய்ச்சல்") ||
       text.includes("జ్వరము")
     ) {
-      return "I understand you're experiencing fever. Can you tell me more about your symptoms? How long have you had the fever and what's your temperature?";
+      return currentLang.fever;
     }
 
     if (
@@ -223,7 +346,7 @@ const VoiceChatbot = () => {
       text.includes("தலைவலி") ||
       text.includes("తలనొప్పి")
     ) {
-      return "Headaches can have various causes. Can you describe the type of pain and how long you've been experiencing it? Any other symptoms?";
+      return currentLang.headache;
     }
 
     if (
@@ -234,7 +357,28 @@ const VoiceChatbot = () => {
       text.includes("வயிற்று") ||
       text.includes("కడుపు")
     ) {
-      return "Stomach issues can be concerning. Can you tell me more about the pain - when it started, the intensity, and any other symptoms you're experiencing?";
+      return currentLang.stomach;
+    }
+
+    if (
+      text.includes("cough") ||
+      text.includes("खांसी") ||
+      text.includes("কাশি") ||
+      text.includes("இருமல்") ||
+      text.includes("దగ్గు")
+    ) {
+      return currentLang.cough;
+    }
+
+    if (
+      text.includes("cold") ||
+      text.includes("flu") ||
+      text.includes("सर्दी") ||
+      text.includes("জুকাম") ||
+      text.includes("சளி") ||
+      text.includes("జలుబు")
+    ) {
+      return currentLang.cold;
     }
 
     if (
@@ -244,7 +388,7 @@ const VoiceChatbot = () => {
       text.includes("மருத்துவர்") ||
       text.includes("వైద్యుడు")
     ) {
-      return "I can help you connect with a qualified doctor. Would you like to start with a free consultation, affordable consultation, or premium specialist? You can also choose between video call, voice call, or chat.";
+      return currentLang.doctor;
     }
 
     if (
@@ -255,11 +399,11 @@ const VoiceChatbot = () => {
       text.includes("அவசரம்") ||
       text.includes("అత్యవసర")
     ) {
-      return "This sounds urgent. For immediate medical emergency, please call 108 (National Emergency Number) or 102 (Medical Emergency). Would you like me to help you call emergency services?";
+      return currentLang.emergency;
     }
 
     // Default response
-    return "I understand your concern. Can you provide more details about your symptoms so I can better assist you? You can also ask me to connect you with a doctor for professional advice.";
+    return currentLang.default;
   };
 
   const speakText = (text: string, language: string) => {
@@ -294,8 +438,32 @@ const VoiceChatbot = () => {
   };
 
   const makeEmergencyCall = () => {
-    if (confirm("Do you want to call emergency services (108)?")) {
+    // Show confirmation dialog in user's language
+    const langCode = selectedLanguage.split("-")[0];
+    const confirmMessages = {
+      en: "Do you want to call emergency services (108)?",
+      hi: "क्या आप आपातकालीन सेवाओं (108) को कॉल करना चाहते हैं?",
+      bn: "আপনি কি জরুরি সেবা (108) কল করতে চান?",
+      ta: "நீங்கள் அவசர சேவைகளை (108) அழைக்க விரும்புகிறீர்களா?",
+      te: "మీరు అత్యవసర సేవలను (108) కాల్ చేయాలనుకుంటున్న��రా?",
+    };
+
+    const message = confirmMessages[langCode] || confirmMessages.en;
+
+    if (confirm(message)) {
+      // Directly initiate the call without delay
       window.location.href = "tel:108";
+
+      // Also add a backup method for mobile browsers
+      setTimeout(() => {
+        try {
+          const link = document.createElement("a");
+          link.href = "tel:108";
+          link.click();
+        } catch (e) {
+          console.log("Fallback call method failed:", e);
+        }
+      }, 100);
     }
   };
 
