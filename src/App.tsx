@@ -19,6 +19,8 @@ import Pricing from "./pages/Pricing";
 import PhoneVerification from "./pages/PhoneVerification";
 import OtpVerification from "./pages/OtpVerification";
 import ProfileDetails from "./pages/ProfileDetails";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -124,6 +126,22 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Payment />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
           </ProtectedRoute>
         }
       />
