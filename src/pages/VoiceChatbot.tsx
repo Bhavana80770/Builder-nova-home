@@ -355,12 +355,14 @@ const VoiceChatbot = () => {
       </header>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Status Badge */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <div className="flex justify-center gap-2 mb-4">
-              <Badge className="bg-herbal-50 text-herbal border-herbal-100">
-                🎙️ Voice Assistant Ready
+              <Badge
+                className={`${isListening ? "bg-coral text-white animate-pulse" : "bg-herbal-50 text-herbal border-herbal-100"}`}
+              >
+                🎙️ {isListening ? "Listening..." : "Voice Assistant Ready"}
               </Badge>
               {isFreeConsultation && (
                 <Badge className="bg-coral-50 text-coral border-coral-100">
@@ -369,88 +371,156 @@ const VoiceChatbot = () => {
               )}
             </div>
             <h2 className="text-2xl font-bold text-indigo mb-2">
-              Talk to AarogyaMitra
+              AarogyaMitra AI Assistant
             </h2>
             <p className="text-indigo/70">
-              Speak naturally about your health concerns in your preferred
-              language
+              Speak naturally in your preferred language
             </p>
           </div>
 
-          {/* Voice Interface */}
-          <Card className="border-gray-border shadow-lg mb-8">
-            <CardHeader className="text-center">
-              <CardTitle className="text-indigo">
-                Voice Chat Interface
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-6">
-              {/* Mic Button */}
-              <div className="flex justify-center">
+          {/* Language Selection */}
+          <div className="mb-6">
+            <div className="flex flex-wrap justify-center gap-3">
+              {languages.map((lang) => (
                 <button
-                  onClick={() => setIsListening(!isListening)}
-                  className={`w-24 h-24 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isListening
-                      ? "bg-coral scale-110 shadow-lg animate-pulse"
-                      : "bg-herbal hover:bg-herbal-600 hover:scale-105"
+                  key={lang.code}
+                  onClick={() => setSelectedLanguage(lang.code)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    selectedLanguage === lang.code
+                      ? "bg-herbal text-white shadow-md"
+                      : "bg-white text-indigo border border-gray-border hover:bg-herbal-50"
                   }`}
                 >
-                  {isListening ? (
-                    <MicOff className="w-10 h-10 text-white" />
-                  ) : (
-                    <Mic className="w-10 h-10 text-white" />
-                  )}
+                  {lang.nativeName}
                 </button>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              {/* Status Text */}
-              <div className="space-y-2">
-                <p className="text-lg font-medium text-indigo">
-                  {isListening ? "Listening..." : "Tap to speak"}
-                </p>
-                <p className="text-sm text-indigo/60">
-                  {isListening
-                    ? "Speak clearly about your health concerns"
-                    : "Press and hold the microphone to start"}
-                </p>
-              </div>
-
-              {/* Language Options */}
-              <div className="flex flex-wrap justify-center gap-2">
-                {["Hindi", "English", "Bengali", "Tamil", "Telugu"].map(
-                  (lang) => (
-                    <Badge
-                      key={lang}
-                      variant="outline"
-                      className="cursor-pointer hover:bg-herbal hover:text-white border-herbal text-herbal"
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Voice Controls */}
+            <div className="lg:col-span-1">
+              <Card className="border-gray-border shadow-lg h-fit">
+                <CardHeader className="text-center pb-4">
+                  <CardTitle className="text-indigo">Voice Controls</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center space-y-6">
+                  {/* Mic Button */}
+                  <div className="flex justify-center">
+                    <button
+                      onClick={toggleListening}
+                      className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 ${
+                        isListening
+                          ? "bg-coral scale-110 shadow-lg animate-pulse"
+                          : "bg-herbal hover:bg-herbal-600 hover:scale-105"
+                      }`}
                     >
-                      {lang}
-                    </Badge>
-                  ),
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Conversation History Placeholder */}
-          <Card className="border-gray-border shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-indigo">Conversation</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex justify-center items-center h-32 text-indigo/50">
-                  <div className="text-center">
-                    <Volume2 className="w-8 h-8 mx-auto mb-2" />
-                    <p>Start speaking to begin your conversation</p>
+                      {isListening ? (
+                        <MicOff className="w-8 h-8 text-white" />
+                      ) : (
+                        <Mic className="w-8 h-8 text-white" />
+                      )}
+                    </button>
                   </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
 
-          {/* Quick Actions */}
-          <div className="mt-8 grid grid-cols-2 gap-4">
+                  {/* Status Text */}
+                  <div className="space-y-2">
+                    <p className="text-lg font-medium text-indigo">
+                      {isListening ? "Listening..." : "Tap to speak"}
+                    </p>
+                    {currentTranscript && (
+                      <p className="text-sm text-coral bg-coral-50 p-2 rounded">
+                        "{currentTranscript}"
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Quick Actions */}
+                  <div className="space-y-3">
+                    <Button
+                      onClick={startVideoCall}
+                      className="w-full bg-gender-blue hover:bg-gender-blue-600 text-white"
+                    >
+                      <Video className="w-4 h-4 mr-2" />
+                      Video Call Doctor
+                    </Button>
+                    <Button
+                      onClick={startVoiceCall}
+                      className="w-full bg-gender-pink hover:bg-gender-pink-600 text-white"
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      Voice Call Doctor
+                    </Button>
+                    <Button
+                      onClick={makeEmergencyCall}
+                      className="w-full bg-soft-red hover:bg-soft-red-600 text-white"
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      Emergency Call 108
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Conversation Interface */}
+            <div className="lg:col-span-2">
+              <Card className="border-gray-border shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-indigo flex items-center">
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Conversation
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-96 w-full pr-4">
+                    <div className="space-y-4">
+                      {messages.map((message) => (
+                        <div
+                          key={message.id}
+                          className={`flex ${
+                            message.sender === "user"
+                              ? "justify-end"
+                              : "justify-start"
+                          }`}
+                        >
+                          <div
+                            className={`max-w-[80%] p-3 rounded-lg ${
+                              message.sender === "user"
+                                ? "bg-herbal text-white"
+                                : "bg-white border border-gray-border text-indigo"
+                            }`}
+                          >
+                            <p className="text-sm">{message.text}</p>
+                            <span className="text-xs opacity-70">
+                              {message.timestamp.toLocaleTimeString()}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+
+                      {isProcessing && (
+                        <div className="flex justify-start">
+                          <div className="bg-white border border-gray-border p-3 rounded-lg">
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 bg-indigo/40 rounded-full animate-bounce"></div>
+                              <div className="w-2 h-2 bg-indigo/40 rounded-full animate-bounce delay-100"></div>
+                              <div className="w-2 h-2 bg-indigo/40 rounded-full animate-bounce delay-200"></div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      <div ref={messagesEndRef} />
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Quick Access */}
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
             <Link to="/symptoms">
               <Button
                 variant="outline"
@@ -464,20 +534,36 @@ const VoiceChatbot = () => {
                 variant="outline"
                 className="w-full border-coral text-coral hover:bg-coral-50"
               >
-                Talk to Doctor
+                All Doctors
               </Button>
             </Link>
+            <Link to="/pricing">
+              <Button
+                variant="outline"
+                className="w-full border-gender-blue text-gender-blue hover:bg-gender-blue-50"
+              >
+                Pricing Plans
+              </Button>
+            </Link>
+            <Button
+              onClick={makeEmergencyCall}
+              variant="outline"
+              className="w-full border-soft-red text-soft-red hover:bg-soft-red-50"
+            >
+              Emergency 108
+            </Button>
           </div>
 
-          {/* Emergency Notice */}
-          <div className="mt-8 p-4 bg-soft-red-50 border border-soft-red-200 rounded-lg text-center">
-            <p className="text-sm text-indigo">
-              <strong>Emergency?</strong> Call{" "}
-              <a href="tel:108" className="text-soft-red font-semibold">
-                108
-              </a>{" "}
-              for immediate medical assistance
-            </p>
+          {/* Help Text */}
+          <div className="mt-6 p-4 bg-herbal-50 border border-herbal-100 rounded-lg">
+            <h4 className="font-medium text-herbal mb-2">How to use:</h4>
+            <ul className="text-sm text-indigo/80 space-y-1">
+              <li>• Click the microphone and speak your health concerns</li>
+              <li>• Choose your preferred language from the options above</li>
+              <li>• Say "Hi" to start a conversation</li>
+              <li>• Ask about symptoms, medications, or request a doctor</li>
+              <li>• Use "Emergency" for urgent medical help</li>
+            </ul>
           </div>
         </div>
       </div>
