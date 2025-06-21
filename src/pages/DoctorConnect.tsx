@@ -20,15 +20,24 @@ import {
   User,
   Settings,
 } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const DoctorConnect = () => {
   const { user, logout } = useAuth();
+  const [searchParams] = useSearchParams();
+  const urlType = searchParams.get("type");
   const [selectedConsultationType, setSelectedConsultationType] =
-    useState<string>("video");
+    useState<string>(urlType || "video");
   const [selectedTier, setSelectedTier] = useState<string>("all"); // all, free, affordable, premium
+
+  // Update consultation type when URL parameter changes
+  useEffect(() => {
+    if (urlType && ["video", "voice", "chat"].includes(urlType)) {
+      setSelectedConsultationType(urlType);
+    }
+  }, [urlType]);
 
   const allDoctors = [
     // FREE VIDEO CONSULTATIONS
