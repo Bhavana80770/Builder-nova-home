@@ -341,7 +341,7 @@ const VoiceChatbot = () => {
         stomach:
           "পেটের ব্যথার জন্য তাৎক্ষণিক যত্ন:\n\n• 2-3 ঘন্টা শক্ত খাবার এড়িয়ে চলুন\n• পরিষ্কার তরল পান করুন (পানি, পরিষ্কার স্যুপ)\n• BRAT ডায়েট: কলা, ভাত, আপেল সস, টোস্ট\n• দুধ, মসলাদার বা তৈলাক্ত খাবার এড়িয়ে চলুন\n• বিশ্রাম নিন এবং চাপ এড়িয়ে চলুন\n\nঅবিলম্বে সাহায্য নিন যদি:\n• তীব্র ব্যথা হয়\n• বমি/মলে রক্ত থাক��\n• উচ্চ জ্বর হয়\n• ডিহাইড্রেশনের লক্ষণ থাকে\n\nডাক্তারের পরামর্শ নিতে চান?",
         doctor:
-          "আমি আপনাকে যোগ্য ডাক্তারদের সাথে যোগাযোগ করিয়ে দিতে পারি। আমাদের আছে:\n\n🆓 বিনামূল্যে অপশন:\n• বেসিক ভিডিও পরামর্শ (15-20 মিনিট)\n• চ্যাট সাপোর্ট (সীমাহীন)\n• ছাত্র ডাক্তার (তত্ত্বাবধানে)\n\n💰 সাশ্রয়ী অপশন:\n• স্ট্যান্ডার্ড পরামর��শ (₹149-₹199)\n• বিশেষজ্ঞ পরামর্শ (₹399-₹499)\n\nবেছে নিন: ভিডিও কল, ভয়েস কল, বা চ্যাট পরামর্শ?",
+          "আমি আপনাকে যোগ্য ডাক্তারদের সাথে যোগাযোগ করিয়ে দিতে পারি। আমাদের আছে:\n\n🆓 বিনামূল্যে অপশন:\n• বেসিক ভিডিও পরামর্শ (15-20 মিনিট)\n• চ্যাট সাপোর্ট (সীমাহীন)\n• ছাত্র ডাক্তার (তত্ত্বাবধানে)\n\n💰 সাশ্রয়ী অপশন:\n• স্ট্যান্ডার্ড পরামর্শ (₹149-₹199)\n• বিশেষজ্ঞ পরামর্শ (₹399-₹499)\n\nবেছে নিন: ভিডিও কল, ভয়েস কল, বা চ্যাট পরামর্শ?",
         emergency:
           "🚨 এটি একটি জরুরি অবস্থা মনে হচ্ছে!\n\nতৎক্ষণাৎ সাহায্যের জন্য:\n📞 108 কল করুন (জাতীয় জরুরি)\n📞 102 কল করুন (চিকিৎসা জরুরি)\n\nজরু���ি লক্ষণ:\n• বুকে ব্যথা\n• শ্বাসকষ্ট\n• অতিরিক্ত রক্তপাত\n• অজ্ঞান হওয়া\n• গুরুতর পোড়া\n\nআমি কি এখনই আপনার জন্য 108 ডায়াল করব?",
         default:
@@ -351,9 +351,9 @@ const VoiceChatbot = () => {
         greeting:
           "வணக்கம்! நான் ஆரோக்யமித்ரா, உங்கள் AI ஆரோக்ய உதவியாளர். உங்கள் ஆரோக்ய பிரச்சனைகளில் உதவ முடியும், மருத்துவர்களுடன் இணைக்க முடியும், அல்லது மருத்துவ ஆலோசனை வழங்க முடியும். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?",
         fever:
-          "உங்களுக்கு காய்ச்சல் இருப்பது புரிகிறது. இதை செய்யுங்கள்:\n\n• ஓய்வெடுத்து நிறைய தண்ணீர் குடியுங்கள்\n• காய்ச்சல் 100°F க்கு மேல் இருந்தால் 6 மணி நேரத்திற்கு ஒருமுறை பாராசிட்டமால் (500mg) எடுங்கள்\n• நெற்றியில் குளிர்ந்த துணி வையுங்கள்\n• வெப்பநிலையை தொடர்ந்து சரிபார்க்கவும்\n• காய்ச்சல் 3 நாட்களுக்கு மேல் நீடித்தால் அல்லது 103°F க்கு மேல் சென்றால் உடனே மருத்துவரை பாருங்கள்\n\nமருத்துவ ஆலோசனைக்காக உங்களை இணைக்கட்டுமா?",
+          "உங்களுக்கு காய்ச்சல் இருப்பது புரிகிறது. இதை செய்யுங்கள்:\n\n• ஓய்வெடுத்து நிறைய தண்ணீர் குடியுங்கள்\n• காய்ச்சல் 100°F க்கு மேல் இருந்தால் 6 மணி நேரத்திற்கு ஒருமுறை பாராசிட்டமால் (500mg) எடுங்கள்\n• நெற்றியில் குளிர்ந்த துணி வையுங்கள்\n• வெப்பநிலையை த��டர்ந்து சரிபார்க்கவும்\n• காய்ச்சல் 3 நாட்களுக்கு மேல் நீடித்தால் அல்லது 103°F க்கு மேல் சென்றால் உடனே மருத்துவரை பாருங்கள்\n\nமருத்துவ ஆலோசனைக்காக உங்களை இணைக்கட்டுமா?",
         headache:
-          "தலைவலிக்கு இதை செய்யுங்கள்:\n\n• அமைதியான, இருண்ட அறையில் ஓய்வெடுங்கள்\n• தலை/கழுத்தில் குளிர்ந்த அல்லது சூடான துணி வையுங்கள்\n• நிறைய தண்ணீர் குடியுங்கள்\n• தேவைப்பட்டால் பாராசிட்டமால் 500mg எடுங்கள்\n• திரையிலிருந்து விலகி இருங்கள்\n• கழுத்தின் லேசான பயிற்சி செய்யுங்கள்\n\nதலைவலி கடுமையானதாக, திடீரென்று, அல்லது காய்ச்சல்/பார்வை பிரச்சனையுடன் இருந்தால் உடனே மருத்துவ உதவி பெறுங்கள். மருத்துவருடன் இணைக்கட்டுமா?",
+          "தலைவலிக்கு இதை செய்யுங்கள்:\n\n• அமைதியான, இருண்ட அறையில் ஓய்வெடுங்கள்\n• தலை/கழுத்தில் குளிர்ந்த அல்லது சூடான துணி வையுங்கள்\n• நிறைய தண்ணீர் குடியுங்கள்\n• தேவைப்பட்டால் பாராசிட்டமால் 500mg எடுங்கள்\n• திரையிலிருந்து விலகி இருங்கள்\n• கழுத்தின் லேசான பயிற்சி செய்யுங்கள்\n\nதலைவலி கடுமையானதாக, திடீரென்று, அல்லது காய்ச்சல���/பார்வை பிரச்சனையுடன் இருந்தால் உடனே மருத்துவ உதவி பெறுங்கள். மருத்துவருடன் இணைக்கட்டுமா?",
         stomach:
           "வயிற்று வலிக்கு உடனடி கவனிப்பு:\n\n• 2-3 மணி நேரம் திட உணவை தவிர்க்கவும்\n• தெளிவான திரவங்கள் குடியுங்கள் (தண்ணீர், தெளிவான சூப்)\n• BRAT உணவு: வாழைப்பழம், அரிசி, ஆப்பிள் சாஸ், டோஸ்ட்\n• பால், காரமான அல்லது எண்ணெய் உணவை தவிர்க்கவும்\n• ஓய்வெடுத்து மன அழுத்தத்தை தவிர்க்கவும்\n\nஉடனடி உதவி பெறுங்கள் இது இருந்தால்:\n• கடுமையான வலி\n• வாந்தி/மலத்தில் இரத்தம்\n• அதிக காய்ச்சல்\n• நீரிழப்பு அறிகுறிகள்\n\nமருத்துவ ஆலோசனை பெற விரும்புகிறீர்களா?",
         doctor:
@@ -502,6 +502,7 @@ const VoiceChatbot = () => {
     if (isListening) {
       try {
         recognitionRef.current?.stop();
+        setMicrophoneError(null); // Clear any previous errors
       } catch (error) {
         console.error("Error stopping recognition:", error);
         setIsListening(false);
@@ -509,37 +510,50 @@ const VoiceChatbot = () => {
     } else {
       // Check if speech recognition is available
       if (!recognitionRef.current) {
-        addAssistantMessage(
-          "Voice recognition is not available. Please make sure you're using a supported browser (Chrome/Edge) and have granted microphone permissions.",
-        );
+        const errorMsg =
+          "Voice recognition is not available. Please make sure you're using a supported browser (Chrome/Edge) and have granted microphone permissions.";
+        setMicrophoneError("Voice recognition not available");
+        addAssistantMessage(errorMsg);
         return;
       }
 
       try {
+        // Clear previous errors
+        setMicrophoneError(null);
+
         // Check microphone permissions first
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
-        stream.getTracks().forEach((track) => track.stop()); // Stop the test stream
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          stream.getTracks().forEach((track) => track.stop()); // Stop the test stream
+        }
 
         // Start speech recognition
         recognitionRef.current.lang = selectedLanguage;
         recognitionRef.current.start();
-      } catch (error) {
+      } catch (error: any) {
         console.error("Microphone access error:", error);
         let errorMessage = "Unable to access microphone. ";
+        let shortError = "Microphone error";
 
         if (error.name === "NotAllowedError") {
           errorMessage +=
             "Please allow microphone access in your browser settings.";
+          shortError = "Access denied";
         } else if (error.name === "NotFoundError") {
           errorMessage +=
             "No microphone found. Please check your microphone connection.";
+          shortError = "No microphone";
+        } else if (error.name === "NotSupportedError") {
+          errorMessage += "Your browser doesn't support microphone access.";
+          shortError = "Not supported";
         } else {
           errorMessage +=
             "Please check your microphone settings and try again.";
         }
 
+        setMicrophoneError(shortError);
         addAssistantMessage(errorMessage);
         setIsListening(false);
       }
