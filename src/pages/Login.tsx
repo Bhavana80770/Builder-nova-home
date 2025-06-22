@@ -48,66 +48,61 @@ const Login = () => {
     }));
   };
 
-  const handleGoogleLogin = () => {
-    // Simulate successful Google login
-    console.log("Simulating Google login...");
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
-    // Show loading state
-    const originalText = "Google";
-    const button = document.querySelector("button:has(svg)");
-    if (button) {
-      button.textContent = "Signing in...";
-      button.disabled = true;
+  const handleGoogleLogin = async () => {
+    setIsGoogleLoading(true);
+    console.log("Google login initiated...");
+
+    try {
+      // Simulate successful Google OAuth login
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Simulate successful login with Google credentials
+      const success = await login(
+        "demo.user@gmail.com",
+        "google_oauth_success",
+      );
+
+      if (success) {
+        console.log("Google login successful, redirecting to dashboard...");
+        // Successful login will be handled by auth context routing
+      } else {
+        console.log("Google login failed");
+        setIsGoogleLoading(false);
+      }
+    } catch (error) {
+      console.error("Google login error:", error);
+      setIsGoogleLoading(false);
     }
-
-    // Simulate OAuth process
-    setTimeout(() => {
-      // Simulate successful login by calling the auth context
-      login("user@gmail.com", "google_oauth_token").then((success) => {
-        if (success) {
-          // Redirect to dashboard
-          window.location.href = "/dashboard";
-        } else {
-          // Reset button if login fails
-          if (button) {
-            button.textContent = originalText;
-            button.disabled = false;
-          }
-        }
-      });
-    }, 1500);
   };
 
-  const handleFacebookLogin = () => {
-    // Simulate successful Facebook login
-    console.log("Simulating Facebook login...");
+  const handleFacebookLogin = async () => {
+    setIsFacebookLoading(true);
+    console.log("Facebook login initiated...");
 
-    // Show loading state
-    const buttons = document.querySelectorAll("button");
-    const facebookButton = Array.from(buttons).find((btn) =>
-      btn.textContent?.includes("Facebook"),
-    );
-    if (facebookButton) {
-      facebookButton.textContent = "Signing in...";
-      facebookButton.disabled = true;
+    try {
+      // Simulate successful Facebook OAuth login
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Simulate successful login with Facebook credentials
+      const success = await login(
+        "demo.user@facebook.com",
+        "facebook_oauth_success",
+      );
+
+      if (success) {
+        console.log("Facebook login successful, redirecting to dashboard...");
+        // Successful login will be handled by auth context routing
+      } else {
+        console.log("Facebook login failed");
+        setIsFacebookLoading(false);
+      }
+    } catch (error) {
+      console.error("Facebook login error:", error);
+      setIsFacebookLoading(false);
     }
-
-    // Simulate OAuth process
-    setTimeout(() => {
-      // Simulate successful login
-      login("user@facebook.com", "facebook_oauth_token").then((success) => {
-        if (success) {
-          // Redirect to dashboard
-          window.location.href = "/dashboard";
-        } else {
-          // Reset button if login fails
-          if (facebookButton) {
-            facebookButton.textContent = "Facebook";
-            facebookButton.disabled = false;
-          }
-        }
-      });
-    }, 1500);
   };
 
   return (
