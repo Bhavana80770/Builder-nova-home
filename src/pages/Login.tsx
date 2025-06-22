@@ -48,6 +48,22 @@ const Login = () => {
     }));
   };
 
+  const handleGoogleLogin = () => {
+    // Redirect to Google OAuth
+    window.location.href =
+      "https://accounts.google.com/oauth/authorize?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=" +
+      encodeURIComponent(window.location.origin + "/auth/google/callback") +
+      "&scope=openid email profile&response_type=code&state=google_login";
+  };
+
+  const handleFacebookLogin = () => {
+    // Redirect to Facebook OAuth
+    window.location.href =
+      "https://www.facebook.com/v18.0/dialog/oauth?client_id=YOUR_FACEBOOK_APP_ID&redirect_uri=" +
+      encodeURIComponent(window.location.origin + "/auth/facebook/callback") +
+      "&scope=email,public_profile&response_type=code&state=facebook_login";
+  };
+
   return (
     <div className="min-h-screen bg-sand flex items-center justify-center p-4">
       <div className="w-full max-w-md">
