@@ -28,6 +28,7 @@ const VoiceCall = () => {
     "connecting" | "connected" | "ended"
   >("connecting");
   const [callDuration, setCallDuration] = useState(0);
+  const [isDoctorSpeaking, setIsDoctorSpeaking] = useState(false);
 
   // Mock doctor data
   const doctor = {
@@ -36,6 +37,27 @@ const VoiceCall = () => {
     specialization: "General Physician",
     avatar: null,
   };
+
+  // Simulate doctor speaking at intervals
+  useEffect(() => {
+    if (callStatus === "connected") {
+      const speakingInterval = setInterval(
+        () => {
+          setIsDoctorSpeaking(true);
+
+          // Doctor speaks for 3-8 seconds randomly
+          const speakDuration = Math.random() * 5000 + 3000;
+
+          setTimeout(() => {
+            setIsDoctorSpeaking(false);
+          }, speakDuration);
+        },
+        Math.random() * 10000 + 5000,
+      ); // Doctor speaks every 5-15 seconds
+
+      return () => clearInterval(speakingInterval);
+    }
+  }, [callStatus]);
 
   useEffect(() => {
     // Simulate connection process
