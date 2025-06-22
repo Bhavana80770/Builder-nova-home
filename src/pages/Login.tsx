@@ -176,6 +176,8 @@ const Login = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <Button
+                type="button"
+                onClick={handleGoogleLogin}
                 variant="outline"
                 className="border-gray-border hover:bg-sand text-indigo"
               >
