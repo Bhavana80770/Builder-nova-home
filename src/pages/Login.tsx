@@ -51,56 +51,50 @@ const Login = () => {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isFacebookLoading, setIsFacebookLoading] = useState(false);
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     setIsGoogleLoading(true);
-    console.log("Google login initiated...");
+    console.log("Demo Google login...");
 
     try {
-      // Simulate successful Google OAuth login
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Simulate login process
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Simulate successful login with Google credentials
-      const success = await login(
-        "demo.user@gmail.com",
-        "google_oauth_success",
-      );
+      // Direct login simulation - no external redirect
+      const success = await login("demo@gmail.com", "demo123");
 
-      if (success) {
-        console.log("Google login successful, redirecting to dashboard...");
-        // Successful login will be handled by auth context routing
-      } else {
-        console.log("Google login failed");
+      if (!success) {
         setIsGoogleLoading(false);
       }
+      // Success case will redirect automatically via auth context
     } catch (error) {
-      console.error("Google login error:", error);
+      console.error("Login error:", error);
       setIsGoogleLoading(false);
     }
   };
 
-  const handleFacebookLogin = async () => {
+  const handleFacebookLogin = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     setIsFacebookLoading(true);
-    console.log("Facebook login initiated...");
+    console.log("Demo Facebook login...");
 
     try {
-      // Simulate successful Facebook OAuth login
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Simulate login process
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Simulate successful login with Facebook credentials
-      const success = await login(
-        "demo.user@facebook.com",
-        "facebook_oauth_success",
-      );
+      // Direct login simulation - no external redirect
+      const success = await login("demo@facebook.com", "demo123");
 
-      if (success) {
-        console.log("Facebook login successful, redirecting to dashboard...");
-        // Successful login will be handled by auth context routing
-      } else {
-        console.log("Facebook login failed");
+      if (!success) {
         setIsFacebookLoading(false);
       }
+      // Success case will redirect automatically via auth context
     } catch (error) {
-      console.error("Facebook login error:", error);
+      console.error("Login error:", error);
       setIsFacebookLoading(false);
     }
   };
