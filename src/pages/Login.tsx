@@ -49,19 +49,65 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    // Redirect to Google OAuth
-    window.location.href =
-      "https://accounts.google.com/oauth/authorize?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=" +
-      encodeURIComponent(window.location.origin + "/auth/google/callback") +
-      "&scope=openid email profile&response_type=code&state=google_login";
+    // Simulate successful Google login
+    console.log("Simulating Google login...");
+
+    // Show loading state
+    const originalText = "Google";
+    const button = document.querySelector("button:has(svg)");
+    if (button) {
+      button.textContent = "Signing in...";
+      button.disabled = true;
+    }
+
+    // Simulate OAuth process
+    setTimeout(() => {
+      // Simulate successful login by calling the auth context
+      login("user@gmail.com", "google_oauth_token").then((success) => {
+        if (success) {
+          // Redirect to dashboard
+          window.location.href = "/dashboard";
+        } else {
+          // Reset button if login fails
+          if (button) {
+            button.textContent = originalText;
+            button.disabled = false;
+          }
+        }
+      });
+    }, 1500);
   };
 
   const handleFacebookLogin = () => {
-    // Redirect to Facebook OAuth
-    window.location.href =
-      "https://www.facebook.com/v18.0/dialog/oauth?client_id=YOUR_FACEBOOK_APP_ID&redirect_uri=" +
-      encodeURIComponent(window.location.origin + "/auth/facebook/callback") +
-      "&scope=email,public_profile&response_type=code&state=facebook_login";
+    // Simulate successful Facebook login
+    console.log("Simulating Facebook login...");
+
+    // Show loading state
+    const buttons = document.querySelectorAll("button");
+    const facebookButton = Array.from(buttons).find((btn) =>
+      btn.textContent?.includes("Facebook"),
+    );
+    if (facebookButton) {
+      facebookButton.textContent = "Signing in...";
+      facebookButton.disabled = true;
+    }
+
+    // Simulate OAuth process
+    setTimeout(() => {
+      // Simulate successful login
+      login("user@facebook.com", "facebook_oauth_token").then((success) => {
+        if (success) {
+          // Redirect to dashboard
+          window.location.href = "/dashboard";
+        } else {
+          // Reset button if login fails
+          if (facebookButton) {
+            facebookButton.textContent = "Facebook";
+            facebookButton.disabled = false;
+          }
+        }
+      });
+    }, 1500);
   };
 
   return (
