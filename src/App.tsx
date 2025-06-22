@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Help from "./pages/Help";
 import VoiceChatbot from "./pages/VoiceChatbot";
 import SymptomInput from "./pages/SymptomInput";
 import DoctorConnect from "./pages/DoctorConnect";
