@@ -149,6 +149,7 @@ const AppRoutes = () => {
       />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
 
       {/* Catch all route */}
       <Route path="*" element={<NotFound />} />
