@@ -140,7 +140,7 @@ const VideoCall = () => {
           {/* Doctor Video */}
           <Card className="bg-black/30 border-white/20 backdrop-blur-sm">
             <CardContent className="p-4 h-full flex flex-col">
-              <div className="flex-1 bg-gradient-to-br from-gender-blue/20 to-gender-blue/40 rounded-lg flex items-center justify-center relative">
+              <div className="flex-1 bg-gradient-to-br from-gender-blue/20 to-gender-blue/40 rounded-lg flex items-center justify-center relative overflow-hidden">
                 {callStatus === "connecting" ? (
                   <div className="text-center text-white">
                     <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
@@ -148,13 +148,51 @@ const VideoCall = () => {
                   </div>
                 ) : (
                   <>
-                    <Avatar className="w-32 h-32">
-                      <AvatarFallback className="bg-gender-blue text-white text-4xl">
-                        {doctor.name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-lg text-sm">
-                      {doctor.name}
+                    {/* Simulated doctor video background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200">
+                      {/* Office background simulation */}
+                      <div className="absolute top-4 left-4 w-16 h-12 bg-green-200 rounded opacity-60"></div>
+                      <div className="absolute top-4 right-4 w-20 h-8 bg-brown-200 rounded opacity-40"></div>
+                      <div className="absolute bottom-8 left-8 w-12 h-12 bg-white rounded-full opacity-30"></div>
+                    </div>
+
+                    {/* Doctor avatar with professional appearance */}
+                    <div className="relative z-10 flex flex-col items-center">
+                      <Avatar className="w-40 h-40 mb-4 ring-4 ring-white/50">
+                        <AvatarFallback className="bg-gradient-to-br from-blue-500 to-blue-600 text-white text-5xl">
+                          {doctor.name.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+
+                      {/* Speech indicator */}
+                      <div className="flex items-center space-x-1 mb-2">
+                        {[...Array(4)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="w-2 h-6 bg-green-400 rounded-full animate-pulse"
+                            style={{
+                              animationDelay: `${i * 0.2}s`,
+                              animationDuration: "1s",
+                            }}
+                          ></div>
+                        ))}
+                      </div>
+                      <p className="text-white/80 text-sm">
+                        Dr. is speaking...
+                      </p>
+                    </div>
+
+                    {/* Doctor info overlay */}
+                    <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-2 rounded-lg">
+                      <p className="font-semibold">{doctor.name}</p>
+                      <p className="text-xs text-white/80">
+                        {doctor.specialization}
+                      </p>
+                    </div>
+
+                    {/* Video quality indicator */}
+                    <div className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 rounded text-xs">
+                      HD
                     </div>
                   </>
                 )}
