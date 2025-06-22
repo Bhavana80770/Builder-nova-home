@@ -203,22 +203,49 @@ const VideoCall = () => {
           {/* Your Video */}
           <Card className="bg-black/30 border-white/20 backdrop-blur-sm">
             <CardContent className="p-4 h-full flex flex-col">
-              <div className="flex-1 bg-gradient-to-br from-herbal/20 to-herbal/40 rounded-lg flex items-center justify-center relative">
+              <div className="flex-1 bg-gradient-to-br from-herbal/20 to-herbal/40 rounded-lg flex items-center justify-center relative overflow-hidden">
                 {isVideoOn ? (
                   <>
-                    <Avatar className="w-24 h-24">
-                      <AvatarFallback className="bg-herbal text-white text-3xl">
-                        {user?.name?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute bottom-4 left-4 bg-black/50 text-white px-3 py-1 rounded-lg text-sm">
-                      You ({user?.name})
+                    {/* Simulated room background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100">
+                      <div className="absolute top-4 right-4 w-12 h-8 bg-yellow-200 rounded opacity-50"></div>
+                      <div className="absolute bottom-6 right-6 w-8 h-8 bg-blue-200 rounded-full opacity-40"></div>
+                    </div>
+
+                    <div className="relative z-10 flex flex-col items-center">
+                      <Avatar className="w-32 h-32 mb-4 ring-4 ring-white/50">
+                        <AvatarFallback className="bg-gradient-to-br from-herbal to-herbal-600 text-white text-4xl">
+                          {user?.name?.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+
+                      {/* Microphone indicator */}
+                      {isAudioOn && (
+                        <div className="flex items-center space-x-1 mb-2">
+                          <div className="w-2 h-4 bg-herbal rounded-full animate-pulse"></div>
+                          <div className="w-2 h-6 bg-herbal rounded-full animate-pulse delay-75"></div>
+                          <div className="w-2 h-4 bg-herbal rounded-full animate-pulse delay-150"></div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-2 rounded-lg">
+                      <p className="font-semibold">You</p>
+                      <p className="text-xs text-white/80">{user?.name}</p>
+                    </div>
+
+                    {/* Your video quality indicator */}
+                    <div className="absolute top-4 left-4 bg-herbal text-white px-2 py-1 rounded text-xs">
+                      HD
                     </div>
                   </>
                 ) : (
                   <div className="text-center text-white">
-                    <VideoOff className="w-12 h-12 mx-auto mb-2 text-white/60" />
-                    <p className="text-white/80">Camera Off</p>
+                    <VideoOff className="w-16 h-16 mx-auto mb-4 text-white/60" />
+                    <p className="text-white/80 text-lg">Camera Off</p>
+                    <p className="text-white/60 text-sm">
+                      Click camera button to turn on
+                    </p>
                   </div>
                 )}
               </div>
