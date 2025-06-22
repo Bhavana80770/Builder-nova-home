@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import VoiceChatbot from "./pages/VoiceChatbot";
 import SymptomInput from "./pages/SymptomInput";
 import DoctorConnect from "./pages/DoctorConnect";
