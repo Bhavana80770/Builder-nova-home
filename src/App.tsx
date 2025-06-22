@@ -161,6 +161,9 @@ const AppRoutes = () => {
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/emergency" element={<Emergency />} />
+      <Route path="/services" element={<Services />} />
+      <Route path="/careers" element={<Careers />} />
+      <Route path="/specialties" element={<Specialties />} />
 
       {/* Catch all route */}
       <Route path="*" element={<NotFound />} />
