@@ -202,6 +202,8 @@ const Login = () => {
                 Google
               </Button>
               <Button
+                type="button"
+                onClick={handleFacebookLogin}
                 variant="outline"
                 className="border-gray-border hover:bg-sand text-indigo"
               >
