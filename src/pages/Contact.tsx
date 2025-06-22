@@ -78,6 +78,89 @@ const Contact = () => {
               <Card className="border-gray-border shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-indigo flex items-center">
+                    <Phone className="w-5 h-5 mr-2 text-coral" />
+                    Doctor Contact Numbers
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-indigo mb-2">
+                        General Medicine
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center p-2 bg-herbal-50 rounded">
+                          <span className="text-indigo">Dr. Rajesh Kumar</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543210
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center p-2 bg-herbal-50 rounded">
+                          <span className="text-indigo">Dr. Priya Sharma</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543211
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-indigo mb-2">
+                        Pediatrics
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center p-2 bg-coral-50 rounded">
+                          <span className="text-indigo">Dr. Sunita Verma</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543212
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center p-2 bg-coral-50 rounded">
+                          <span className="text-indigo">Dr. Amit Patel</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543213
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-indigo mb-2">
+                        Women's Health
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center p-2 bg-gender-pink-50 rounded">
+                          <span className="text-indigo">Dr. Kavita Singh</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543214
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center p-2 bg-gender-pink-50 rounded">
+                          <span className="text-indigo">Dr. Meera Joshi</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543215
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-indigo mb-2">
+                        Mental Health
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center p-2 bg-gender-blue-50 rounded">
+                          <span className="text-indigo">Dr. Rohit Agarwal</span>
+                          <span className="text-indigo/80">
+                            +91-9876-543216
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-gray-border shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-indigo flex items-center">
                     <Mail className="w-5 h-5 mr-2 text-coral" />
                     Email Support
                   </CardTitle>
