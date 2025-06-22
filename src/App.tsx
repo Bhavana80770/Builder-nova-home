@@ -17,6 +17,7 @@ import Emergency from "./pages/Emergency";
 import Services from "./pages/Services";
 import Careers from "./pages/Careers";
 import Specialties from "./pages/Specialties";
+import HealthCheckup from "./pages/HealthCheckup";
 import VoiceChatbot from "./pages/VoiceChatbot";
 import SymptomInput from "./pages/SymptomInput";
 import DoctorConnect from "./pages/DoctorConnect";
