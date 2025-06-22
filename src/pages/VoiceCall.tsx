@@ -181,18 +181,32 @@ const VoiceCall = () => {
                 {[...Array(7)].map((_, i) => (
                   <div
                     key={i}
-                    className="bg-white/40 rounded-full animate-pulse"
+                    className={`rounded-full ${
+                      isDoctorSpeaking
+                        ? "bg-green-400 animate-pulse"
+                        : isAudioOn
+                          ? "bg-herbal animate-pulse"
+                          : "bg-white/20"
+                    }`}
                     style={{
                       width: "8px",
-                      height: `${Math.random() * 60 + 20}px`,
+                      height: isDoctorSpeaking
+                        ? `${Math.random() * 60 + 30}px`
+                        : isAudioOn
+                          ? `${Math.random() * 40 + 20}px`
+                          : "20px",
                       animationDelay: `${i * 0.1}s`,
-                      animationDuration: "1.5s",
+                      animationDuration: isDoctorSpeaking ? "0.8s" : "1.5s",
                     }}
                   ></div>
                 ))}
               </div>
               <p className="text-white/60 text-sm mt-2">
-                {isAudioOn ? "Speaking..." : "Microphone muted"}
+                {isDoctorSpeaking
+                  ? "Dr. Priya is speaking..."
+                  : isAudioOn
+                    ? "You are speaking..."
+                    : "Call in progress - Microphone muted"}
               </p>
             </div>
           )}
