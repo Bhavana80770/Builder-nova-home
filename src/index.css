@@ -1,93 +1,54 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /**
-   * AarogyaMitra Color Scheme
-   * Using HSL values for Tailwind CSS compatibility
-   */
   :root {
-    /* AarogyaMitra brand colors mapped to HSL */
-    --background: 56 33% 97%; /* Sand Beige #F9F8F4 */
-    --foreground: 219 29% 26%; /* Dark Indigo #394867 */
+    --background: 210 20% 98%; /* Very light blue-gray #F4F7FC */
+    --foreground: 220 75% 15%; /* Deep Navy #0A1F44 */
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 219 29% 26%; /* Dark Indigo */
+    --card: 0 0% 100%;
+    --card-foreground: 220 75% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 219 29% 26%;
+    --popover-foreground: 220 75% 15%;
 
-    --primary: 177 46% 34%; /* Herbal Green #2F7E79 */
-    --primary-foreground: 0 0% 100%; /* White */
+    --primary: 220 75% 15%; /* Navy */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 28 76% 63%; /* Coral Orange #EF8354 */
+    --secondary: 165 100% 39%; /* Emerald #00C896 */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 56 33% 95%; /* Lighter sand */
-    --muted-foreground: 219 29% 45%;
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 15% 45%;
 
-    --accent: 28 76% 63%; /* Coral Orange */
+    --accent: 165 100% 39%; /* Emerald */
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 69% 69%; /* Soft Red #F06C6C */
+    --destructive: 355 78% 56%; /* Red #E63946 */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 85%; /* Gray Border #DADADA */
-    --input: 0 0% 85%;
-    --ring: 177 46% 34%; /* Herbal Green */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 165 100% 39%;
 
     --radius: 0.75rem;
-
-    --sidebar-background: 56 33% 97%;
-    --sidebar-foreground: 219 29% 26%;
-    --sidebar-primary: 177 46% 34%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 56 33% 95%;
-    --sidebar-accent-foreground: 219 29% 26%;
-    --sidebar-border: 0 0% 85%;
-    --sidebar-ring: 177 46% 34%;
   }
 
   .dark {
-    --background: 219 29% 14%; /* Dark Indigo variant */
-    --foreground: 56 33% 97%; /* Sand Beige */
+    --background: 220 75% 10%;
+    --foreground: 210 20% 98%;
 
-    --card: 219 29% 16%;
-    --card-foreground: 56 33% 97%;
+    --card: 220 75% 12%;
+    --card-foreground: 210 20% 98%;
 
-    --popover: 219 29% 16%;
-    --popover-foreground: 56 33% 97%;
+    --primary: 165 100% 39%;
+    --primary-foreground: 220 75% 15%;
 
-    --primary: 177 46% 34%; /* Keep herbal green */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 28 76% 63%; /* Keep coral orange */
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 219 29% 18%;
-    --muted-foreground: 56 33% 75%;
-
-    --accent: 28 76% 63%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 69% 69%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 219 29% 22%;
-    --input: 219 29% 22%;
-    --ring: 177 46% 34%;
-
-    --sidebar-background: 219 29% 12%;
-    --sidebar-foreground: 56 33% 97%;
-    --sidebar-primary: 177 46% 34%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 219 29% 18%;
-    --sidebar-accent-foreground: 56 33% 97%;
-    --sidebar-border: 219 29% 22%;
-    --sidebar-ring: 177 46% 34%;
+    --border: 220 75% 20%;
+    --input: 220 75% 20%;
   }
 }
 
@@ -97,7 +58,11 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
   }
 }
 
@@ -282,5 +247,23 @@
   }
   .delay-2100 {
     animation-delay: 2100ms;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .glass-dark {
+    @apply bg-navy-900/60 backdrop-blur-md border border-white/5 shadow-xl;
+  }
+
+  /* Gradients */
+  .bg-emerald-gradient {
+    @apply bg-gradient-to-br from-emerald-400 to-emerald-600;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-navy-500 to-emerald-500;
   }
 }

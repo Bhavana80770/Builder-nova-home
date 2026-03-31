@@ -2,188 +2,70 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import Index from "./pages/Index";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Help from "./pages/Help";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import Emergency from "./pages/Emergency";
-import Services from "./pages/Services";
-import Careers from "./pages/Careers";
-import Specialties from "./pages/Specialties";
-import HealthCheckup from "./pages/HealthCheckup";
-import VoiceChatbot from "./pages/VoiceChatbot";
-import SymptomInput from "./pages/SymptomInput";
-import DoctorConnect from "./pages/DoctorConnect";
-import VideoCall from "./pages/VideoCall";
-import VoiceCall from "./pages/VoiceCall";
-import ChatConsultation from "./pages/ChatConsultation";
-import Payment from "./pages/Payment";
-import Pricing from "./pages/Pricing";
-import PhoneVerification from "./pages/PhoneVerification";
-import OtpVerification from "./pages/OtpVerification";
-import ProfileDetails from "./pages/ProfileDetails";
-import Profile from "./pages/Profile";
-import Settings from "./pages/Settings";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/hospital/Navbar";
+import Hero from "./components/hospital/Hero";
+import Departments from "./components/hospital/Departments";
+import Doctors from "./components/hospital/Doctors";
+import HealthTools from "./components/hospital/tools/HealthTools";
+import FAQ from "./components/hospital/FAQ";
+import Testimonials from "./components/hospital/Testimonials";
+import DiseasePredictor from "./components/hospital/ai/DiseasePredictor";
+import Appointment from "./components/hospital/Appointment";
+import Footer from "./components/hospital/Footer";
 import NotFound from "./pages/NotFound";
+import BackToTop from "./components/hospital/BackToTop";
+import ChatWidget from "./components/hospital/ChatWidget";
+import CookieBanner from "./components/hospital/CookieBanner";
+import VoiceAssistant from "./components/hospital/ai/VoiceAssistant";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import PHCLocator from "./components/hospital/rural/PHCLocator";
+import HealthVault from "./components/hospital/urban/HealthVault";
+import QueueTracker from "./components/hospital/urban/QueueTracker";
+
 
 const queryClient = new QueryClient();
 
-const AppRoutes = () => {
-  const { user } = useAuth();
-
+const LandingPage = () => {
   return (
-    <Routes>
-      {/* Public routes - redirect to dashboard if already logged in */}
-      <Route
-        path="/"
-        element={user ? <Navigate to="/dashboard" replace /> : <Index />}
-      />
-      <Route
-        path="/phone-verification"
-        element={
-          user ? <Navigate to="/dashboard" replace /> : <PhoneVerification />
-        }
-      />
-      <Route
-        path="/verify-otp"
-        element={
-          user ? <Navigate to="/dashboard" replace /> : <OtpVerification />
-        }
-      />
-      <Route
-        path="/login"
-        element={user ? <Navigate to="/dashboard" replace /> : <Login />}
-      />
-      <Route
-        path="/signup"
-        element={user ? <Navigate to="/dashboard" replace /> : <Signup />}
-      />
-      <Route
-        path="/profile-details"
-        element={
-          <ProtectedRoute>
-            <ProfileDetails />
-          </ProtectedRoute>
-        }
-      />
+    <main className="relative selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden text-navy-500">
+      <Navbar />
+      <Hero />
+      <Departments />
+      <PHCLocator />
+      <Doctors />
+      <HealthTools />
+      <HealthVault />
+      <Testimonials />
+      <FAQ />
+      <DiseasePredictor />
+      <QueueTracker />
+      <Appointment />
 
-      {/* Protected routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <VoiceChatbot />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/chat"
-        element={
-          <ProtectedRoute>
-            <VoiceChatbot />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/symptoms"
-        element={
-          <ProtectedRoute>
-            <SymptomInput />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/doctors"
-        element={
-          <ProtectedRoute>
-            <DoctorConnect />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/consultation/video"
-        element={
-          <ProtectedRoute>
-            <VideoCall />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/consultation/voice"
-        element={
-          <ProtectedRoute>
-            <VoiceCall />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/consultation/chat"
-        element={
-          <ProtectedRoute>
-            <ChatConsultation />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/payment"
-        element={
-          <ProtectedRoute>
-            <Payment />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/settings"
-        element={
-          <ProtectedRoute>
-            <Settings />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="/pricing" element={<Pricing />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/help" element={<Help />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/emergency" element={<Emergency />} />
-      <Route path="/services" element={<Services />} />
-      <Route path="/careers" element={<Careers />} />
-      <Route path="/specialties" element={<Specialties />} />
-      <Route path="/health-checkup" element={<HealthCheckup />} />
-
-      {/* Catch all route */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+      <Footer />
+      <BackToTop />
+      <ChatWidget />
+      <CookieBanner />
+      <VoiceAssistant />
+    </main>
   );
 };
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
+    <LanguageProvider>
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <AppRoutes />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            {/* CATCH-ALL ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </BrowserRouter>
       </TooltipProvider>
-    </AuthProvider>
+    </LanguageProvider>
   </QueryClientProvider>
 );
 
