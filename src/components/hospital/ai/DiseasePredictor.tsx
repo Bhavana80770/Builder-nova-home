@@ -9,9 +9,11 @@ import {
   Dumbbell, 
   UserRoundSearch,
   Activity,
-  ChevronRight
+  ChevronRight,
+  Loader2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface Symptom {
   id: string;
@@ -42,6 +44,7 @@ interface Prediction {
 const DiseasePredictor = () => {
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
   const [prediction, setPrediction] = useState<Prediction | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSymptom = (id: string) => {
     setSelectedSymptoms((prev) =>
@@ -49,71 +52,44 @@ const DiseasePredictor = () => {
     );
   };
 
-  const runPrediction = () => {
-    if (selectedSymptoms.length === 0) return;
-
-    let result: Prediction = {
-      condition: "General Malaise",
-      confidence: 50,
-      action: "Rest",
-      diet: "Light meals, plenty of fluids",
-      exercise: "Walking, light stretching",
-      dept: "General Physician",
-      color: "blue",
-    };
-
-    // Rule-based logic
-    const has = (id: string) => selectedSymptoms.includes(id);
-
-    if (has("chest_pain") && has("breath")) {
-      result = {
-        condition: "Possible Cardiac Issue",
-        confidence: 95,
-        action: "Emergency",
-        diet: "Low sodium, heart-healthy fats",
-        exercise: "Strictly avoid exertion",
-        dept: "Cardiology",
-        color: "red",
-      };
-    } else if (has("fever") && has("cough")) {
-      result = {
-        condition: "Viral Flu / Infection",
-        confidence: 85,
-        action: "Consult Doctor",
-        diet: "Warm soups, Vitamin C rich foods",
-        exercise: "Rest until fever subsides",
-        dept: "Internal Medicine",
-        color: "emerald",
-      };
-    } else if (has("headache") && has("dizziness")) {
-      result = {
-        condition: "Migraine / Vertigo",
-        confidence: 70,
-        action: "Consult Doctor",
-        diet: "Avoid caffeine and triggers",
-        exercise: "Moderate aerobic activity",
-        dept: "Neurology",
-        color: "amber",
-      };
-    } else if (has("fatigue") && has("fever")) {
-        result = {
-            condition: "Possible Dehydration / Viral",
-            confidence: 65,
-            action: "Rest",
-            diet: "Electrolytes, ORS, Water",
-            exercise: "No strenuous exercise",
-            dept: "General Physician",
-            color: "blue",
-        };
+  const runPrediction = async () => {
+    if (selectedSymptoms.length === 0) {
+      toast.error("Please select at least one symptom.");
+      return;
     }
 
-    setPrediction(result);
+    setIsLoading(true);
+    setPrediction(null);
 
-    // Scroll to results
-    setTimeout(() => {
-        const el = document.getElementById("prediction-results");
-        el?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
+    try {
+      const response = await fetch("http://localhost:5000/api/ai/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          symptoms: selectedSymptoms.map(id => symptoms.find(s => s.id === id)?.label || id) 
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setPrediction(result.data);
+        // Scroll to results
+        setTimeout(() => {
+          const el = document.getElementById("prediction-results");
+          el?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
+      } else {
+        toast.error(result.message || "Failed to generate prediction.");
+      }
+    } catch (error) {
+      console.error("Error fetching AI prediction:", error);
+      toast.error("Network error. Please make sure the backend is running.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -136,7 +112,7 @@ const DiseasePredictor = () => {
               AI Symptom <span className="text-emerald-500">Predictor</span>
             </h2>
             <p className="text-navy-400 text-lg mb-10 leading-relaxed">
-              Select the symptoms you are currently experiencing. Our rule-based AI will analyze the patterns and provide a preliminary condition check.
+              Select the symptoms you are currently experiencing. Our AI-powered system will analyze the patterns and provide a preliminary condition check.
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mb-10">
@@ -164,17 +140,26 @@ const DiseasePredictor = () => {
 
             <button
               onClick={runPrediction}
-              disabled={selectedSymptoms.length === 0}
-              className="w-full bg-navy-500 text-white py-5 rounded-2xl font-bold text-lg hover:bg-emerald-500 transition-all shadow-xl shadow-navy-100/20 disabled:bg-navy-100 disabled:shadow-none disabled:cursor-not-allowed group"
+              disabled={selectedSymptoms.length === 0 || isLoading}
+              className="w-full bg-navy-500 text-white py-5 rounded-2xl font-bold text-lg hover:bg-emerald-500 transition-all shadow-xl shadow-navy-100/20 disabled:bg-navy-100 disabled:shadow-none disabled:cursor-not-allowed group flex items-center justify-center gap-2"
             >
-              Check Condition
-              <ChevronRight className="inline-block ml-2 group-hover:translate-x-1 transition-transform" />
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-6 h-6 animate-spin text-emerald-500" />
+                  <span>Analyzing symptoms...</span>
+                </>
+              ) : (
+                <>
+                  Check Condition
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
 
             <div className="mt-8 flex items-start gap-3 p-6 bg-amber-50 rounded-2xl border border-amber-100">
               <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
               <p className="text-sm text-amber-900 font-medium leading-relaxed">
-                <span className="font-black">IMPORTANT:</span> This is not a medical diagnosis. The results are based on predefined rules and patterns. Please consult a qualified doctor for clinical evaluation.
+                <span className="font-black">IMPORTANT:</span> This is not a medical diagnosis. The results are generated by AI and may not be accurate. Always consult a qualified doctor for clinical evaluation.
               </p>
             </div>
           </div>
@@ -182,7 +167,22 @@ const DiseasePredictor = () => {
           {/* Right Side: Prediction Results */}
           <div className="w-full lg:w-1/2 min-h-[400px]">
             <AnimatePresence mode="wait">
-              {!prediction ? (
+              {isLoading ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="h-full border-4 border-dashed border-emerald-100 rounded-[40px] flex flex-col items-center justify-center p-12 text-center bg-emerald-50/20"
+                >
+                  <div className="bg-emerald-100 p-6 rounded-full mb-6 relative">
+                    <div className="absolute inset-0 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                    <Activity className="w-12 h-12 text-emerald-600 animate-pulse" />
+                  </div>
+                  <h4 className="text-2xl font-black text-navy-500">AI is Analyzing...</h4>
+                  <p className="text-navy-400 text-sm mt-3 max-w-xs mx-auto">Please wait while our system processes your symptoms against medical patterns.</p>
+                </motion.div>
+              ) : !prediction ? (
                 <motion.div
                   key="empty"
                   initial={{ opacity: 0, scale: 0.95 }}

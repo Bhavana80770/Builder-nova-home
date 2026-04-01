@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { MoveRight, PhoneCall, ShieldCheck, Heart, Activity } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+import { useNavigate } from "react-router-dom";
+
 const Hero = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   return (
     <section id="home" className="relative min-h-screen pt-32 pb-20 overflow-hidden flex items-center bg-white">
@@ -47,8 +50,8 @@ const Hero = () => {
             </button>
             <button 
               onClick={() => {
-                const element = document.getElementById("services");
-                element?.scrollIntoView({ behavior: "smooth" });
+                navigate("/services");
+                window.scrollTo(0, 0);
               }}
               className="flex items-center justify-center gap-2 border-2 border-emerald-500 text-emerald-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-emerald-50 transition-all"
             >

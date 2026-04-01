@@ -22,16 +22,38 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import PHCLocator from "./components/hospital/rural/PHCLocator";
 import HealthVault from "./components/hospital/urban/HealthVault";
 import QueueTracker from "./components/hospital/urban/QueueTracker";
+import Services from "./components/hospital/home/Services";
+import ServicesPage from "./pages/ServicesPage";
 
 
 const queryClient = new QueryClient();
 
+import { useEffect } from "react";
+
 const LandingPage = () => {
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          const offset = 100;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: elementPosition - offset,
+            behavior: "smooth"
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <main className="relative selection:bg-emerald-100 selection:text-emerald-900 overflow-x-hidden text-navy-500">
       <Navbar />
       <Hero />
       <Departments />
+      <Services />
       <PHCLocator />
       <Doctors />
       <HealthTools />
@@ -60,6 +82,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/services" element={<ServicesPage />} />
             {/* CATCH-ALL ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

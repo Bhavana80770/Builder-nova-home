@@ -4,11 +4,15 @@ import { Menu, X, Globe, HeartPulse, ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+import { useNavigate, useLocation } from "react-router-dom";
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,21 +35,33 @@ const Navbar = () => {
     if (e) e.preventDefault();
     setIsMobileMenuOpen(false);
 
+    if (href.startsWith("/")) {
+      navigate(href);
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (location.pathname !== "/") {
+      navigate(`/${href}`);
+      return;
+    }
+
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       const element = document.querySelector(href);
       if (element) {
-        const offset = 80; // Account for sticky navbar
-        const bodyRect = document.body.getBoundingClientRect().top;
-        const elementRect = element.getBoundingClientRect().top;
-        const elementPosition = elementRect - bodyRect;
+        const offset = 100; // Increased to generously account for sticky navbar and breathing room
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
         const offsetPosition = elementPosition - offset;
 
         window.scrollTo({
           top: offsetPosition,
           behavior: "smooth",
         });
+        
+        // Optionally update the URL cleanly
+        window.history.pushState(null, "", href);
       }
     }
   };

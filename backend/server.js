@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -14,6 +15,8 @@ app.use(express.json());
 let appointments = [];
 
 // Routes
+app.use("/api/ai", require("./routes/ai"));
+
 app.post("/api/appointments", async (req, res) => {
   try {
     const { name, phone, department, doctor, date, time, message } = req.body;

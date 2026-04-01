@@ -2,7 +2,7 @@
 // This service can be easily configured to work with different SMS providers
 
 interface SMSConfig {
-  provider: "mock" | "free" | "twilio" | "msg91" | "textlocal" | "firebase";
+  provider: "mock" | "free" | "twilio" | "msg91" | "textlocal";
   apiKey?: string;
   senderId?: string;
   templateId?: string;

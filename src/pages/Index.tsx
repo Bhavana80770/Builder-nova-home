@@ -5,9 +5,12 @@ import Hero from "@/components/hospital/home/Hero";
 import Stats from "@/components/hospital/home/Stats";
 import Departments from "@/components/hospital/home/Departments";
 import Doctors from "@/components/hospital/home/Doctors";
+import Services from "@/components/hospital/home/Services";
 import AppointmentForm from "@/components/hospital/home/AppointmentForm";
 import PatientPortal from "@/components/hospital/home/PatientPortal";
 import InternationalSection from "@/components/hospital/home/InternationalSection";
+import HealthVault from "@/components/hospital/urban/HealthVault";
+import PHCLocator from "@/components/hospital/rural/PHCLocator";
 import HealthTools from "@/components/hospital/home/HealthTools";
 import HealthLibrary from "@/components/hospital/home/HealthLibrary";
 import Testimonials from "@/components/hospital/home/Testimonials";
@@ -29,6 +32,9 @@ const Index = () => {
         <Stats />
         <Departments />
         <Doctors />
+        <Services />
+        <PHCLocator />
+        <HealthVault />
         <AppointmentForm />
         <PatientPortal />
         <InternationalSection />
