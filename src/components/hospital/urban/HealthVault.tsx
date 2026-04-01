@@ -10,13 +10,18 @@ import {
   ShieldCheck, 
   Eye, 
   Loader2,
-  FileBadge
+  FileBadge,
+  AlertCircle
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { storage } from "@/firebase";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 
 interface MedicalReport {
   id: string;
   name: string;
+  fileName: string; // Real storage path/name
+  url: string;      // Download URL
   date: string;
   type: string;
   size: string;
@@ -25,33 +30,83 @@ interface MedicalReport {
 
 const HealthVault = () => {
   const [reports, setReports] = useState<MedicalReport[]>([
-    { id: "1", name: "Blood_Report_Jan.pdf", date: "Jan 12, 2026", type: "Lab Report", size: "1.2 MB", status: "Stored" },
-    { id: "2", name: "XRay_Chest_Main.jpg", date: "Feb 05, 2026", type: "Radiology", size: "4.5 MB", status: "Encrypted" },
+    { id: "1", name: "Blood_Report_Jan.pdf", fileName: "1711951200000_Blood_Report_Jan.pdf", url: "#", date: "Jan 12, 2026", type: "Lab Report", size: "1.2 MB", status: "Stored" },
+    { id: "2", name: "XRay_Chest_Main.jpg", fileName: "1712037600000_XRay_Chest_Main.jpg", url: "#", date: "Feb 05, 2026", type: "Radiology", size: "4.5 MB", status: "Encrypted" },
   ]);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setIsUploading(true);
-      setTimeout(() => {
-        const newReport: MedicalReport = {
-          id: Date.now().toString(),
-          name: file.name,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
-          type: "Manual Upload",
-          size: (file.size / (1024 * 1024)).toFixed(1) + " MB",
-          status: "Stored",
-        };
-        setReports([newReport, ...reports]);
-        setIsUploading(false);
-      }, 2000);
+    if (!file) return;
+
+    // 1. Validation (Type & Size)
+    const allowedTypes = ["application/pdf", "image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("⚠️ Only PDF and Image files (JPG/PNG) are supported.");
+      return;
     }
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert("⚠️ File size must be less than 5MB.");
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    // 2. Unique File Naming
+    const uniqueFileName = `${Date.now()}_${file.name}`;
+    const storageRef = ref(storage, `reports/${uniqueFileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // 3. Firebase Upload Logic
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(Math.round(progress));
+      },
+      (error) => {
+        console.error("Upload Error:", error);
+        alert("❌ Upload failed. Please check your Firebase settings.");
+        setIsUploading(false);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const newReport: MedicalReport = {
+            id: Date.now().toString(),
+            name: file.name,
+            fileName: uniqueFileName,
+            url: downloadURL,
+            date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+            type: file.type.split("/")[1].toUpperCase() + " File",
+            size: (file.size / (1024 * 1024)).toFixed(1) + " MB",
+            status: "Stored",
+          };
+          setReports([newReport, ...reports]);
+          setIsUploading(false);
+          setUploadProgress(0);
+        });
+      }
+    );
   };
 
-  const deleteReport = (id: string) => {
-    setReports(reports.filter(r => r.id !== id));
+  const deleteReport = async (report: MedicalReport) => {
+    try {
+      // 1. Real Delete from Firebase
+      const fileRef = ref(storage, `reports/${report.fileName}`);
+      await deleteObject(fileRef);
+      
+      // 2. State Cleanup
+      setReports(reports.filter(r => r.id !== report.id));
+      alert("✅ File deleted successfully from cloud.");
+    } catch (error) {
+      console.error("Delete Error:", error);
+      // Still remove from UI if file doesn't exist in cloud (maybe manually deleted)
+      setReports(reports.filter(r => r.id !== report.id));
+    }
   };
 
   const filteredReports = reports.filter(r => 
@@ -95,7 +150,12 @@ const HealthVault = () => {
               )}>
                 {isUploading ? (
                   <div className="flex flex-col items-center gap-4 py-4">
-                    <Loader2 className="w-12 h-12 text-emerald-500 animate-spin" />
+                    <div className="relative">
+                      <Loader2 className="w-12 h-12 text-emerald-500 animate-spin" />
+                      <div className="absolute inset-0 flex items-center justify-center text-[10px] font-black text-emerald-600">
+                        {uploadProgress}%
+                      </div>
+                    </div>
                     <p className="font-bold text-emerald-600 animate-pulse">Uploading Securely...</p>
                   </div>
                 ) : (
@@ -105,7 +165,7 @@ const HealthVault = () => {
                     </div>
                     <div>
                       <h4 className="text-navy-500 font-black">Click or Drag Reports</h4>
-                      <p className="text-navy-300 text-sm mt-1">Supports PDF, JPG, PNG (Max 10MB)</p>
+                      <p className="text-navy-300 text-sm mt-1">Supports PDF, JPG, PNG (Max 5MB)</p>
                     </div>
                   </div>
                 )}
@@ -189,15 +249,27 @@ const HealthVault = () => {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <button className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm" title="Preview">
+                        <button 
+                          onClick={() => window.open(report.url, "_blank")}
+                          className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm" 
+                          title="Preview"
+                        >
                           <Eye className="w-4 h-4" />
                         </button>
-                        <button className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm" title="Download">
+                        <a 
+                          href={report.url} 
+                          download={report.name}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm flex items-center justify-center" 
+                          title="Download"
+                        >
                           <Download className="w-4 h-4" />
-                        </button>
+                        </a>
                         <button 
-                          onClick={() => deleteReport(report.id)}
-                          className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm" title="Delete"
+                          onClick={() => deleteReport(report)}
+                          className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm" 
+                          title="Delete"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
