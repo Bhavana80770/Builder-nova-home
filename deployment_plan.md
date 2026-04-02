@@ -1,29 +1,39 @@
-# 🚀 MediNova Platform Deployment Plan
+## 📦 Frontend Hosting: Vercel (Recommended)
 
-This guide details the steps to deploy the MediNova platform from your local environment to a production server.
+Vercel is the most efficient platform for the MediNova React frontend.
 
-## 📦 Preferred Hosting: Vercel (Recommended)
+### 🔌 Automated Deployment (GitHub)
 
-Vercel is the most efficient platform for React/Vite applications like MediNova.
-
-### 🔌 Automated Deployment (GitHub Hook)
-
-1. **Push to GitHub**: (I will perform this step next).
-2. **Import to Vercel**:
-    - Sign in to [vercel.com](https://vercel.com).
-    - Click **New Project**.
-    - Import the **Builder-nova-home** repository.
-    - **Framework Preset**: Select "Vite".
-3. **Configure Settings**:
+1. **Connect Repository**: Import the **Builder-nova-home** repository to Vercel.
+2. **Framework Preset**: Select "Vite".
+3. **Build Settings**:
     - **Build Command**: `npm run build`
     - **Output Directory**: `dist`
-4. **Environment Variables**:
-    - Set `VITE_CLOUDINARY_CLOUD_NAME` if applicable (currently hardcoded for demo).
-5. **Deploy**: Click **Deploy**. Vercel will automatically redeploy whenever you push to `main`.
+4. **Deploy**: Vercel will rebuild on every commit to `main`.
 
 ---
 
-## 🏗️ Manual Deployment (Netlify/Other)
+## 🛠️ Backend Hosting: Render
+
+For backend services (API, Databases), Render provides a robust and scalable environment.
+
+### 🚀 Deploying to Render
+
+1. **Sign in**: Visit [render.com](https://render.com) and connect your GitHub.
+2. **New Web Service**:
+    - Select **Web Service**.
+    - Connect the **Builder-nova-home** repository.
+3. **Configure Build & Run**:
+    - **Runtime**: Node
+    - **Build Command**: `npm install` (or your specific backend build)
+    - **Start Command**: `npm start`
+4. **Environment Variables**:
+    - Add any required secrets (Database URLs, API Keys).
+5. **Deploy**: Initial build will start immediately.
+
+---
+
+## 🏗️ Manual Static Hosting (Netlify/Other)
 
 ### 1. Create a Production Bundle
 Run this command in the project root:

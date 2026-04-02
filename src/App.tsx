@@ -23,7 +23,7 @@ import HealthVault from "./components/hospital/urban/HealthVault";
 import QueueTracker from "./components/hospital/urban/QueueTracker";
 import Services from "./components/hospital/home/Services";
 import ServicesPage from "./pages/ServicesPage";
-import VideoConsultation from "./components/hospital/VideoConsultation";
+import { AuthProvider } from "./contexts/AuthContext";
 
 
 const queryClient = new QueryClient();
@@ -56,7 +56,6 @@ const LandingPage = () => {
       <Services />
       <PHCLocator />
       <Doctors />
-      <VideoConsultation />
       <HealthTools />
       <HealthVault />
       <Testimonials />
@@ -75,8 +74,9 @@ const LandingPage = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <TooltipProvider>
+    <AuthProvider>
+      <LanguageProvider>
+        <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -87,8 +87,9 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </TooltipProvider>
-    </LanguageProvider>
+        </TooltipProvider>
+      </LanguageProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

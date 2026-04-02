@@ -25,18 +25,13 @@ const Pricing = () => {
       price: "FREE",
       description: "Get basic health guidance and support at no cost",
       features: [
-        "AI Health Chatbot",
-        "Basic symptom checker",
-        "General health tips",
-        "Emergency guidance",
-        "Mental health support",
-        "Medicine reminders",
+        "AI Health Assistant (NovaBot)",
+        "Symptom Prediction",
+        "Hospital Department Guidance",
+        "Public Health Center Locator",
+        "Mental Health Information",
+        "Medicine Reminders",
       ],
-      consultations: {
-        chat: "Unlimited",
-        voice: "30 min/month",
-        video: "Not included",
-      },
       buttonText: "Start Free",
       buttonLink: "/signup",
       popular: false,
@@ -50,19 +45,13 @@ const Pricing = () => {
       description: "Full access to all doctors and consultation types",
       features: [
         "All Basic features",
-        "Unlimited consultations",
-        "Video calls with doctors",
-        "Digital prescriptions",
-        "Health records storage",
-        "24/7 doctor availability",
-        "Specialist consultations",
-        "Family health plans",
+        "Priority Hospital Booking",
+        "Unlimited Digital Health Vault",
+        "Family Health Records",
+        "Personal Health Concierge",
+        "Detailed Health Analytics",
+        "Priority Support",
       ],
-      consultations: {
-        chat: "Unlimited",
-        voice: "Unlimited",
-        video: "Unlimited",
-      },
       buttonText: "Choose Premium",
       buttonLink: "/signup",
       popular: true,
@@ -76,17 +65,12 @@ const Pricing = () => {
       description: "Pay only when you need professional medical advice",
       features: [
         "No monthly commitment",
-        "Choose your doctor",
-        "All consultation types",
-        "Digital prescriptions",
-        "Follow-up included",
-        "Secure payments",
+        "Specialist Hospital Visits",
+        "Priority Lab Reports",
+        "Emergency Assistance",
+        "One-time Consultation",
+        "Secure Health History",
       ],
-      consultations: {
-        chat: "₹149 each",
-        voice: "₹199 each",
-        video: "₹299 each",
-      },
       buttonText: "Find Doctors",
       buttonLink: "/doctors",
       popular: false,
@@ -185,41 +169,7 @@ const Pricing = () => {
               </CardHeader>
 
               <CardContent className="space-y-6">
-                {/* Consultation Types */}
-                <div>
-                  <h4 className="font-medium text-indigo mb-3">
-                    Consultation Access:
-                  </h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <MessageCircle className="w-4 h-4 text-coral mr-2" />
-                        <span className="text-sm">Chat</span>
-                      </div>
-                      <span className="text-sm font-medium">
-                        {plan.consultations.chat}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Phone className="w-4 h-4 text-gender-pink mr-2" />
-                        <span className="text-sm">Voice Call</span>
-                      </div>
-                      <span className="text-sm font-medium">
-                        {plan.consultations.voice}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <Video className="w-4 h-4 text-gender-blue mr-2" />
-                        <span className="text-sm">Video Call</span>
-                      </div>
-                      <span className="text-sm font-medium">
-                        {plan.consultations.video}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+
 
                 {/* Features */}
                 <div>

@@ -28,7 +28,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const doctorId = searchParams.get("doctorId");
-  const consultationType = searchParams.get("type") || "video";
+  const consultationType = searchParams.get("type") || "appointment";
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [isProcessing, setIsProcessing] = useState(false);
   const [couponCode, setCouponCode] = useState("");
@@ -41,43 +41,17 @@ const Payment = () => {
     experience: "8 years",
     rating: 4.8,
     consultationFees: {
-      video: 299,
-      voice: 199,
-      chat: 149,
+      appointment: 499,
     },
   };
 
   const getConsultationInfo = () => {
-    switch (consultationType) {
-      case "video":
-        return {
-          icon: Video,
-          title: "Video Consultation",
-          price: doctor.consultationFees.video,
-          duration: "30 minutes",
-        };
-      case "voice":
-        return {
-          icon: Phone,
-          title: "Voice Call",
-          price: doctor.consultationFees.voice,
-          duration: "25 minutes",
-        };
-      case "chat":
-        return {
-          icon: MessageCircle,
-          title: "Chat Consultation",
-          price: doctor.consultationFees.chat,
-          duration: "45 minutes",
-        };
-      default:
-        return {
-          icon: Video,
-          title: "Consultation",
-          price: 299,
-          duration: "30 minutes",
-        };
-    }
+    return {
+      icon: Clock,
+      title: "Hospital Appointment",
+      price: doctor.consultationFees.appointment,
+      duration: "Priority Slot",
+    };
   };
 
   const consultationInfo = getConsultationInfo();
@@ -92,9 +66,9 @@ const Payment = () => {
 
     setIsProcessing(false);
 
-    // Redirect to consultation page
+    // Redirect to confirmation
     navigate(
-      `/consultation/${consultationType}?doctorId=${doctorId}&paid=true`,
+      `/appointment/success?doctorId=${doctorId}&paid=true`,
     );
   };
 
@@ -357,19 +331,19 @@ const Payment = () => {
                   <ul className="text-sm text-indigo space-y-1">
                     <li className="flex items-center">
                       <CheckCircle className="w-3 h-3 mr-2 text-herbal" />
-                      {consultationInfo.duration} consultation
+                      Priority Hospital Visit
                     </li>
                     <li className="flex items-center">
                       <CheckCircle className="w-3 h-3 mr-2 text-herbal" />
-                      Digital prescription
+                      Confirmed Doctor Slot
                     </li>
                     <li className="flex items-center">
                       <CheckCircle className="w-3 h-3 mr-2 text-herbal" />
-                      Follow-up for 7 days
+                      Digital Health Guard
                     </li>
                     <li className="flex items-center">
                       <CheckCircle className="w-3 h-3 mr-2 text-herbal" />
-                      100% refund if unsatisfied
+                      Instant Confirmation
                     </li>
                   </ul>
                 </div>
@@ -411,16 +385,14 @@ const Payment = () => {
                   <p className="text-sm text-indigo/70 mb-3">
                     Basic health consultations are available for free
                   </p>
-                  <Link to="/chat?free=true">
                     <Button
                       variant="outline"
                       size="sm"
                       className="border-coral text-coral hover:bg-coral/10"
                     >
                       <Clock className="w-4 h-4 mr-1" />
-                      Start Free Chat
+                      Check Emergency Status
                     </Button>
-                  </Link>
                 </div>
               </CardContent>
             </Card>

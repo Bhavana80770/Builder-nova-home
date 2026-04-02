@@ -5,7 +5,6 @@ import {
   Users, 
   Shield, 
   Phone, 
-  Video, 
   Activity, 
   Calendar,
   Stethoscope,
@@ -100,7 +99,6 @@ const Services = () => {
 
   const features = [
     { icon: Phone, title: t('services.features.emergency') },
-    { icon: Video, title: t('services.features.telemedicine') },
     { icon: Activity, title: t('services.features.monitoring') },
     { icon: Calendar, title: t('services.features.scheduling') }
   ];

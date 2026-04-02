@@ -58,9 +58,12 @@ npm run dev
 npm run build
 ```
 
-## 🌐 Localization System
+## 🚀 Deployment Strategy
 
-The platform uses a custom `LanguageContext` to manage real-time translations across the entire UI. Localization files are managed within the translation layer, supporting 5+ regional languages to ensure the widest reach.
+MediNova is optimized for cloud deployment using a decoupled architecture:
+
+- **Frontend**: Professionally hosted on **[Vercel](https://vercel.com)** for high performance and global edge delivery.
+- **Backend**: Scalable infrastructure provided by **[Render](https://render.com)** for robust background services.
 
 ---
 

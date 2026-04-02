@@ -28,7 +28,6 @@ const Navbar = () => {
     { name: t("navbar.departments") || "Departments", href: "#departments" },
     { name: t("navbar.doctors") || "Doctors", href: "#doctors" },
     { name: t("navbar.services") || "Services", href: "#services" },
-    { name: t("navbar.telemedicine") || "Telemedicine", href: "#video-consultation" },
     { name: t("navbar.queue") || "Live Queue", href: "#queue-tracker" },
     { name: t("phcLocator.tag") || "Rural Accessibility", href: "#rural-care" },
     { name: t("healthVault.tag") || "Urban Healthcare", href: "#urban-vault" },

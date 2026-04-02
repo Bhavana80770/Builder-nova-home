@@ -350,17 +350,9 @@ const Appointment = () => {
           </div>
           
           <div className="flex flex-col w-full gap-3">
-            <a 
-              href="https://meet.jit.si/medinova-consultation" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-emerald-500 text-white w-full py-4 rounded-2xl font-bold hover:bg-emerald-600 transition-all shadow-lg flex items-center justify-center gap-2"
-            >
-              {t("appointment.joinVideo")}
-            </a>
             <button 
               onClick={() => setShowSuccess(false)}
-              className="bg-navy-50 text-navy-500 w-full py-4 rounded-2xl font-bold hover:bg-navy-100 transition-all"
+              className="bg-navy-50 text-navy-500 w-full py-5 rounded-2xl font-bold hover:bg-navy-100 transition-all text-lg"
             >
               {t("appointment.thanks")}
             </button>
