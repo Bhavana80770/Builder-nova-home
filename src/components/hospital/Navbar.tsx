@@ -89,13 +89,13 @@ const Navbar = () => {
 
         {/* CENTER: NAV LINKS (Desktop) */}
         <div className="hidden lg:flex flex-1 items-center justify-center min-w-0">
-          <div className="flex items-center gap-6 px-10 py-2.5 rounded-full bg-white/40 border border-white/40 shadow-sm backdrop-blur-md overflow-hidden">
+          <div className="flex items-center gap-4 xl:gap-6 px-6 xl:px-10 py-2.5 rounded-full bg-white/40 border border-white/40 shadow-sm backdrop-blur-md">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-navy-500 hover:text-emerald-500 font-bold text-[13px] tracking-wide transition-all uppercase whitespace-nowrap relative group"
+                className="text-navy-500 hover:text-emerald-500 font-bold text-[12px] xl:text-[13px] tracking-wide transition-all uppercase whitespace-nowrap relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full" />
