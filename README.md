@@ -8,12 +8,14 @@ MediNova is a premium, full-stack React-based healthcare platform designed to br
 - **Clinical Departments**: Interactive exploration of specialized departments (Cardiology, Neurology, Pediatrics, etc.).
 - **Doctor Profiles**: Detailed physician listings with expertise and "Book Appointment" integration.
 
-### 🤖 AI Health Ecosystem
+### 🤖 AI Health Ecosystem (NovaBot)
+- **NovaBot Assistant**: Multi-language AI voice assistant for symptom checking and healthcare guidance.
 - **Disease Predictor**: An intelligent screening tool for risk assessment based on symptoms.
 - **Urban Smart Healthcare**: Real-time queue tracking and digital health tools for urban efficiency.
 
 ### 📁 Digital Health Vault
-- **Secure Storage**: Cloud-powered (Cloudinary) environment for storing clinical **Disease Reports**.
+- **Medical Report Integration**: Integrated viewing and management of Diabetes, Hypertension, and Chronic Kidney reports.
+- **Secure Storage**: Cloud-powered (Cloudinary) environment for storing clinical documents.
 - **Report Management**: Preview, download, and manage sensitive medical documents securely.
 
 ### 🌍 Universal Accessibility
@@ -39,7 +41,7 @@ MediNova is a premium, full-stack React-based healthcare platform designed to br
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Builder-nova-home/Builder-nova-home.git
+git clone https://github.com/Bhavana80770/Builder-nova-home.git
 cd Builder-nova-home
 ```
 
