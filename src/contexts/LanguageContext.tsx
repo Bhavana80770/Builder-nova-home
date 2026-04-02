@@ -19,6 +19,8 @@ const translations: Record<Language, any> = {
       book: "Book Appointment",
       tools: "Health Tools",
       queue: "Live Queue",
+      rural: "Rural",
+      urban: "Urban",
     },
     hero: {
       tag: "Best Medical Care",
@@ -282,6 +284,8 @@ const translations: Record<Language, any> = {
       book: "अपॉइंटमेंट बुक करें",
       tools: "स्वास्थ्य उपकरण",
       queue: "लाइव कतार",
+      rural: "ग्रामीण",
+      urban: "शहरी",
     },
     hero: {
       tag: "सर्वश्रेष्ठ चिकित्सा देखभाल",
@@ -545,6 +549,8 @@ const translations: Record<Language, any> = {
       book: "అపాయింట్మెంట్ బుక్ చేయండి",
       tools: "ఆరోగ్య సాధనాలు",
       queue: "లైవ్ క్యూ",
+      rural: "గ్రామీణ",
+      urban: "పట్టణ",
     },
     hero: {
       tag: "ఉత్తమ వైద్య సంరక్షణ",
@@ -763,6 +769,8 @@ const translations: Record<Language, any> = {
       book: "முன்பதிவு செய்யுங்கள்",
       tools: "சுகாதார கருவிகள்",
       queue: "நேரடி வரிசை",
+      rural: "கிராமப்புற",
+      urban: "நகர்ப்புற",
     },
     hero: {
       tag: "சிறந்த மருத்துவ சிகிச்சை",
@@ -1026,6 +1034,8 @@ const translations: Record<Language, any> = {
       book: "अपॉइंटमेंट बुक करा",
       tools: "आरोग्य साधने",
       queue: "थेट रांग",
+      rural: "ग्रामीण",
+      urban: "शहरी",
     },
     hero: {
       tag: "सर्वोत्तम वैद्यकीय सेवा",

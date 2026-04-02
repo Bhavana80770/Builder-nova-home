@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FileUp,
@@ -26,8 +26,8 @@ interface MedicalReport {
   name: string;
   date: string;
   category: string;
-  status: "Stored" | "Encrypted" | "Syncing";
   fileUrl: string;
+  thumbnailUrl?: string;
 }
 
 const HealthVault = () => {
@@ -35,53 +35,56 @@ const HealthVault = () => {
   const [reports, setReports] = useState<MedicalReport[]>([
     {
       id: "1",
-      name: "Diabetes_Pathology_Report.png",
-      date: "Mar 04, 2025",
-      category: "Pathology",
-      status: "Stored",
-      fileUrl: "/reports/diabetes_report.png"
+      name: "diabetes_report",
+      date: "", 
+      category: "pathology",
+      fileUrl: "/reports/diabetes.pdf",
+      thumbnailUrl: "/reports/diabetes_report.png"
     },
     {
       id: "2",
-      name: "Hypertension_Cardiac_Risk.png",
-      date: "Feb 05, 2026",
-      category: "Cardiology",
-      status: "Encrypted",
-      fileUrl: "/reports/hypertension_cardiac_report.png"
+      name: "hypertension_report",
+      date: "",
+      category: "cardiology",
+      fileUrl: "/reports/hypertension.pdf",
+      thumbnailUrl: "/reports/hypertension_cardiac_report.png"
     },
     {
       id: "3",
-      name: "Chronic_Kidney_Report.png",
-      date: "Feb 28, 2026",
-      category: "Nephrology",
-      status: "Syncing",
-      fileUrl: "/reports/chronic_kidney_report.png"
+      name: "kidney_report",
+      date: "",
+      category: "nephrology",
+      fileUrl: "/reports/kidney.pdf",
+      thumbnailUrl: "/reports/chronic_kidney_report.png"
     }
   ]);
-  const [isUploading, setIsUploading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedReport, setSelectedReport] = useState<MedicalReport | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      uploadFile(file);
+    }
+  };
 
+  const uploadFile = (file: File) => {
     setIsUploading(true);
-    const toastId = toast.loading("Syncing with MediNova Cloud Vault...");
-    
+    // Simulate upload
     setTimeout(() => {
       const newReport: MedicalReport = {
         id: Date.now().toString(),
         name: file.name,
-        date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        date: "",
         category: "General Report",
-        status: "Stored",
         fileUrl: URL.createObjectURL(file)
       };
       setReports([newReport, ...reports]);
       setIsUploading(false);
-      toast.success("File uploaded and encrypted successfully.", { id: toastId, icon: <CheckCircle2 className="text-emerald-500" /> });
-    }, 2000);
+      toast.success(t("healthVault.uploadSuccess"));
+    }, 1500);
   };
 
   const deleteReport = (id: string) => {
@@ -89,18 +92,12 @@ const HealthVault = () => {
     toast.success("Report removed from vault.");
   };
 
-  const filteredReports = reports.filter(r =>
-    r.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredReports = reports.filter(report => 
+    t(`healthVault.${report.name}`).toLowerCase().includes(searchQuery.toLowerCase()) ||
+    t(`healthVault.${report.category}`).toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Stored": return "bg-emerald-50 text-emerald-500 border-emerald-100";
-      case "Syncing": return "bg-blue-50 text-blue-500 border-blue-100";
-      case "Encrypted": return "bg-teal-50 text-teal-600 border-teal-100";
-      default: return "bg-gray-50 text-gray-500 border-gray-100";
-    }
-  };
+
 
   return (
     <section id="urban-vault" className="py-24 bg-white relative overflow-hidden font-sans border-t border-navy-50/50">
@@ -120,21 +117,21 @@ const HealthVault = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-50 text-navy-500 font-black text-[10px] uppercase tracking-[0.2em] mb-6">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              Urban Smart Healthcare
+              {t("healthVault.urbanSmart")}
             </div>
             
             <h2 className="text-4xl md:text-5xl font-black text-navy-500 mb-6 leading-tight">
-              Hospital <span className="text-emerald-500">Certified</span> Health Vault
+              {t("healthVault.certifiedVault")}
             </h2>
             <p className="text-lg text-navy-400 mb-10 leading-relaxed font-medium">
-              Access your verified medical reports globally with dual-layer 256-bit encryption. All uploads are automatically processed for data extraction.
+              {t("healthVault.vaultDesc")}
             </p>
 
             {/* Upload Area */}
             <div className="relative group mb-10">
               <input
                 type="file"
-                onChange={handleUpload}
+                onChange={handleFileUpload}
                 disabled={isUploading}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20 disabled:cursor-not-allowed"
               />
@@ -206,8 +203,8 @@ const HealthVault = () => {
                  <input
                    type="text"
                    placeholder="Search your medical repository..."
-                   value={searchTerm}
-                   onChange={(e) => setSearchTerm(e.target.value)}
+                   value={searchQuery}
+                   onChange={(e) => setSearchQuery(e.target.value)}
                    className="w-full pl-14 pr-6 py-4 bg-white border border-transparent rounded-[24px] focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none text-sm font-bold text-navy-500 shadow-sm"
                  />
                </div>
@@ -217,71 +214,105 @@ const HealthVault = () => {
                </div>
             </div>
 
-            {/* Records List */}
-            <div className="space-y-4">
+            {/* Records Gallery Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <AnimatePresence mode="popLayout">
                 {filteredReports.map((report, index) => (
                   <motion.div
                     key={report.id}
                     layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="group bg-white p-6 rounded-[35px] shadow-sm hover:shadow-2xl hover:shadow-navy-100/40 border border-navy-50/50 hover:border-emerald-100 transition-all flex flex-col md:flex-row items-center gap-6"
+                    className="group bg-white rounded-[40px] shadow-sm hover:shadow-2xl hover:shadow-navy-100/40 border border-navy-50/50 hover:border-emerald-100 transition-all flex flex-col overflow-hidden"
                   >
-                    <div className="w-16 h-16 bg-navy-50 rounded-[24px] flex items-center justify-center text-navy-300 group-hover:bg-emerald-500 group-hover:text-white group-hover:rotate-6 transition-all duration-500 shrink-0 relative">
-                      <FileText className="w-8 h-8" />
-                      <div className="absolute -top-2 -right-2 bg-emerald-500 text-white p-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
-                        <Lock className="w-3 h-3" />
+                    {/* Visual Report Preview */}
+                    <div className="relative h-64 bg-navy-50/30 p-4 flex items-center justify-center overflow-hidden border-b border-navy-50/50">
+                      {report.thumbnailUrl ? (
+                         <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out">
+                            <img 
+                              src={report.thumbnailUrl} 
+                              alt={t(`healthVault.${report.name}`) || report.name}
+                              className="w-full h-full object-contain drop-shadow-xl"
+                            />
+                            {/* Overlay for better visibility */}
+                            <div className="absolute inset-0 bg-navy-500/0 group-hover:bg-navy-500/5 transition-colors duration-500" />
+                         </div>
+                      ) : (
+                         <div className="flex flex-col items-center gap-2 text-navy-200">
+                           <FileText className="w-16 h-16" />
+                           <span className="text-[10px] font-black tracking-widest uppercase">No Preview</span>
+                         </div>
+                      )}
+                      
+                      {/* Security Badge */}
+                      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-emerald-500 p-2.5 rounded-2xl shadow-xl z-10 border border-white group-hover:scale-110 transition-transform">
+                        <Lock className="w-4 h-4" />
                       </div>
-                    </div>
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-4 left-4 bg-navy-500 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0 duration-500">
+                        {t(`healthVault.${report.category}`) || report.category}
+                      </div>
 
-                    <div className="flex-1 min-w-0 text-center md:text-left">
-                       <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
-                          <h4 className="text-lg font-black text-navy-500 truncate">{report.name}</h4>
-                          <Badge className="bg-emerald-50 text-emerald-600 border-none text-[8px] font-black uppercase tracking-widest">Verified Report</Badge>
-                          <Badge className="bg-navy-50 text-navy-400 border-none text-[8px] font-black uppercase tracking-widest">Certified</Badge>
-                       </div>
-                       
-                       <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[10px] font-black uppercase tracking-widest text-navy-300">
-                          <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-emerald-500" /> {report.date}</span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-navy-100" />
-                          <span className="text-navy-500">{report.category}</span>
-                          <span className={cn(
-                            "px-2.5 py-1 rounded-lg border",
-                            getStatusColor(report.status)
-                          )}>
-                            {report.status}
-                          </span>
-                       </div>
-                    </div>
-
-                    {/* Report Controls */}
-                    <div className="flex items-center gap-3 shrink-0">
-                       <button 
+                      {/* Hover action overlay */}
+                      <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/10 transition-all duration-500 flex items-center justify-center pointer-events-none">
+                         <div className="bg-white text-navy-500 p-4 rounded-3xl shadow-2xl opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 border border-navy-50">
+                            <Eye className="w-8 h-8 text-emerald-500" />
+                         </div>
+                      </div>
+                      
+                      <button 
                          onClick={() => setSelectedReport(report)}
-                         className="p-4 bg-navy-50 text-navy-500 rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm hover:shadow-emerald-200"
-                         title="View Medical Report"
-                       >
-                          <Eye className="w-6 h-6" />
-                       </button>
-                       <a 
-                         href={report.fileUrl}
-                         download
-                         className="p-4 bg-navy-50 text-navy-500 rounded-2xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm hover:shadow-emerald-200 flex items-center justify-center"
-                         title="Download Encrypted PDF"
-                       >
-                          <Download className="w-6 h-6" />
-                       </a>
-                       <button 
-                         onClick={() => deleteReport(report.id)}
-                         className="p-4 bg-navy-50 text-navy-300 rounded-2xl hover:bg-red-500 hover:text-white transition-all shadow-sm"
-                         title="Delete permanently"
-                       >
-                          <Trash2 className="w-6 h-6" />
-                       </button>
+                         className="absolute inset-0 z-20 cursor-pointer"
+                         title="Full View"
+                      />
                     </div>
+
+                    <div className="p-8 flex flex-col gap-6">
+                       <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-2">
+                             <h4 className="text-xl font-black text-navy-500 leading-tight group-hover:text-emerald-500 transition-colors truncate">
+                               {t(`healthVault.${report.name}`) || report.name}
+                             </h4>
+                          </div>
+                          <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-navy-300">
+                             <Badge className="bg-emerald-50 text-emerald-600 border-none px-2 py-0.5 rounded-md">
+                               {t("healthVault.verifiedReport")}
+                             </Badge>
+                             <Badge className="bg-navy-50 text-navy-400 border-none px-2 py-0.5 rounded-md">
+                               {t("healthVault.certifiedBadge")}
+                             </Badge>
+                          </div>
+                       </div>
+
+                       {/* Controls */}
+                       <div className="grid grid-cols-2 gap-3">
+                         <a 
+                           href={report.fileUrl}
+                           download
+                           className="flex items-center justify-center gap-3 py-4 bg-navy-50 text-navy-500 rounded-[24px] hover:bg-emerald-500 hover:text-white transition-all font-black text-xs uppercase tracking-widest group/btn"
+                         >
+                            <Download className="w-4 h-4 group-hover/btn:-translate-y-0.5 transition-transform" />
+                            Download
+                         </a>
+                         <button 
+                           onClick={() => deleteReport(report.id)}
+                           className="flex items-center justify-center gap-3 py-4 bg-navy-50 text-navy-300 rounded-[24px] hover:bg-red-50 hover:text-red-500 transition-all font-black text-xs uppercase tracking-widest"
+                         >
+                            <Trash2 className="w-4 h-4" />
+                            Delete
+                         </button>
+                       </div>
+                    </div>
+                    <input 
+                      type="file" 
+                      className="hidden" 
+                      onChange={handleFileUpload}
+                      ref={fileInputRef}
+                      accept=".pdf,.jpg,.png"
+                    />
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -319,19 +350,19 @@ const HealthVault = () => {
               className="relative w-full max-w-6xl bg-white rounded-[40px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] flex flex-col h-[90vh]"
             >
                {/* Modal Header */}
-               <div className="bg-white border-b border-navy-50 px-8 py-6 flex items-center justify-between shrink-0">
+                <div className="bg-white border-b border-navy-50 px-8 py-6 flex items-center justify-between shrink-0">
                   <div className="flex items-center gap-5">
                     <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-500 shadow-inner">
                       <FileText className="w-7 h-7" />
                     </div>
                     <div>
-                       <h3 className="text-2xl font-black text-navy-500 leading-tight">{selectedReport.name}</h3>
+                       <h3 className="text-2xl font-black text-navy-500 leading-tight">
+                         {t(`healthVault.${selectedReport.name}`) || selectedReport.name}
+                       </h3>
                        <div className="flex items-center gap-4 mt-1">
-                          <span className="flex items-center gap-1.5 text-[10px] font-black text-navy-300 uppercase tracking-widest">
-                            <Calendar className="w-3.5 h-3.5 text-emerald-500" /> {selectedReport.date}
-                          </span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-navy-100" />
-                          <Badge className="bg-emerald-50 text-emerald-600 border-none text-[8px] font-black uppercase tracking-widest px-2 py-0.5">Hospital Certified</Badge>
+                          <Badge className="bg-emerald-50 text-emerald-600 border-none text-[8px] font-black uppercase tracking-widest px-2 py-0.5">
+                            {t("healthVault.certifiedBadge")}
+                          </Badge>
                        </div>
                     </div>
                   </div>
@@ -353,18 +384,12 @@ const HealthVault = () => {
                   </div>
                </div>
                
-               {/* Iframe Content Area */}
+               {/* Modal Content Area */}
                 <div className="flex-1 bg-navy-50 relative overflow-auto custom-scrollbar">
-                  <div className="absolute inset-0 flex items-center justify-center z-0">
-                    <div className="flex flex-col items-center gap-4">
-                       <Loader2 className="w-10 h-10 text-navy-200 animate-spin" />
-                       <p className="text-[10px] font-black text-navy-200 uppercase tracking-[0.2em]">Decrypting Data Streams...</p>
-                    </div>
-                  </div>
-                  {selectedReport.fileUrl.match(/\.(jpg|jpeg|png|webp)$/i) ? (
-                    <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
+                  {selectedReport.thumbnailUrl ? (
+                    <div className="relative z-10 w-full h-full flex items-center justify-center p-4 md:p-12">
                       <img 
-                        src={selectedReport.fileUrl} 
+                        src={selectedReport.thumbnailUrl} 
                         alt={selectedReport.name}
                         className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
                       />

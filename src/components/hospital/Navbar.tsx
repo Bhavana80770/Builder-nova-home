@@ -29,9 +29,8 @@ const Navbar = () => {
     { name: t("navbar.doctors") || "Doctors", href: "#doctors" },
     { name: t("navbar.services") || "Services", href: "#services" },
     { name: t("navbar.queue") || "Live Queue", href: "#queue-tracker" },
-    { name: t("phcLocator.tag") || "Rural", href: "#rural-care" },
-    { name: t("healthVault.tag") || "Urban", href: "#urban-vault" },
-    { name: t("navbar.contact") || "Contact", href: "#contact" },
+    { name: t("navbar.rural") || "Rural", href: "#rural-care" },
+    { name: t("navbar.urban") || "Urban", href: "#urban-vault" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement> | null, href: string) => {
@@ -89,7 +88,7 @@ const Navbar = () => {
 
         {/* CENTER: NAV LINKS (Desktop) */}
         <div className="hidden lg:flex flex-1 items-center justify-center min-w-0">
-          <div className="flex items-center gap-4 xl:gap-6 px-6 xl:px-10 py-2.5 rounded-full bg-white/40 border border-white/40 shadow-sm backdrop-blur-md">
+          <div className="flex items-center gap-3 xl:gap-5 px-5 xl:px-8 py-2.5 rounded-full bg-white/40 border border-white/40 shadow-sm backdrop-blur-md">
             {navLinks.map((link) => (
               <a
                 key={link.name}
