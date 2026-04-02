@@ -197,7 +197,7 @@ const Specialties = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-blue-900">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-blue-900">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">

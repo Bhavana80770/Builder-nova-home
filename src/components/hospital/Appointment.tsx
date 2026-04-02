@@ -28,29 +28,29 @@ const Appointment = () => {
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.name) newErrors.name = "Full name is required";
+    if (!formData.name) newErrors.name = t("appointment.nameReq");
     if (!formData.phone) {
-      newErrors.phone = "Phone number is required";
+      newErrors.phone = t("appointment.phoneReq");
     } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone must be exactly 10 digits";
+      newErrors.phone = t("appointment.phoneDigits");
     }
     if (!formData.department || formData.department === "Select Department") {
-      newErrors.department = "Please select a department";
+      newErrors.department = t("appointment.deptReq");
     }
     if (!formData.doctor || formData.doctor === "Select Doctor") {
-      newErrors.doctor = "Please select a doctor";
+      newErrors.doctor = t("appointment.docReq");
     }
     if (!formData.date) {
-      newErrors.date = "Date is required";
+      newErrors.date = t("appointment.dateReq");
     } else {
       const selectedDate = new Date(formData.date);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       if (selectedDate < today) {
-        newErrors.date = "Date cannot be in the past";
+        newErrors.date = t("appointment.datePast");
       }
     }
-    if (!formData.time) newErrors.time = "Time is required";
+    if (!formData.time) newErrors.time = t("appointment.timeReq");
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -133,14 +133,13 @@ const Appointment = () => {
         >
           <div className="text-emerald-600 font-bold text-sm tracking-wider uppercase mb-3 flex items-center gap-2">
             <Calendar className="w-4 h-4" />
-            <span>Consult with experts</span>
+            <span>{t("appointment.consultExperts")}</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-navy-500 font-sans leading-tight">
-            Schedule Your <br />
-            <span className="text-emerald-500 text-gradient">Medical Consultation</span>
+            {t("appointment.title").split(" ").map((word, i) => i > 2 ? <span key={i} className="text-emerald-500 text-gradient ml-1">{word}</span> : word + " ")}
           </h2>
           <p className="text-navy-400 text-lg leading-relaxed max-w-lg">
-            Take the first step towards better health. Fill out the form and our team will get back to you to confirm your appointment.
+            {t("appointment.desc")}
           </p>
 
           <div className="mt-8 flex flex-col gap-6 font-sans">
@@ -171,7 +170,7 @@ const Appointment = () => {
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-navy-500 font-bold text-sm ml-2">Full Name</label>
+                <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.nameLabel")}</label>
                 <div className="relative">
                   <User className={cn("absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors", errors.name ? "text-red-400" : "text-navy-300")} />
                   <input 
@@ -189,7 +188,7 @@ const Appointment = () => {
                 {errors.name && <span className="text-red-500 text-xs ml-2 font-medium">{errors.name}</span>}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-navy-500 font-bold text-sm ml-2">Phone Number</label>
+                <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.phoneLabel")}</label>
                 <div className="relative">
                   <Phone className={cn("absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors", errors.phone ? "text-red-400" : "text-navy-300")} />
                   <input 
@@ -210,7 +209,7 @@ const Appointment = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-navy-500 font-bold text-sm ml-2">Department</label>
+                <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.deptLabel")}</label>
                 <select 
                   name="department"
                   value={formData.department}
@@ -220,13 +219,20 @@ const Appointment = () => {
                     errors.department ? "ring-2 ring-red-400" : "focus:ring-emerald-500"
                   )}
                 >
-                  <option value="">Select Department</option>
-                  {departments.map(dept => <option key={dept} value={dept}>{dept}</option>)}
+                  <option value="">{t("appointment.selectDept")}</option>
+                  {departments.map(dept => {
+                    const translatedDept = t(`departments.${dept.toLowerCase()}`);
+                    return (
+                      <option key={dept} value={dept}>
+                        {typeof translatedDept === 'object' ? (translatedDept as any).name : translatedDept}
+                      </option>
+                    );
+                  })}
                 </select>
                 {errors.department && <span className="text-red-500 text-xs ml-2 font-medium">{errors.department}</span>}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-navy-500 font-bold text-sm ml-2">Doctor</label>
+                <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.docLabel")}</label>
                 <select 
                   name="doctor"
                   value={formData.doctor}
@@ -238,7 +244,7 @@ const Appointment = () => {
                     errors.doctor ? "ring-2 ring-red-400" : "focus:ring-emerald-500"
                   )}
                 >
-                  <option value="">{formData.department ? "Select Doctor" : "Select Dept First"}</option>
+                  <option value="">{formData.department ? t("appointment.selectDoc") : t("appointment.selectDeptFirst")}</option>
                   {availableDoctors.map(doctor => <option key={doctor.id} value={doctor.name}>{doctor.name}</option>)}
                 </select>
                 {errors.doctor && <span className="text-red-500 text-xs ml-2 font-medium">{errors.doctor}</span>}
@@ -247,7 +253,7 @@ const Appointment = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
-                <label className="text-navy-500 font-bold text-sm ml-2">Date</label>
+                <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.dateLabel")}</label>
                 <div className="relative">
                   <Calendar className={cn("absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none transition-colors", errors.date ? "text-red-400" : "text-navy-300")} />
                   <input 
@@ -264,7 +270,7 @@ const Appointment = () => {
                 {errors.date && <span className="text-red-500 text-xs ml-2 font-medium">{errors.date}</span>}
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-navy-500 font-bold text-sm ml-2">Time</label>
+                <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.timeLabel")}</label>
                 <div className="relative">
                   <Clock className={cn("absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none transition-colors", errors.time ? "text-red-400" : "text-navy-300")} />
                   <input 
@@ -283,12 +289,12 @@ const Appointment = () => {
             </div>
 
              <div className="flex flex-col gap-2">
-              <label className="text-navy-500 font-bold text-sm ml-2">Message (Optional)</label>
+              <label className="text-navy-500 font-bold text-sm ml-2">{t("appointment.msgLabel")}</label>
               <textarea 
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
-                placeholder="Tell us about your symptoms (optional)..."
+                placeholder={t("appointment.msgPlaceholder")}
                 rows={3}
                 className="w-full px-4 py-4 bg-navy-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 ring-offset-2 transition-all outline-none text-navy-500 font-medium resize-none"
               />
@@ -338,25 +344,25 @@ const Appointment = () => {
           <div>
             <h3 className="text-3xl font-bold text-navy-500 mb-2">{t("common.success")}</h3>
             <div className="inline-block px-4 py-1 bg-emerald-50 text-emerald-600 rounded-full text-xs font-black uppercase tracking-widest mb-4">
-               Status: Confirmed
+               {t("appointment.status")}: {t("appointment.confirmed")}
             </div>
-            <p className="text-navy-400 text-lg">Your appointment has been booked successfully. Our team will contact you shortly.</p>
+            <p className="text-navy-400 text-lg">{t("appointment.successDesc")}</p>
           </div>
           
           <div className="flex flex-col w-full gap-3">
             <a 
-              href="https://meet.google.com/abc-defg-hij" 
+              href="https://meet.jit.si/medinova-consultation" 
               target="_blank" 
               rel="noopener noreferrer"
               className="bg-emerald-500 text-white w-full py-4 rounded-2xl font-bold hover:bg-emerald-600 transition-all shadow-lg flex items-center justify-center gap-2"
             >
-              Join Video Consultation
+              {t("appointment.joinVideo")}
             </a>
             <button 
               onClick={() => setShowSuccess(false)}
               className="bg-navy-50 text-navy-500 w-full py-4 rounded-2xl font-bold hover:bg-navy-100 transition-all"
             >
-              Great, Thanks!
+              {t("appointment.thanks")}
             </button>
           </div>
         </div>

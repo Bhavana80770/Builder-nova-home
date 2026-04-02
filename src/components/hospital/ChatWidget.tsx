@@ -96,7 +96,7 @@ const ChatWidget = () => {
                    <MessageCircle className="w-6 h-6 text-emerald-400" />
                 </div>
                 <div>
-                   <h4 className="font-black text-lg">MediBot</h4>
+                   <h4 className="font-black text-lg">NovaBot</h4>
                    <p className="text-emerald-400 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
                      <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
                      Online now

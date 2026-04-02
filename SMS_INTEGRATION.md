@@ -1,6 +1,6 @@
 # SMS OTP Integration Guide
 
-AarogyaMitra now supports real SMS OTP functionality! This guide will help you configure different SMS providers for sending OTP to mobile numbers.
+NovaBot now supports real SMS OTP functionality! This guide will help you configure different SMS providers for sending OTP to mobile numbers.
 
 ## 🚀 Quick Start (Development)
 
@@ -36,7 +36,7 @@ VITE_SMS_SENDER_ID=AROGYA
 **Template Example:**
 
 ```
-Your AarogyaMitra verification code is: ##OTP##. Valid for 5 minutes. Do not share this code with anyone.
+Your NovaBot verification code is: ##OTP##. Valid for 5 minutes. Do not share this code with anyone.
 ```
 
 ### 2. TextLocal (India Focused)

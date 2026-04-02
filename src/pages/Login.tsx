@@ -103,7 +103,7 @@ const Login = () => {
               <Heart className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-2xl font-bold text-indigo">MediNova</h1>
               <p className="text-sm text-indigo/70">Your Health Companion</p>
             </div>
           </div>

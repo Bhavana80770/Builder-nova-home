@@ -347,7 +347,7 @@ const Pricing = () => {
                 Ready to Start Your Health Journey?
               </h3>
               <p className="text-indigo/70 mb-6">
-                Join thousands of users who trust AarogyaMitra for their
+                Join thousands of users who trust MediNova for their
                 healthcare needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

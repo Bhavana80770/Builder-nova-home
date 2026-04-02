@@ -28,7 +28,7 @@ const Emergency = () => {
               <div className="w-8 h-8 bg-herbal rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-indigo">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -154,7 +154,7 @@ const Emergency = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-coral mb-3">
-                    ⚠️ URGENT (Call 102 or AarogyaMitra):
+                    ⚠️ URGENT (Call 102 or MediNova):
                   </h4>
                   <ul className="text-indigo/80 space-y-1">
                     <li>• High fever with severe symptoms</li>
@@ -258,7 +258,7 @@ const Emergency = () => {
                     <Heart className="w-6 h-6 text-herbal" />
                   </div>
                   <h4 className="font-semibold text-indigo mb-2">
-                    AarogyaMitra AI
+                    NovaBot AI
                   </h4>
                   <p className="text-indigo/80 text-sm mb-3">
                     For non-urgent health questions and symptom checking
@@ -328,7 +328,7 @@ const Emergency = () => {
             </Badge>
             <p className="text-indigo/80">
               <strong>
-                AarogyaMitra is NOT an emergency service. For immediate
+                MediNova is NOT an emergency service. For immediate
                 life-threatening emergencies, always call 108 or visit your
                 nearest hospital.
               </strong>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "medicare-v1";
+const CACHE_NAME = "medinova-v1";
 const urlsToCache = [
   "/",
   "/index.html",

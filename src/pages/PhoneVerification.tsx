@@ -105,7 +105,7 @@ const PhoneVerification = () => {
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <div className="animate-slide-in-right delay-200">
-                <h1 className="text-3xl font-bold text-indigo">AarogyaMitra</h1>
+                <h1 className="text-3xl font-bold text-indigo">MediNova</h1>
                 <p className="text-sm text-indigo/70">Your Health Companion</p>
               </div>
             </div>

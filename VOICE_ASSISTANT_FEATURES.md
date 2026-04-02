@@ -2,7 +2,7 @@
 
 ## 🎯 **Comprehensive Voice Assistant Implementation**
 
-Your AarogyaMitra voice assistant is now fully functional with advanced speech recognition, multi-language support, and intelligent conversation capabilities!
+Your NovaBot voice assistant is now fully functional with advanced speech recognition, multi-language support, and intelligent conversation capabilities!
 
 ## ✨ **New Features Implemented**
 

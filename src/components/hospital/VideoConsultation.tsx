@@ -17,7 +17,7 @@ const VideoConsultation = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleJoinCall = () => {
-    const room = "medicare-" + Date.now();
+    const room = "medinova-" + Date.now();
     window.open(`https://meet.jit.si/${room}`, "_blank");
     setIsDialogOpen(false);
   };
@@ -31,7 +31,7 @@ const VideoConsultation = () => {
     {
       icon: Wifi,
       text: t("videoConsultation.instrInternet"),
-      color: "text-blue-500",
+      color: "text-navy-500",
     },
   ];
 

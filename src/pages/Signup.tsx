@@ -66,7 +66,7 @@ const Signup = () => {
               <Heart className="w-7 h-7 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-2xl font-bold text-indigo">MediNova</h1>
               <p className="text-sm text-indigo/70">Your Health Companion</p>
             </div>
           </div>
@@ -76,7 +76,7 @@ const Signup = () => {
         <Card className="border-gray-border shadow-lg">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl text-indigo">
-              Join AarogyaMitra
+              Join MediNova
             </CardTitle>
             <CardDescription>
               Create your account to start your health journey

@@ -29,8 +29,8 @@ export const departmentsData: Department[] = [
     details: "Our cardiology department provides advanced heart treatments including ECG, angiography, bypass surgery, and preventive care. We focus on both emergency interventions and long-term heart health management.",
     services: ["ECG & Stress Testing", "Angiography & Angioplasty", "Heart Bypass Surgery", "Preventive Rehabilitation"],
     doctor: "Dr. Sharma",
-    color: "bg-red-50",
-    iconColor: "text-red-500",
+    color: "bg-emerald-50",
+    iconColor: "text-emerald-600",
   },
   {
     id: "neurology",
@@ -40,8 +40,8 @@ export const departmentsData: Department[] = [
     details: "We treat complex neurological conditions like stroke, epilepsy, Alzheimer's, and nerve disorders using modern diagnostic technology and evidence-based therapy.",
     services: ["Advanced Brain Scans", "Stroke Management", "Epilepsy Treatment", "Neuro-rehabilitation"],
     doctor: "Dr. Mehta",
-    color: "bg-blue-50",
-    iconColor: "text-blue-500",
+    color: "bg-navy-50",
+    iconColor: "text-navy-600",
   },
   {
     id: "pediatrics",
@@ -51,8 +51,8 @@ export const departmentsData: Department[] = [
     details: "Comprehensive child healthcare including routine vaccinations, pediatric nutrician, development monitoring, and specialized care for childhood illnesses.",
     services: ["Newborn Care", "Vaccination Programs", "Childhood Nutrition", "Development Tracking"],
     doctor: "Dr. Reddy",
-    color: "bg-orange-50",
-    iconColor: "text-orange-500",
+    color: "bg-emerald-50",
+    iconColor: "text-emerald-600",
   },
   {
     id: "emergency",
@@ -73,8 +73,8 @@ export const departmentsData: Department[] = [
     details: "We specialize in joint replacement, sports injury management, complex fracture treatment, and advanced physiotherapy to restore your mobility.",
     services: ["Digital X-Rays", "Joint Replacement", "Sports Medicine", "Physiotherapy"],
     doctor: "Dr. Verma",
-    color: "bg-purple-50",
-    iconColor: "text-purple-500",
+    color: "bg-navy-50",
+    iconColor: "text-navy-600",
   },
   {
     id: "general-medicine",

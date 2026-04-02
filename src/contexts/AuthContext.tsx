@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     // Check if user is already logged in (from localStorage)
-    const savedUser = localStorage.getItem("aarogyamitra_user");
+    const savedUser = localStorage.getItem("medinova_user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       };
 
       setUser(userData);
-      localStorage.setItem("aarogyamitra_user", JSON.stringify(userData));
+      localStorage.setItem("medinova_user", JSON.stringify(userData));
       setIsLoading(false);
       return true;
     }
@@ -76,14 +76,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     setUser(newUser);
-    localStorage.setItem("aarogyamitra_user", JSON.stringify(newUser));
+    localStorage.setItem("medinova_user", JSON.stringify(newUser));
     setIsLoading(false);
     return true;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("aarogyamitra_user");
+    localStorage.removeItem("medinova_user");
   };
 
   const value = {

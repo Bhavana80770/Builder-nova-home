@@ -11,6 +11,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Logo from "../Logo";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -27,14 +28,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Logo & About */}
           <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-900/20">
-                <HeartPulse className="text-white w-6 h-6" />
-              </div>
-              <span className="text-2xl font-bold text-white">
-                Medi<span className="text-emerald-500">Care</span>
-              </span>
-            </div>
+            <Logo size="md" className="!cursor-default" />
             <p className="text-navy-200 leading-relaxed text-sm">
               Providing world-class healthcare services with a focus on patient comfort and advanced medical technologies. Your health is our priority.
             </p>
@@ -106,7 +100,7 @@ const Footer = () => {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs text-navy-300 font-bold uppercase tracking-wider">Email</span>
-                  <span className="text-sm font-medium">contact@medicare.com</span>
+                  <span className="text-sm font-medium">contact@medinova.com</span>
                 </div>
               </li>
               <li className="flex gap-4">
@@ -124,7 +118,7 @@ const Footer = () => {
 
         <div className="pt-12 border-t border-navy-400/50 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-navy-300 text-sm font-bold">
-            © {currentYear} MediCare Hospital. {t("footer.rights")}
+            © {currentYear} MediNova Hospital. {t("footer.rights")}
           </p>
           <div className="flex gap-8 text-sm text-navy-300">
             <a href="#" className="hover:text-emerald-500 transition-colors font-bold">Privacy Policy</a>

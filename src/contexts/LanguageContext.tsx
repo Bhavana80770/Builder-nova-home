@@ -19,6 +19,7 @@ const translations: Record<Language, any> = {
       book: "Book Appointment",
       tools: "Health Tools",
       telemedicine: "Telemedicine",
+      queue: "Live Queue",
     },
     hero: {
       tag: "Best Medical Care",
@@ -36,6 +37,8 @@ const translations: Record<Language, any> = {
       results: "Results",
       error: "Server unavailable",
       booking: "Booking appointment...",
+      selectLanguage: "Select Language",
+      close: "Close"
     },
     bmi: {
       title: "BMI Calculator",
@@ -142,18 +145,70 @@ const translations: Record<Language, any> = {
         telemedicine: "Video Consult", 
         monitoring: "Live Tracking", 
         scheduling: "Easy Booking" 
-      }
+      },
+      learnMore: "Learn More",
+      officialService: "Official Hospital Service",
+      getService: "Get This Service"
+    },
+    appointment: {
+      consultExperts: "Consult with experts",
+      title: "Schedule Your Medical Consultation",
+      desc: "Take the first step towards better health. Fill out the form and our team will get back to you to confirm your appointment.",
+      nameLabel: "Full Name",
+      phoneLabel: "Phone Number",
+      deptLabel: "Department",
+      docLabel: "Doctor",
+      dateLabel: "Date",
+      timeLabel: "Time",
+      msgLabel: "Message (Optional)",
+      msgPlaceholder: "Tell us about your symptoms...",
+      successDesc: "Your appointment has been booked successfully. Our team will contact you shortly.",
+      joinVideo: "Join Video Consultation",
+      thanks: "Great, Thanks!",
+      confirmed: "Confirmed",
+      status: "Status",
+      nameReq: "Full name is required",
+      phoneReq: "Phone number is required",
+      phoneDigits: "Phone must be exactly 10 digits",
+      deptReq: "Please select a department",
+      docReq: "Please select a doctor",
+      dateReq: "Date is required",
+      datePast: "Date cannot be in the past",
+      timeReq: "Time is required",
+      selectDept: "Select Department",
+      selectDoc: "Select Doctor",
+      selectDeptFirst: "Select Dept First"
+    },
+    doctors: {
+      tag: "Expert Team members",
+      title: "Meet Our Dedicated Specialists",
+      searchPlaceholder: "Search by name or specialty...",
+      bookNow: "Book Now",
+      noFound: "No Specialists Found",
+      noFoundDesc: "Try searching for another name or specialty.",
+      clearSearch: "Clear Search",
+      exp: "EXP",
+      rating: "Rating"
     },
     departments: {
       tag: "Medical Excellence",
       title: "Specialized Departments",
       desc: "Our world-class specialists provide expert care across various medical fields.",
-      cardiology: "Cardiology",
-      neurology: "Neurology",
-      orthopedics: "Orthopedics",
-      emergency: "Emergency Med",
-      pediatrics: "Pediatrics",
-      oncology: "Oncology"
+      cardiology: { name: "Cardiology", desc: "Heart & Vascular Care" },
+      neurology: { name: "Neurology", desc: "Brain & Nerve Care" },
+      orthopedics: { name: "Orthopedics", desc: "Bone & Joint Care" },
+      emergency: { name: "Emergency Med", desc: "24/7 Critical Care" },
+      pediatrics: { name: "Pediatrics", desc: "Child Healthcare" },
+      oncology: { name: "Oncology", desc: "Cancer Treatment" },
+      "general-medicine": { name: "General Medicine", desc: "Preventive Care" }
+    },
+    specialties: {
+      "Chief Cardiologist": "Chief Cardiologist",
+      "Neurology Specialist": "Neurology Specialist",
+      "Pediatric Surgeon": "Pediatric Surgeon",
+      "Orthopedic Expert": "Orthopedic Expert",
+      "General Physician": "General Physician",
+      "Emergency Medicine Specialist": "Emergency Medicine Specialist"
     },
     videoConsultation: {
       tag: "Telemedicine",
@@ -168,13 +223,23 @@ const translations: Record<Language, any> = {
       cancel: "Maybe Later"
     },
     chat: {
-      welcome: "👋 Hello! I'm MediBot. How can we help you today?",
+      welcome: "👋 Hello! I'm NovaBot. How can we help you today?",
       placeholder: "Ask me anything about your health...",
-      typing: "MediBot is typing...",
+      typing: "NovaBot is typing...",
       disclaimer: "⚠️ This AI assistant is for informational purposes only. Consult a doctor for medical diagnosis.",
       error: "Something went wrong. Please try again.",
       quickHelp: "Quick Help",
       send: "Send"
+    },
+    symptoms: {
+      fever: "Fever",
+      cough: "Cough",
+      headache: "Headache",
+      fatigue: "Fatigue",
+      chest_pain: "Chest Pain",
+      breath: "Shortness of Breath",
+      vomiting: "Vomiting",
+      dizziness: "Dizziness"
     }
   },
   HI: {
@@ -187,6 +252,7 @@ const translations: Record<Language, any> = {
       book: "अपॉइंटमेंट बुक करें",
       tools: "स्वास्थ्य उपकरण",
       telemedicine: "टेलीमेडिसिन",
+      queue: "लाइव कतार",
     },
     hero: {
       tag: "सर्वश्रेष्ठ चिकित्सा देखभाल",
@@ -204,6 +270,8 @@ const translations: Record<Language, any> = {
       results: "परिणाम",
       error: "सर्वर उपलब्ध नहीं है",
       booking: "अपॉइंटमेंट बुक हो रहा है...",
+      selectLanguage: "भाषा चुनें",
+      close: "बंद करें"
     },
     bmi: {
       title: "बीएमआई कैलकुलेटर",
@@ -310,18 +378,70 @@ const translations: Record<Language, any> = {
         telemedicine: "वीडियो परामर्श", 
         monitoring: "लाइव ट्रैकिंग", 
         scheduling: "आसान बुकिंग" 
-      }
+      },
+      learnMore: "अधिक जानें",
+      officialService: "आधिकारिक अस्पताल सेवा",
+      getService: "यह सेवा प्राप्त करें"
+    },
+    appointment: {
+      consultExperts: "विशेषज्ञों से सलाह लें",
+      title: "अपना मेडिकल परामर्श निर्धारित करें",
+      desc: "बेहतर स्वास्थ्य की ओर पहला कदम उठाएं। फॉर्म भरें और हमारी टीम आपकी नियुक्ति की पुष्टि करने के लिए आपसे संपर्क करेगी।",
+      nameLabel: "पूरा नाम",
+      phoneLabel: "फोन नंबर",
+      deptLabel: "विभाग",
+      docLabel: "डॉक्टर",
+      dateLabel: "तारीख",
+      timeLabel: "समय",
+      msgLabel: "संदेश (वैकल्पिक)",
+      msgPlaceholder: "हमें अपने लक्षणों के बारे में बताएं...",
+      successDesc: "आपकी नियुक्ति सफलतापूर्वक बुक हो गई है। हमारी टीम जल्द ही आपसे संपर्क करेगी।",
+      joinVideo: "वीडियो परामर्श में शामिल हों",
+      thanks: "बहुत अच्छा, धन्यवाद!",
+      confirmed: "पुख्ता",
+      status: "स्थिति",
+      nameReq: "पूरा नाम आवश्यक है",
+      phoneReq: "फोन नंबर आवश्यक है",
+      phoneDigits: "फोन बिल्कुल 10 अंकों का होना चाहिए",
+      deptReq: "कृपया एक विभाग चुनें",
+      docReq: "कृपया एक डॉक्टर चुनें",
+      dateReq: "तारीख आवश्यक है",
+      datePast: "तारीख अतीत में नहीं हो सकती",
+      timeReq: "समय आवश्यक है",
+      selectDept: "विभाग चुनें",
+      selectDoc: "डॉक्टर चुनें",
+      selectDeptFirst: "पहले विभाग चुनें"
+    },
+    doctors: {
+      tag: "विशेषज्ञ टीम के सदस्य",
+      title: "हमारे समर्पित विशेषज्ञों से मिलें",
+      searchPlaceholder: "नाम या विशेषता के आधार पर खोजें...",
+      bookNow: "अभी बुक करें",
+      noFound: "कोई विशेषज्ञ नहीं मिला",
+      noFoundDesc: "किसी अन्य नाम या विशेषता खोजने का प्रयास करें।",
+      clearSearch: "खोज साफ करें",
+      exp: "अनुभव",
+      rating: "रेटिंग"
     },
     departments: {
       tag: "चिकित्सा उत्कृष्टता",
       title: "विशेषज्ञ विभाग",
       desc: "हमारे विश्व स्तरीय विशेषज्ञ विभिन्न चिकित्सा क्षेत्रों में विशेषज्ञ देखभाल प्रदान करते हैं।",
-      cardiology: "हृदय रोग विज्ञान",
-      neurology: "तंत्रिका विज्ञान",
-      orthopedics: "हड्डियों का रोग",
-      emergency: "आपातकालीन चिकित्सा",
-      pediatrics: "बाल रोग",
-      oncology: "कैंसर विज्ञान"
+      cardiology: { name: "हृदय रोग विज्ञान", desc: "हृदय और नाड़ी की देखभाल" },
+      neurology: { name: "तंत्रिका विज्ञान", desc: "मस्तिष्क और तंत्रिका देखभाल" },
+      orthopedics: { name: "हड्डियों का रोग", desc: "हड्डी और जोड़ों की देखभाल" },
+      emergency: { name: "आपातकालीन चिकित्सा", desc: "24/7 गंभीर देखभाल" },
+      pediatrics: { name: "बाल रोग", desc: "बाल स्वास्थ्य सेवा" },
+      oncology: { name: "कैंसर विज्ञान", desc: "कैंसर का उपचार" },
+      "general-medicine": { name: "सामान्य औषध", desc: "निवारक देखभाल" }
+    },
+    specialties: {
+      "Chief Cardiologist": "मुख्य हृदय रोग विशेषज्ञ",
+      "Neurology Specialist": "न्यूरोलॉजी विशेषज्ञ",
+      "Pediatric Surgeon": "बाल रोग सर्जन",
+      "Orthopedic Expert": "हड्डी रोग विशेषज्ञ",
+      "General Physician": "सामान्य चिकित्सक",
+      "Emergency Medicine Specialist": "आपातकालीन चिकित्सा विशेषज्ञ"
     },
     videoConsultation: {
       tag: "टेलीमेडिसिन",
@@ -336,13 +456,23 @@ const translations: Record<Language, any> = {
       cancel: "बाद में"
     },
     chat: {
-      welcome: "👋 नमस्ते! मैं मेडीबॉट हूँ। आज हम आपकी क्या मदद कर सकते हैं?",
+      welcome: "👋 नमस्ते! मैं नोवाबॉट (NovaBot) हूँ। आज हम आपकी क्या मदद कर सकते हैं?",
       placeholder: "अपने स्वास्थ्य के बारे में कुछ भी पूछें...",
-      typing: "मेडीबॉट टाइप कर रहा है...",
+      typing: "नोवाबॉट टाइप कर रहा है...",
       disclaimer: "⚠️ यह एआई सहायक केवल सूचनात्मक उद्देश्यों के लिए है।",
       error: "कुछ गलत हो गया। कृपया पुन: प्रयास करें।",
       quickHelp: "त्वरित सहायता",
       send: "भेजें"
+    },
+    symptoms: {
+      fever: "बुखार",
+      cough: "खांसी",
+      headache: "सिरदर्द",
+      fatigue: "थकान",
+      chest_pain: "सीने में दर्द",
+      breath: "सांस लेने में कठिनाई",
+      vomiting: "उल्टी",
+      dizziness: "चक्कर आना"
     }
   },
   TE: {
@@ -355,6 +485,7 @@ const translations: Record<Language, any> = {
       book: "అపాయింట్మెంట్ బుక్ చేయండి",
       tools: "ఆరోగ్య సాధనాలు",
       telemedicine: "టెలిమెడిసిన్",
+      queue: "లైవ్ క్యూ",
     },
     hero: {
       tag: "ఉత్తమ వైద్య సంరక్షణ",
@@ -372,6 +503,8 @@ const translations: Record<Language, any> = {
       results: "ఫలితాలు",
       error: "సర్వర్ అందుబాటులో లేదు",
       booking: "అపాయింట్మెంట్ బుక్ చేయబడుతోంది...",
+      selectLanguage: "భాషను ఎంచుకోండి",
+      close: "మూసివేయి"
     },
     bmi: {
       title: "BMI కాలిక్యులేటర్",
@@ -478,18 +611,70 @@ const translations: Record<Language, any> = {
         telemedicine: "వీడియో కన్సల్ట్", 
         monitoring: "లైవ్ ట్రాకింగ్", 
         scheduling: "ఈజీ బుకింగ్" 
-      }
+      },
+      learnMore: "మరింత తెలుసుకోండి",
+      officialService: "అధికారిక ఆసుపత్రి సేవ",
+      getService: "ఈ సేవను పొందండి"
+    },
+    appointment: {
+      consultExperts: "నిపుణులతో సంప్రదించండి",
+      title: "మీ వైద్య సంప్రదింపులను షెడ్యూల్ చేయండి",
+      desc: "మెరుగైన ఆరోగ్యం వైపు మొదటి అడుగు వేయండి. ఫారమ్‌ను నింపండి మరియు మీ నియామకాన్ని ధృవీకరించడానికి మా బృందం మిమ్మల్ని సంప్రదిస్తుంది.",
+      nameLabel: "పూర్తి పేరు",
+      phoneLabel: "ఫోన్ నంబర్",
+      deptLabel: "విభాగం",
+      docLabel: "డాక్టర్",
+      dateLabel: "తేదీ",
+      timeLabel: "సమయం",
+      msgLabel: "సందేశం (ఐచ్ఛికం)",
+      msgPlaceholder: "మీ లక్షణాల గురించి మాకు చెప్పండి...",
+      successDesc: "మీ అపాయింట్‌మెంట్ విజయవంతంగా బుక్ చేయబడింది. మా బృందం త్వరలో మిమ్మల్ని సంప్రదిస్తుంది.",
+      joinVideo: "వీడియో సంప్రదింపుల్లో చేరండి",
+      thanks: "సరే, ధన్యవాదాలు!",
+      confirmed: "ధృవీకరించబడింది",
+      status: "స్థితి",
+      nameReq: "పూర్తి పేరు తప్పనిసరి",
+      phoneReq: "ఫోన్ నంబర్ తప్పనిసరి",
+      phoneDigits: "ఫోన్ ఖచ్చితంగా 10 అంకెలు ఉండాలి",
+      deptReq: "దయచేసి ఒక విభాగాన్ని ఎంచుకోండి",
+      docReq: "దయచేసి ఒక వైద్యుడిని ఎంచుకోండి",
+      dateReq: "తేదీ తప్పనిసరి",
+      datePast: "తేదీ గతంలో ఉండకూడదు",
+      timeReq: "సమయం తప్పనిసరి",
+      selectDept: "విభాగాన్ని ఎంచుకోండి",
+      selectDoc: "డాక్టర్‌ని ఎంచుకోండి",
+      selectDeptFirst: "ముందుగా విభాగాన్ని ఎంచుకోండి"
+    },
+    doctors: {
+      tag: "నిపుణుల బృందం సభ్యులు",
+      title: "మా అంకితభావం గల నిపుణులను కలవండి",
+      searchPlaceholder: "పేరు లేదా స్పెషాలిటీ ద్వారా వెతకండి...",
+      bookNow: "ఇప్పుడే బుక్ చేయండి",
+      noFound: "నిపుణులు కనిపించలేదు",
+      noFoundDesc: "మరో పేరు లేదా స్పెషాలిటీతో వెతకండి.",
+      clearSearch: "సెర్చ్ క్లియర్ చేయండి",
+      exp: "అనుభవం",
+      rating: "రేటింగ్"
     },
     departments: {
       tag: "వైద్య శ్రేష్టత",
       title: "ప్రత్యేక విభాగాలు",
       desc: "మా ప్రపంచ స్థాయి నిపుణులు వివిధ వైద్య రంగాలలో నిపుణుల సంరక్షణను అందిస్తారు.",
-      cardiology: "కార్డియాలజీ",
-      neurology: "న్యూరాలజీ",
-      orthopedics: "ఆర్తోపెడిక్స్",
-      emergency: "ఎమర్జెన్సీ మెడిసిన్",
-      pediatrics: "పీడియాట్రిక్స్",
-      oncology: "ఆంకాలజీ"
+      cardiology: { name: "కార్డియాలజీ", desc: "గుండె సంరక్షణ" },
+      neurology: { name: "న్యూరాలజీ", desc: "మెదడు సంరక్షణ" },
+      orthopedics: { name: "ఆర్తోపెడిక్స్", desc: "ఎముకల సంరక్షణ" },
+      emergency: { name: "ఎమర్జెన్సీ మెడిసిన్", desc: "24/7 సంరక్షణ" },
+      pediatrics: { name: "పీడియాట్రిక్స్", desc: "పిల్లల సంరక్షణ" },
+      oncology: { name: "ఆంకాలజీ", desc: "క్యాన్సర్ చికిత్స" },
+      "general-medicine": { name: "జనరల్ మెడిసిన్", desc: "నివారణ సంరక్షణ" }
+    },
+    specialties: {
+      "Chief Cardiologist": "చీఫ్ కార్డియాలజిస్ట్",
+      "Neurology Specialist": "న్యూరాలజీ స్పెషలిస్ట్",
+      "Pediatric Surgeon": "పీడియాట్రిక్ సర్జన్",
+      "Orthopedic Expert": "ఆర్థోపెడిక్ నిపుణుడు",
+      "General Physician": "జనరల్ ఫిజీషియన్",
+      "Emergency Medicine Specialist": "ఎమర్జెన్సీ మెడిసిన్ స్పెషలిస్ట్"
     },
     videoConsultation: {
       tag: "టెలిమెడిసిన్",
@@ -504,13 +689,23 @@ const translations: Record<Language, any> = {
       cancel: "తర్వాత"
     },
     chat: {
-      welcome: "👋 నమస్కారం! నేను మెడిబోట్. మీకు ఎలా సహాయం చేయగలను?",
+      welcome: "👋 నమస్కారం! నేను నోవాబోట్ (NovaBot). మీకు ఎలా సహాయం చేయగలను?",
       placeholder: "ఆరోగ్యం గురించి ఏదైనా అడగండి...",
-      typing: "మెడిబోట్ టైప్ చేస్తోంది...",
+      typing: "నోవాబోట్ టైప్ చేస్తోంది...",
       disclaimer: "⚠️ ఈ AI సహాయం కేవలం సమాచారం కోసం మాత్రమే.",
       error: "ఏదో పొరపాటు జరిగింది. మళ్ళీ ప్రయత్నించండి.",
       quickHelp: "త్వరిత సహాయం",
       send: "పంపండి"
+    },
+    symptoms: {
+      fever: "జ్వరం",
+      cough: "దగ్గు",
+      headache: "తలనొప్పి",
+      fatigue: "నీరసం",
+      chest_pain: "ఛాతీ నొప్పి",
+      breath: "శ్వాస తీసుకోవడంలో ఇబ్బంది",
+      vomiting: "వాంతులు",
+      dizziness: "కళ్ళు తిరగడం"
     }
   },
   TA: {
@@ -523,6 +718,7 @@ const translations: Record<Language, any> = {
       book: "முன்பதிவு செய்யுங்கள்",
       tools: "சுகாதார கருவிகள்",
       telemedicine: "டெலிமெடிசின்",
+      queue: "நேரடி வரிசை",
     },
     hero: {
       tag: "சிறந்த மருத்துவ சிகிச்சை",
@@ -540,6 +736,8 @@ const translations: Record<Language, any> = {
       results: "முடிவுகள்",
       error: "சர்வர் கிடைக்கவில்லை",
       booking: "முன்பதிவு செய்யப்படுகிறது...",
+      selectLanguage: "மொழியைத் தேர்ந்தெடுக்கவும்",
+      close: "மூடு"
     },
     bmi: {
       title: "பிஎம்ஐ கால்குலேட்டர்",
@@ -646,18 +844,70 @@ const translations: Record<Language, any> = {
         telemedicine: "வீடியோ ஆலோசனை", 
         monitoring: "நேரடி கண்காணிப்பு", 
         scheduling: "எளிதான முன்பதிவு" 
-      }
+      },
+      learnMore: "மேலும் அறிய",
+      officialService: "அதிகாரப்பூர்வ மருத்துவமனை சேவை",
+      getService: "இந்த சேவையைப் பெறுங்கள்"
+    },
+    appointment: {
+      consultExperts: "நிபுணர்களுடன் கலந்தாலோசிக்கவும்",
+      title: "உங்கள் மருத்துவ ஆலோசனையைத் திட்டமிடுங்கள்",
+      desc: "சிறந்த ஆரோக்கியத்தை நோக்கி முதல் படியை எடுங்கள். படிவத்தை நிரப்பவும், உங்கள் சந்திப்பை உறுதிப்படுத்த எங்கள் குழு உங்களைத் தொடர்பு கொள்ளும்.",
+      nameLabel: "முழு பெயர்",
+      phoneLabel: "தொலைபேசி எண்",
+      deptLabel: "துறை",
+      docLabel: "மருத்துவர்",
+      dateLabel: "தேதி",
+      timeLabel: "நேரம்",
+      msgLabel: "செய்தி (விருப்பத்திற்குரியது)",
+      msgPlaceholder: "உங்கள் அறிகுறிகளைப் பற்றி எங்களிடம் கூறுங்கள்...",
+      successDesc: "உங்கள் சந்திப்பு வெற்றிகரமாக பதிவு செய்யப்பட்டுள்ளது. எங்கள் குழு விரைவில் உங்களைத் தொடர்பு கொள்ளும்.",
+      joinVideo: "வீடியோ ஆலோசனையில் இணையுங்கள்",
+      thanks: "மிக்க நன்றி!",
+      confirmed: "உறுதிப்படுத்தப்பட்டது",
+      status: "நிலை",
+      nameReq: "முழு பெயர் தேவை",
+      phoneReq: "தொலைபேசி எண் தேவை",
+      phoneDigits: "தொலைபேசி எண் 10 இலக்கங்களாக இருக்க வேண்டும்",
+      deptReq: "தயவுசெய்து ஒரு துறையைத் தேர்ந்தெடுக்கவும்",
+      docReq: "தயவுசெய்து ஒரு மருத்துவரைத் தேர்ந்தெடுக்கவும்",
+      dateReq: "தேதி தேவை",
+      datePast: "தேதி கடந்த காலத்தில் இருக்க முடியாது",
+      timeReq: "நேரம் தேவை",
+      selectDept: "துறையைத் தேர்ந்தெடுக்கவும்",
+      selectDoc: "மருத்துவரைத் தேர்ந்தெடுக்கவும்",
+      selectDeptFirst: "முதலில் துறையைத் தேர்ந்தெடுக்கவும்"
+    },
+    doctors: {
+      tag: "நிபுணர் குழு உறுப்பினர்கள்",
+      title: "எங்கள் அர்ப்பணிப்புள்ள நிபுணர்களைச் சந்திக்கவும்",
+      searchPlaceholder: "பெயர் அல்லது சிறப்பு மூலம் தேடுங்கள்...",
+      bookNow: "இப்போதே பதிவு செய்யுங்கள்",
+      noFound: "நிபுணர்கள் யாரும் தென்படவில்லை",
+      noFoundDesc: "வேறு பெயர் அல்லது சிறப்புத் துறையைத் தேட முயற்சிக்கவும்.",
+      clearSearch: "தேடலை நீக்குக",
+      exp: "அனுபவம்",
+      rating: "மதிப்பீடு"
     },
     departments: {
       tag: "மருத்துவ சிறப்பு",
       title: "சிறப்புத் துறைகள்",
       desc: "எங்கள் உலகத்தரம் வாய்ந்த நிபுணர்கள் பல்வேறு மருத்துவத் துறைகளில் நிபுணத்துவ பராமரிப்பை வழங்குகிறார்கள்.",
-      cardiology: "இதயவியல்",
-      neurology: "நரம்பியல்",
-      orthopedics: "எலும்பியல்",
-      emergency: "அவசர சிகிச்சை",
-      pediatrics: "குழந்தை மருத்துவம்",
-      oncology: "புற்றுநோயியல்"
+      cardiology: { name: "இதயவியல்", desc: "இதயம் மற்றும் வாஸ்குலர் பராமரிப்பு" },
+      neurology: { name: "நரம்பியல்", desc: "மூளை மற்றும் நரம்பு பராமரிப்பு" },
+      orthopedics: { name: "எலும்பியல்", desc: "எலும்பு மற்றும் கூட்டு பராமரிப்பு" },
+      emergency: { name: "அவசர சிகிச்சை", desc: "24/7 தீவிர சிகிச்சை" },
+      pediatrics: { name: "குழந்தை மருத்துவம்", desc: "குழந்தை ஆரோக்கியம்" },
+      oncology: { name: "புற்றுநோயியல்", desc: "புற்றுநோய் சிகிச்சை" },
+      "general-medicine": { name: "பொது மருத்துவம்", desc: "தடுப்பு பராமரிப்பு" }
+    },
+    specialties: {
+      "Chief Cardiologist": "தலைமை இதய நோய் நிபுணர்",
+      "Neurology Specialist": "நரம்பியல் நிபுணர்",
+      "Pediatric Surgeon": "குழந்தை அறுவை சிகிச்சை நிபுணர்",
+      "Orthopedic Expert": "எலும்பியல் நிபுணர்",
+      "General Physician": "பொது மருத்துவர்",
+      "Emergency Medicine Specialist": "அவசர சிகிச்சை நிபுணர்"
     },
     videoConsultation: {
       tag: "டெலிமெடிசின்",
@@ -679,6 +929,16 @@ const translations: Record<Language, any> = {
       error: "ஏதோ தவறு நடந்துவிட்டது. மீண்டும் முயற்சிக்கவும்.",
       quickHelp: "விரைவான உதவி",
       send: "அனுப்பு"
+    },
+    symptoms: {
+      fever: "காய்ச்சல்",
+      cough: "இருமல்",
+      headache: "தலைவலி",
+      fatigue: "சோர்வு",
+      chest_pain: "நெஞ்சு வலி",
+      breath: "மூச்சுத் திணறல்",
+      vomiting: "வாந்தி",
+      dizziness: "தலைச்சுற்றல்"
     }
   },
   MR: {
@@ -691,6 +951,7 @@ const translations: Record<Language, any> = {
       book: "अपॉइंटमेंट बुक करा",
       tools: "आरोग्य साधने",
       telemedicine: "टेलीमेडिसिन",
+      queue: "थेट रांग",
     },
     hero: {
       tag: "सर्वोत्तम वैद्यकीय सेवा",
@@ -708,6 +969,8 @@ const translations: Record<Language, any> = {
       results: "निकाल",
       error: "सर्व्हर उपलब्ध नाही",
       booking: "अपॉइंटमेंट बुक होत आहे...",
+      selectLanguage: "भाषा निवडा",
+      close: "बंद करा"
     },
     bmi: {
       title: "BMI कॅल्क्युलेटर",
@@ -814,18 +1077,70 @@ const translations: Record<Language, any> = {
         telemedicine: "व्हिडिओ सल्ला", 
         monitoring: "लाइव्ह ट्रॅकिंग", 
         scheduling: "सोपे बुकिंग" 
-      }
+      },
+      learnMore: "अधिक जाणून घ्या",
+      officialService: "अधिकृत रुग्णालय सेवा",
+      getService: "ही सेवा मिळवा"
+    },
+    appointment: {
+      consultExperts: "तज्ज्ञांचा सल्ला घ्या",
+      title: "तुमचा वैद्यकीय सल्ला निर्धारित करा",
+      desc: "उत्तम आरोग्याकडे पहिले पाऊल टाका. फॉर्म भरा आणि आमची टीम तुमची अपॉइंटमेंट निश्चित करण्यासाठी तुमच्याशी संपर्क साधेल.",
+      nameLabel: "पूर्ण नाव",
+      phoneLabel: "फोन नंबर",
+      deptLabel: "विभाग",
+      docLabel: "डॉक्टर",
+      dateLabel: "तारीख",
+      timeLabel: "वेळ",
+      msgLabel: "संदेश (पर्यायी)",
+      msgPlaceholder: "आम्हाला तुमच्या लक्षणांबद्दल सांगा...",
+      successDesc: "तुमची अपॉइंटमेंट यशस्वीरित्या बुक झाली आहे. आमची टीम लवकरच तुमच्याशी संपर्क साधेल.",
+      joinVideo: "व्हिडिओ सल्लामसलत मध्ये सामील व्हा",
+      thanks: "खूप छान, धन्यवाद!",
+      confirmed: "निश्चित",
+      status: "स्थिती",
+      nameReq: "पूर्ण नाव आवश्यक आहे",
+      phoneReq: "फोन नंबर आवश्यक आहे",
+      phoneDigits: "फोन नेमका 10 अंकी असावा",
+      deptReq: "कृपया एक विभाग निवडा",
+      docReq: "कृपया एक डॉक्टर निवडा",
+      dateReq: "तारीख आवश्यक आहे",
+      datePast: "तारीख भूतकाळातील नसावी",
+      timeReq: "वेळ आवश्यक आहे",
+      selectDept: "विभाग निवडा",
+      selectDoc: "डॉक्टर निवडा",
+      selectDeptFirst: "प्रथम विभाग निवडा"
+    },
+    doctors: {
+      tag: "तज्ञ टीमचे सदस्य",
+      title: "आमच्या समर्पित तज्ञांना भेटा",
+      searchPlaceholder: "नाव किंवा स्पेशालिटीनुसार शोधा...",
+      bookNow: "आत्ताच बुक करा",
+      noFound: "कोणतेही तज्ञ आढळले नाहीत",
+      noFoundDesc: "दुसऱ्या नावाचा किंवा स्पेशालिटीचा शोध घ्या.",
+      clearSearch: "शोध साफ करा",
+      exp: "अनुभव",
+      rating: "रेटिंग"
     },
     departments: {
       tag: "वैद्यकीय उत्कृष्टता",
       title: "विशेषज्ञ विभाग",
       desc: "आमचे जागतिक दर्जाचे तज्ञ विविध वैद्यकीय क्षेत्रांमध्ये तज्ञ काळजी प्रदान करतात.",
-      cardiology: "हृदयरोग शास्त्र",
-      neurology: "न्यूरोलॉजी",
-      orthopedics: "अस्थिरोग शास्त्र",
-      emergency: "आणीबाणी औषध",
-      pediatrics: "बालरोग",
-      oncology: "कर्करोग शास्त्र"
+      cardiology: { name: "हृदयरोग शास्त्र", desc: "हृदय आणि रक्तवाहिन्यांची काळजी" },
+      neurology: { name: "न्यूरोलॉजी", desc: "मेंदू आणि मज्जातंतूची काळजी" },
+      orthopedics: { name: "अस्थिरोग शास्त्र", desc: "हाडे आणि सांध्यांची काळजी" },
+      emergency: { name: "आणीबाणी औषध", desc: "24/7 क्रिटिकल केअर" },
+      pediatrics: { name: "बालरोग", desc: "बाल आरोग्य सेवा" },
+      oncology: { name: "कर्करोग शास्त्र", desc: "कर्करोग उपचार" },
+      "general-medicine": { name: "सामान्य औषध", desc: "प्रतिबंधात्मक काळजी" }
+    },
+    specialties: {
+      "Chief Cardiologist": "मुख्य हृदयरोग तज्ञ",
+      "Neurology Specialist": "न्यूरोलॉजी तज्ञ",
+      "Pediatric Surgeon": "बालरोग शल्यचिकित्सक",
+      "Orthopedic Expert": "अस्थिरोग तज्ञ",
+      "General Physician": "सामान्य चिकित्सक",
+      "Emergency Medicine Specialist": "आणीबाणी औषध तज्ञ"
     },
     videoConsultation: {
       tag: "टेलीमेडिसिन",
@@ -840,13 +1155,23 @@ const translations: Record<Language, any> = {
       cancel: "नंतर"
     },
     chat: {
-      welcome: "👋 नमस्कार! मी मेडीबॉट आहे. मी तुम्हाला कशी मदत करू शकतो?",
+      welcome: "👋 नमस्कार! मी नोवाबॉट (NovaBot) आहे. मी तुम्हाला कशी मदत करू शकतो?",
       placeholder: "आरोग्याबद्दल काहीही विचारा...",
-      typing: "मेडीबॉट टाईप करत आहे...",
+      typing: "नोवाबॉट टाईप करत आहे...",
       disclaimer: "⚠️ हा एआय सहाय्यक फक्त माहितीसाठी आहे.",
       error: "काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.",
       quickHelp: "त्वरित मदत",
       send: "पाठवा"
+    },
+    symptoms: {
+      fever: "ताप",
+      cough: "खोकला",
+      headache: "डोकेदुखी",
+      fatigue: "थकवा",
+      chest_pain: "छातीत दुखणे",
+      breath: "श्वास घेण्यास त्रास",
+      vomiting: "उलट्या",
+      dizziness: "चक्कर येणे"
     }
   },
 };
@@ -855,13 +1180,13 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem("medicare_lang");
+    const saved = localStorage.getItem("medinova_lang");
     return (saved === "HI" || saved === "EN" || saved === "TE" || saved === "TA" || saved === "MR") ? (saved as Language) : "EN";
   });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("medicare_lang", lang);
+    localStorage.setItem("medinova_lang", lang);
   };
 
   const t = (path: string) => {

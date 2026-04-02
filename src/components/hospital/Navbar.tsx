@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Globe, HeartPulse, ChevronDown, Check } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Logo from "../Logo";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -23,14 +24,14 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: t("navbar.home"), href: "#" },
-    { name: t("navbar.departments"), href: "#departments" },
-    { name: t("navbar.doctors"), href: "#doctors" },
-    { name: t("navbar.services"), href: "#services" },
-    { name: t("navbar.telemedicine"), href: "#video-consultation" },
-    { name: t("phcLocator.tag"), href: "#rural-care" },
-    { name: t("healthVault.tag"), href: "#urban-vault" },
-    { name: t("navbar.contact"), href: "#contact" },
+    { name: t("navbar.home") || "Home", href: "#" },
+    { name: t("navbar.departments") || "Departments", href: "#departments" },
+    { name: t("navbar.doctors") || "Doctors", href: "#doctors" },
+    { name: t("navbar.services") || "Services", href: "#services" },
+    { name: t("navbar.telemedicine") || "Telemedicine", href: "#video-consultation" },
+    { name: t("navbar.queue") || "Live Queue", href: "#queue-tracker" },
+    { name: t("phcLocator.tag") || "Rural Accessibility", href: "#rural-care" },
+    { name: t("healthVault.tag") || "Urban Healthcare", href: "#urban-vault" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement> | null, href: string) => {
@@ -71,40 +72,45 @@ const Navbar = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-4 md:px-8 py-4",
         isScrolled 
-          ? "glass py-3 shadow-lg shadow-navy-900/5 bg-white/80" 
+          ? "glass py-3 shadow-xl shadow-navy-900/5 bg-white/90" 
           : "bg-transparent border-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200">
-            <HeartPulse className="text-white w-6 h-6" />
-          </div>
-          <span className="text-2xl font-bold text-navy-500">
-            Medi<span className="text-emerald-500">Care</span>
-          </span>
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-2">
+        {/* LEFT SECTION (LOGO) - flex-shrink-0 prevents logo from being squashed */}
+        <div className="flex items-center flex-shrink-0">
+          <Logo 
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            size="md"
+          />
         </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-8">
+        {/* CENTER SECTION (NAV LINKS) - flex-1 and justify-center ensures links are in the middle */}
+        <div className="hidden xl:flex items-center justify-center flex-1 gap-5 text-sm font-medium px-8">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className="text-navy-500 hover:text-emerald-500 font-bold text-sm transition-colors relative group"
+              className="text-navy-500 hover:text-[#00C896] transition-all whitespace-nowrap"
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </div>
 
-        {/* Right side Actions */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* RIGHT SECTION - flex-shrink-0 and gap-5 for consistent spacing */}
+        <div className="flex items-center gap-5 flex-shrink-0">
+          <a
+            href="#contact"
+            onClick={(e) => handleLinkClick(e, "#contact")}
+            className="hidden lg:block text-navy-500 hover:text-[#00C896] transition font-bold text-sm"
+          >
+            {t("navbar.contact") || "Contact"}
+          </a>
+
           <div className="relative">
             <button 
               onClick={() => setIsLangOpen(!isLangOpen)}
@@ -123,9 +129,9 @@ const Navbar = () => {
                 <>
                   <div className="fixed inset-0 z-10" onClick={() => setIsLangOpen(false)} />
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
                     className="absolute top-full right-0 mt-2 w-32 bg-white rounded-2xl shadow-xl border border-navy-50 p-2 z-20"
                   >
                     {[
@@ -158,19 +164,19 @@ const Navbar = () => {
 
           <button 
             onClick={(e) => handleLinkClick(null, "#contact")}
-            className="bg-navy-500 text-white px-6 py-2.5 rounded-full font-bold hover:bg-navy-600 transition-all shadow-lg hover:shadow-navy-100 transform hover:-translate-y-0.5 active:translate-y-0"
+            className="bg-[#0A1F44] text-white px-5 py-2 rounded-full shadow-md hover:scale-105 transition font-bold"
           >
             {t("navbar.book")}
           </button>
-        </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="lg:hidden text-navy-500 p-2 hover:bg-navy-50 rounded-xl transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
+          {/* Mobile Toggle */}
+          <button
+            className="xl:hidden text-navy-500 p-2 hover:bg-navy-50 rounded-xl transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -198,7 +204,7 @@ const Navbar = () => {
                 <div className="flex flex-col gap-4 bg-navy-50 p-4 rounded-2xl">
                   <div className="flex items-center gap-2 text-navy-500 font-bold border-b border-navy-100 pb-2">
                     <Globe className="w-5 h-5 text-emerald-500" />
-                    <span>Select Language</span>
+                    <span>{t("common.selectLanguage") || "Select Language"}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {[

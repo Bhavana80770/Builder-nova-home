@@ -26,7 +26,7 @@ const Help = () => {
               <div className="w-8 h-8 bg-herbal rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-indigo">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -45,7 +45,7 @@ const Help = () => {
             <h1 className="text-4xl font-bold text-indigo mb-4">Help Center</h1>
             <p className="text-xl text-indigo/70 max-w-2xl mx-auto">
               Find answers to common questions and learn how to make the most of
-              AarogyaMitra.
+              MediNova.
             </p>
           </div>
 
@@ -119,7 +119,7 @@ const Help = () => {
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-indigo mb-2">
-                      How do I start using AarogyaMitra?
+                      How do I start using MediNova?
                     </h4>
                     <p className="text-indigo/80">
                       Simply click "Start Free Consultation" and verify your
@@ -237,13 +237,13 @@ const Help = () => {
                     </h4>
                     <p className="text-indigo/80">
                       For life-threatening emergencies, call 108 immediately or
-                      visit your nearest hospital. AarogyaMitra is for
+                      visit your nearest hospital. MediNova is for
                       consultation and guidance, not emergency treatment.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-indigo mb-2">
-                      Is AarogyaMitra available 24/7?
+                      Is MediNova available 24/7?
                     </h4>
                     <p className="text-indigo/80">
                       Yes! Our AI assistant is available 24/7. Doctor
@@ -294,7 +294,7 @@ const Help = () => {
               <Badge className="bg-soft-red text-white mb-2">EMERGENCY</Badge>
               <p className="text-indigo/80 text-sm">
                 For medical emergencies, call <strong>108</strong> immediately.
-                AarogyaMitra provides consultation and guidance but is not a
+                MediNova provides consultation and guidance but is not a
                 substitute for emergency medical care.
               </p>
             </div>

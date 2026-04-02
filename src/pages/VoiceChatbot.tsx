@@ -112,7 +112,7 @@ const VoiceChatbot = () => {
     // Add initial greeting
     if (messages.length === 0) {
       addAssistantMessage(
-        "Hello! I'm AarogyaMitra, your AI health assistant. How can I help you today? You can speak in your preferred language.",
+        "Hello! I'm NovaBot, your AI health assistant. How can I help you today? You can speak in your preferred language.",
       );
     }
 
@@ -240,7 +240,7 @@ const VoiceChatbot = () => {
     const responses = {
       en: {
         greeting:
-          "Hello! I'm AarogyaMitra, your AI health assistant. I can help you with health concerns, connect you with doctors, or provide medical advice. How can I assist you today?",
+          "Hello! I'm NovaBot, your AI health assistant. I can help you with health concerns, connect you with doctors, or provide medical advice. How can I assist you today?",
         fever:
           "I understand you have fever. Here's what you should do:\n\n• Rest and drink plenty of fluids\n• Take paracetamol (500mg) every 6 hours if temperature is above 100°F\n• Use cold compress on forehead\n• Monitor temperature regularly\n• If fever persists for more than 3 days or goes above 103°F, consult a doctor immediately\n\nWould you like me to connect you with a doctor for consultation?",
         headache:
@@ -267,7 +267,7 @@ const VoiceChatbot = () => {
       },
       hi: {
         greeting:
-          "नमस्ते! मैं आरोग्यमित्र हूं, आपका AI स्वास्थ्य सहायक। मैं आपकी स्वास्थ्य समस्याओं में मदद कर सकता हूं, डॉक्टरों से जोड़ सकता हूं, या चिकित्सा सलाह दे सकता हूं। आज मैं आपकी कैसे सेवा कर सकता हूं?",
+          "नमस्ते! मैं नोवा-बॉट (NovaBot) हूं, आपका AI स्वास्थ्य सहायक। मैं आपकी स्वास्थ्य समस्याओं में मदद कर सकता हूं, डॉक्टरों से जोड़ सकता हूं, या चिकित्सा सलाह दे सकता हूं। आज मैं आपकी कैसे सेवा कर सकता हूं?",
         fever:
           "मैं समझ गया कि आपको बुखार है। यह करें:\n\n• आराम करें और ���ूब पानी पिएं\n• अगर बुखार 100°F से ज्यादा है तो हर 6 घंटे में पैरासिटामोल (500mg) ल��ं\n• माथे पर ठंडी पट्टी रखें\n• नियमित तापमान चेक करें\n• अगर बुखार 3 दिन से ज्यादा रहे या 103°F से ज्यादा हो तो तुरंत डॉक्टर से मिलें\n\nक्या मैं आपको डॉक्टर से सलाह के लिए जोड़ दूं?",
         headache:
@@ -286,7 +286,7 @@ const VoiceChatbot = () => {
       },
       bn: {
         greeting:
-          "হ্যালো! আমি আরোগ্যমিত্র, আপনার AI স্বাস্থ্য সহায়ক। আমি আপনার স্বাস্থ্য সমস্যায় সাহায্য করতে পারি, ডাক্তারদের সাথে যোগাযোগ করাতে পারি বা চিকিৎসা ��রামর্শ দিতে পারি। আজ আমি কীভাবে আপনাকে সাহায্য করতে পারি?",
+          "হ্যালো! আমি নোভা-বট (NovaBot), আপনার AI স্বাস্থ্য সহায়ক। আমি আপনার স্বাস্থ্য সমস্যায় সাহায্য করতে পারি, ডাক্তারদের সাথে যোগাযোগ করাতে পারি বা চিকিৎসা ��রামর্শ দিতে পারি। আজ আমি কীভাবে আপনাকে সাহায্য করতে পারি?",
         fever:
           "আমি বুঝতে পারছি আপনার জ্বর হয়েছে। এটি করুন:\n\n• বিশ্রাম নিন এবং প্রচুর পানি পান করুন\n• জ্বর 100°F এর বেশি হলে প্রতি 6 ঘন্টায় প্যারাসিটামল (500mg) খান\n• কপালে ঠান্ডা কাপড় দিন\n• নিয়মিত তাপমাত্রা পরীক্ষা করুন\n• জ্বর 3 দিনের ��েশি থাকলে বা 103°F এর বেশি হলে অবিলম্বে ডাক্তার দেখান\n\nআমি কি আপনাকে ডাক্তারের পরামর্শের জন্য যোগাযোগ করিয়ে দিব?",
         headache:
@@ -302,7 +302,7 @@ const VoiceChatbot = () => {
       },
       ta: {
         greeting:
-          "வணக்கம்! நான் ஆரோக்யமித்ரா, உங்கள் AI ஆரோக்ய உதவியாளர். உங்கள் ஆரோக்ய பிரச்சனைகளில் உதவ முடியும், மருத்துவர்களுடன் இணைக்க முடியும், அல்லது மருத்துவ ஆலோசனை வழங்க முடியும். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+          "வணக்கம்! நான் நோவா-பாட் (NovaBot), உங்கள் AI ஆரோக்ய உதவியாளர். உங்கள் ஆரோக்ய பிரச்சனைகளில் உதவ முடியும், மருத்துவர்களுடன் இணைக்க முடியும், அல்லது மருத்துவ ஆலோசனை வழங்க முடியும். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?",
         fever:
           "உங்களுக்கு காய்ச்சல் இருப்பது புரிகிறது. இதை செய்யுங்கள்:\n\n• ஓய்வெடுத்து நிறை�� தண்ணீர் குடியுங்கள்\n• காய்ச்சல் 100°F க்கு மேல் இருந்தால் 6 மணி நேரத்திற்கு ஒருமு��ை ��ா��ா��ி��்ட���ால் (500mg) எடுங்கள்\n• நெற்றியில் குளிர்ந்த துணி வையுங்கள்\n• வெப்பநிலையை தொடர்ந்து சரிபார்க்கவும்\n• காய்ச்சல் 3 நாட்களுக்கு மேல் நீடித்தால் அல்லது 103°F க்கு மேல் சென்றால் உடனே மருத்துவரை பாருங்கள்\n\nமர���த்துவ ஆலோசனைக்காக உங்களை இணைக்கட்டுமா?",
         headache:
@@ -318,7 +318,7 @@ const VoiceChatbot = () => {
       },
       te: {
         greeting:
-          "హలో! నేను ఆరోగ్యమిత్రను, మీ AI ఆరోగ్య సహాయక��డను. నేను మీ ఆరోగ్య సమస్యలలో సహాయం చేయగలను, వైద్యులతో కలుపుతాను లేదా వైద్య సలహా ఇవ్వగలను. ఈరోజు నేను మీకు ఎలా సహాయం చేయగలను?",
+          "హలో! నేను నోవా-బాట్ (NovaBot), మీ AI ఆరోగ్య సహాయక��డను. నేను మీ ఆరోగ్య సమస్యలలో సహాయం చేయగలను, వైద్యులతో కలుపుతాను లేదా వైద్య సలహా ఇవ్వగలను. ఈరోజు నేను మీకు ఎలా సహాయం చేయగలను?",
         fever:
           "మీకు జ్వరం వచ్చిందని అర్థమైంది. ఇలా చేయండి:\n\n• విశ్రమ��ంచి చాలా నీళ్లు తాగండి\n• జ్వరం 100°F కంటే ఎక్కువ ఉంటే 6 గంటలకు ఒకసారి పారాసిటమాల్ (500mg) తీసుకోండి\n• నుదిటిపై చల్లని గుడ్డ వేయండి\n• ఉష్ణోగ్రతను క్రమం తప్పకుండా తనిఖీ చేయండి\n• జ్వరం 3 రోజులకు మించి ఉంటే లేదా 103°F కంటే ఎక్కువ అయితే వెంటనే వైద్యుడిని చూపించండి\n\nవైద్య సలహా కోసం మిమ్మల్ని కలిపించాలా?",
         headache:
@@ -738,7 +738,7 @@ const VoiceChatbot = () => {
               )}
             </div>
             <h2 className="text-2xl font-bold text-indigo mb-2">
-              AarogyaMitra AI Assistant
+              NovaBot AI Assistant
             </h2>
             <p className="text-indigo/70">
               Speak naturally in your preferred language
@@ -889,7 +889,7 @@ const VoiceChatbot = () => {
                                   <Heart className="w-3 h-3 text-white" />
                                 </div>
                                 <span className="text-xs font-semibold text-herbal">
-                                  AarogyaMitra AI
+                                  NovaBot AI
                                 </span>
                               </div>
                             )}

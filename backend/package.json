@@ -1,7 +1,7 @@
 {
-  "name": "medicare-backend",
+  "name": "medinova-backend",
   "version": "1.0.0",
-  "description": "Backend for MediCare Hospital Platform",
+  "description": "Backend for MediNova Hospital Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

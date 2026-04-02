@@ -21,7 +21,7 @@ const Terms = () => {
               <div className="w-8 h-8 bg-herbal rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-indigo">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -41,7 +41,7 @@ const Terms = () => {
               Terms of Service
             </h1>
             <p className="text-xl text-indigo/70 max-w-2xl mx-auto">
-              Please read these terms carefully before using AarogyaMitra
+              Please read these terms carefully before using MediNova
               services.
             </p>
             <p className="text-sm text-indigo/60 mt-2">
@@ -61,7 +61,7 @@ const Terms = () => {
               <CardContent className="space-y-4">
                 <div>
                   <h4 className="font-semibold text-indigo mb-2">
-                    What AarogyaMitra Provides:
+                    What MediNova Provides:
                   </h4>
                   <ul className="text-indigo/80 space-y-1 ml-4">
                     <li>• AI-powered health assistance and symptom checking</li>
@@ -140,7 +140,7 @@ const Terms = () => {
                       emergencies, call 108 immediately
                     </li>
                     <li>
-                      • <strong>Not a Substitute:</strong> AarogyaMitra is not a
+                      • <strong>Not a Substitute:</strong> MediNova is not a
                       replacement for professional medical care
                     </li>
                     <li>
@@ -158,7 +158,7 @@ const Terms = () => {
                     Liability Limitations:
                   </h4>
                   <p className="text-indigo/80">
-                    AarogyaMitra provides health information and connects you
+                    MediNova provides health information and connects you
                     with medical professionals. We are not liable for medical
                     outcomes, misdiagnosis, or delayed treatment. Users are
                     responsible for seeking appropriate medical care for their
@@ -257,7 +257,7 @@ const Terms = () => {
                 <div>
                   <p className="text-indigo/80">
                     Your privacy is protected under our comprehensive Privacy
-                    Policy. By using AarogyaMitra, you consent to the collection
+                    Policy. By using MediNova, you consent to the collection
                     and use of your health information as described in our
                     Privacy Policy.
                   </p>
@@ -354,7 +354,7 @@ const Terms = () => {
           {/* Acceptance */}
           <div className="mt-8 p-4 bg-herbal-50 border border-herbal-100 rounded-lg text-center">
             <p className="text-sm text-indigo/80">
-              By using AarogyaMitra, you acknowledge that you have read,
+              By using MediNova, you acknowledge that you have read,
               understood, and agree to be bound by these Terms of Service. These
               terms were last updated in December 2024.
             </p>

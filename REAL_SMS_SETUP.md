@@ -77,7 +77,7 @@ Your app is configured to:
 ### Console Output:
 
 ```
-🎉 AarogyaMitra OTP Sent Successfully! 🎉
+🎉 NovaBot OTP Sent Successfully! 🎉
 ============================================
 📱 To Mobile Number: +919876543210
 🔐 Your Verification Code: 123456
@@ -113,7 +113,7 @@ Many Indian SMS providers offer free credits:
 
 ## 🎉 Ready to Test!
 
-Your AarogyaMitra app is now configured to send real SMS!
+Your NovaBot app is now configured to send real SMS!
 
 **Try it now:**
 

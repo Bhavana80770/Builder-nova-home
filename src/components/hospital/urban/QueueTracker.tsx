@@ -54,7 +54,7 @@ const QueueTracker = () => {
   const activeQueue = queues.find(q => q.id === selectedDept) || queues[0];
 
   return (
-    <section id="queue-tracker" className="py-24 bg-navy-900 text-white relative overflow-hidden">
+    <section id="queue-tracker" className="py-24 bg-navy-50/30 text-navy-500 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           {/* Left: Interactive Tracker */}
@@ -64,15 +64,15 @@ const QueueTracker = () => {
             transition={{ duration: 0.6 }}
             className="lg:w-1/2 w-full"
           >
-            <div className="text-emerald-400 font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
-              <Activity className="w-4 h-4 text-emerald-400" />
+            <div className="text-emerald-600 font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-emerald-500" />
               Live Hospital Traffic
             </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight text-navy-500">
               Real-Time <br />
-              <span className="text-emerald-400">Queue Intelligence</span>
+              <span className="text-emerald-500">Queue Intelligence</span>
             </h2>
-            <p className="text-navy-200 text-lg mb-12 max-w-lg leading-relaxed">
+            <p className="text-navy-400 text-lg mb-12 max-w-lg leading-relaxed font-medium">
               Check live OPD waiting times and patient traffic before you visit. Plan your consultation efficiently with our predictive queuing system.
             </p>
 
@@ -85,7 +85,7 @@ const QueueTracker = () => {
                     "p-6 rounded-[30px] border transition-all flex flex-col items-center gap-3 group text-center",
                     selectedDept === q.id 
                       ? "bg-emerald-500 border-emerald-400 shadow-xl shadow-emerald-500/20 text-white" 
-                      : "bg-navy-800 border-navy-700 text-navy-300 hover:border-emerald-500/50 hover:bg-navy-800/80"
+                      : "bg-white border-navy-100 text-navy-400 hover:border-emerald-500/50 hover:bg-emerald-50/50"
                   )}
                 >
                   <q.icon className={cn(
@@ -107,7 +107,7 @@ const QueueTracker = () => {
               onClick={() => setIsNotified(true)}
               className={cn(
                 "mt-10 flex items-center gap-3 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95",
-                isNotified ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30" : "bg-emerald-500 text-white shadow-xl shadow-emerald-500/20"
+                isNotified ? "bg-emerald-50 text-emerald-600 border border-emerald-500/30" : "bg-emerald-500 text-white shadow-xl shadow-emerald-200"
               )}
             >
               {isNotified ? (<><BellRing className="w-5 h-5" /> Notifications On</>) : (<><BellRing className="w-5 h-5" /> Notify Me of Wait Changes</>)}
@@ -121,53 +121,53 @@ const QueueTracker = () => {
             transition={{ duration: 0.8 }}
             className="lg:w-1/2 w-full"
           >
-            <div className="bg-navy-800 rounded-[50px] p-8 md:p-12 border border-navy-700 shadow-2xl relative">
+            <div className="bg-white rounded-[50px] p-8 md:p-12 border border-emerald-100 shadow-2xl relative">
               <div className="absolute -top-6 -right-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl animate-pulse" />
               
-              <div className="flex justify-between items-center mb-10 pb-6 border-b border-navy-700">
+              <div className="flex justify-between items-center mb-10 pb-6 border-b border-navy-50">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center">
-                    <activeQueue.icon className="w-6 h-6 text-emerald-400" />
+                  <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center">
+                    <activeQueue.icon className="w-6 h-6 text-emerald-500" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-black">{activeQueue.name}</h3>
-                    <p className="text-navy-400 text-xs font-bold uppercase tracking-widest">Department Status</p>
+                    <h3 className="text-2xl font-black text-navy-500">{activeQueue.name}</h3>
+                    <p className="text-navy-300 text-xs font-bold uppercase tracking-widest">Department Status</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 rounded-full text-emerald-400 font-bold border border-emerald-500/20 animate-pulse">
-                  <span className="w-2 h-2 bg-emerald-400 rounded-full" />
+                <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50 rounded-full text-emerald-600 font-bold border border-emerald-100 animate-pulse">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full" />
                   LIVE
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-8">
-                <div className="bg-navy-900/50 p-8 rounded-[40px] border border-navy-700 text-center">
-                   <Users className="w-6 h-6 text-emerald-400 mx-auto mb-3" />
-                   <div className="text-4xl font-black mb-1">{activeQueue.waiting}</div>
-                   <div className="text-navy-400 text-[10px] font-black uppercase tracking-widest">Waiting Patients</div>
+                <div className="bg-navy-50/50 p-8 rounded-[40px] border border-navy-100 text-center shadow-inner">
+                   <Users className="w-6 h-6 text-emerald-500 mx-auto mb-3" />
+                   <div className="text-4xl font-black mb-1 text-navy-500">{activeQueue.waiting}</div>
+                   <div className="text-navy-300 text-[10px] font-black uppercase tracking-widest">Waiting Patients</div>
                 </div>
-                <div className="bg-navy-900/50 p-8 rounded-[40px] border border-navy-700 text-center">
-                   <Clock className="w-6 h-6 text-emerald-400 mx-auto mb-3" />
-                   <div className="text-4xl font-black mb-1">{activeQueue.waitTime} <span className="text-sm font-bold text-navy-400 uppercase">m</span></div>
-                   <div className="text-navy-400 text-[10px] font-black uppercase tracking-widest">Avg. Wait Time</div>
+                <div className="bg-navy-50/50 p-8 rounded-[40px] border border-navy-100 text-center shadow-inner">
+                   <Clock className="w-6 h-6 text-emerald-500 mx-auto mb-3" />
+                   <div className="text-4xl font-black mb-1 text-navy-500">{activeQueue.waitTime} <span className="text-sm font-bold text-navy-300 uppercase">m</span></div>
+                   <div className="text-navy-300 text-[10px] font-black uppercase tracking-widest">Avg. Wait Time</div>
                 </div>
               </div>
 
-              <div className="mt-10 px-8 py-6 bg-navy-500/20 border-2 border-emerald-500/20 rounded-[40px] relative overflow-hidden group">
+              <div className="mt-10 px-8 py-6 bg-navy-50 border-2 border-emerald-500/20 rounded-[40px] relative overflow-hidden group shadow-lg shadow-navy-100/50">
                 <div className="flex justify-between items-center relative z-10">
                    <div>
-                     <p className="text-navy-400 font-black text-[10px] uppercase tracking-[0.2em] mb-2">NOW SERVING TOKEN</p>
-                     <div className="text-5xl font-black text-emerald-400 font-mono tracking-tighter">
+                     <p className="text-navy-300 font-black text-[10px] uppercase tracking-[0.2em] mb-2">NOW SERVING TOKEN</p>
+                     <div className="text-5xl font-black text-emerald-600 font-mono tracking-tighter">
                        #{activeQueue.current}
                      </div>
                    </div>
                    <div className="text-right">
-                     <p className="text-navy-400 font-black text-[10px] uppercase tracking-[0.2em] mb-2">LAST UPDATED</p>
-                     <p className="text-sm font-bold text-white">Just Now</p>
+                     <p className="text-navy-300 font-black text-[10px] uppercase tracking-[0.2em] mb-2">LAST UPDATED</p>
+                     <p className="text-sm font-bold text-navy-500">Just Now</p>
                    </div>
                 </div>
                 {/* Decorative scanning line */}
-                <div className="absolute inset-x-0 top-0 h-[1px] bg-emerald-400/50 blur-[1px] animate-pulse" style={{ top: '60%' }} />
+                <div className="absolute inset-x-0 h-[2px] bg-emerald-500/20 blur-[1px] animate-pulse" style={{ top: '60%' }} />
               </div>
 
               <div className="mt-12 text-center">
@@ -186,11 +186,11 @@ const QueueTracker = () => {
       </div>
 
       {/* Decorative SVG backgrounds */}
-      <div className="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none">
+      <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00C896" strokeWidth="1"/>
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />

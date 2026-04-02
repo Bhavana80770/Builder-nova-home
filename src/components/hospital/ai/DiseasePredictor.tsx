@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Symptom {
   id: string;
@@ -42,6 +43,7 @@ interface Prediction {
 }
 
 const DiseasePredictor = () => {
+  const { t, language } = useLanguage();
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,7 +95,7 @@ const DiseasePredictor = () => {
   };
 
   return (
-    <section id="predictor" className="py-24 bg-white relative overflow-hidden">
+    <section id="ai-predictor" className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           
@@ -133,7 +135,7 @@ const DiseasePredictor = () => {
                   )}>
                     {selectedSymptoms.includes(symptom.id) && <CheckCircle2 className="w-4 h-4 text-white" />}
                   </div>
-                  {symptom.label}
+                  {t(`symptoms.${symptom.id}`)}
                 </button>
               ))}
             </div>

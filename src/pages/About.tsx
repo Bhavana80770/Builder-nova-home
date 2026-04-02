@@ -14,7 +14,7 @@ const About = () => {
               <div className="w-8 h-8 bg-herbal rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-indigo">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -31,7 +31,7 @@ const About = () => {
           {/* Hero Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-indigo mb-4">
-              About AarogyaMitra
+              About MediNova
             </h1>
             <p className="text-xl text-indigo/70 max-w-2xl mx-auto">
               Your trusted AI-powered health companion, connecting you with
@@ -49,7 +49,7 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <p className="text-indigo/80 leading-relaxed">
-                AarogyaMitra is dedicated to making quality healthcare
+                MediNova is dedicated to making quality healthcare
                 accessible to everyone, regardless of language barriers or
                 location. We leverage AI technology and connect you with
                 qualified medical professionals to provide comprehensive health
@@ -146,7 +146,7 @@ const About = () => {
                 size="lg"
                 className="bg-herbal hover:bg-herbal-600 text-white"
               >
-                Get Started with AarogyaMitra
+                Get Started with MediNova
               </Button>
             </Link>
           </div>

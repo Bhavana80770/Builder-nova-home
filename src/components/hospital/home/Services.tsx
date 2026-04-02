@@ -34,9 +34,9 @@ const Services = () => {
       icon: MessageCircle,
       title: t('services.ai.title'),
       desc: t('services.ai.desc'),
-      color: "bg-blue-500",
-      lightColor: "bg-blue-50",
-      textColor: "text-blue-600",
+      color: "bg-emerald-500",
+      lightColor: "bg-emerald-50",
+      textColor: "text-emerald-700",
       delay: 0.1,
       details: t("services.ai.details"),
       features: t("services.ai.features")
@@ -45,9 +45,9 @@ const Services = () => {
       icon: Users,
       title: t('services.doctors.title'),
       desc: t('services.doctors.desc'),
-      color: "bg-emerald-500",
-      lightColor: "bg-emerald-50",
-      textColor: "text-emerald-600",
+      color: "bg-navy-500",
+      lightColor: "bg-navy-50",
+      textColor: "text-navy-700",
       delay: 0.2,
       details: t("services.doctors.details"),
       features: t("services.doctors.features")
@@ -56,9 +56,9 @@ const Services = () => {
       icon: Shield,
       title: t('services.checkup.title'),
       desc: t('services.checkup.desc'),
-      color: "bg-purple-500",
-      lightColor: "bg-purple-50",
-      textColor: "text-purple-600",
+      color: "bg-emerald-500",
+      lightColor: "bg-emerald-50",
+      textColor: "text-emerald-700",
       delay: 0.3,
       details: t("services.checkup.details"),
       features: t("services.checkup.features")
@@ -67,9 +67,9 @@ const Services = () => {
       icon: Brain,
       title: t('services.mental.title'),
       desc: t('services.mental.desc'),
-      color: "bg-amber-500",
-      lightColor: "bg-amber-50",
-      textColor: "text-amber-600",
+      color: "bg-navy-500",
+      lightColor: "bg-navy-50",
+      textColor: "text-navy-700",
       delay: 0.4,
       details: t("services.mental.details"),
       features: t("services.mental.features")
@@ -78,9 +78,9 @@ const Services = () => {
       icon: Microscope,
       title: t('services.lab.title'),
       desc: t('services.lab.desc'),
-      color: "bg-rose-500",
-      lightColor: "bg-rose-50",
-      textColor: "text-rose-600",
+      color: "bg-emerald-500",
+      lightColor: "bg-emerald-50",
+      textColor: "text-emerald-700",
       delay: 0.5,
       details: t("services.lab.details"),
       features: t("services.lab.features")
@@ -89,9 +89,9 @@ const Services = () => {
       icon: Baby,
       title: t('services.peds.title'),
       desc: t('services.peds.desc'),
-      color: "bg-cyan-500",
-      lightColor: "bg-cyan-50",
-      textColor: "text-cyan-600",
+      color: "bg-navy-500",
+      lightColor: "bg-navy-50",
+      textColor: "text-navy-700",
       delay: 0.6,
       details: t("services.peds.details"),
       features: t("services.peds.features")
@@ -169,7 +169,7 @@ const Services = () => {
                   service.textColor
                 )}
               >
-                Learn More
+                {t("services.learnMore")}
                 <div className="w-6 h-0.5 bg-current transform origin-left transition-transform group-hover/btn:scale-x-150" />
               </button>
             </motion.div>
@@ -214,7 +214,7 @@ const Services = () => {
                      <selectedService.icon className="w-8 h-8 text-white" />
                   </div>
                   <DialogTitle className="text-4xl font-black mb-2 text-white">{selectedService.title}</DialogTitle>
-                  <p className="text-white/80 font-medium tracking-wide uppercase text-sm">Official Hospital Service</p>
+                  <p className="text-white/80 font-medium tracking-wide uppercase text-sm">{t("services.officialService")}</p>
                 </div>
               </div>
 
@@ -237,18 +237,23 @@ const Services = () => {
                   <button 
                     onClick={() => {
                         setSelectedService(null);
-                        const contact = document.getElementById('contact');
-                        contact?.scrollIntoView({ behavior: 'smooth' });
+                        const predictor = document.getElementById('ai-predictor');
+                        if (predictor) {
+                            predictor.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            // If not on page, navigate then scroll
+                            window.location.href = "/services#ai-predictor";
+                        }
                     }}
                     className={cn("flex-1 text-white py-4 rounded-2xl font-bold transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98]", selectedService.color)}
                   >
-                    Get This Service
+                    {selectedService.title === t('services.ai.title') ? "Try AI Predictor" : t("services.getService")}
                   </button>
                   <button 
                     onClick={() => setSelectedService(null)}
                     className="px-8 py-4 bg-navy-50 text-navy-500 rounded-2xl font-bold hover:bg-navy-100 transition-all"
                   >
-                    Close
+                    {t("common.close")}
                   </button>
                 </div>
               </div>

@@ -6,7 +6,7 @@ const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const hasAccepted = localStorage.getItem("medicare_cookie_accepted");
+    const hasAccepted = localStorage.getItem("medinova_cookie_accepted");
     if (!hasAccepted) {
       const timer = setTimeout(() => setIsVisible(true), 1500);
       return () => clearTimeout(timer);
@@ -14,7 +14,7 @@ const CookieBanner = () => {
   }, []);
 
   const accept = () => {
-    localStorage.setItem("medicare_cookie_accepted", "true");
+    localStorage.setItem("medinova_cookie_accepted", "true");
     setIsVisible(false);
   };
 

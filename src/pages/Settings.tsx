@@ -502,7 +502,7 @@ const Settings = () => {
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold text-indigo mb-2">
-                AarogyaMitra
+                MediNova
               </h3>
               <p className="text-sm text-indigo/70 mb-4">
                 Version 1.0.0 • Your trusted rural health companion

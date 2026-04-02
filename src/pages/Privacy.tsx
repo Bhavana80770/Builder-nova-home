@@ -14,7 +14,7 @@ const Privacy = () => {
               <div className="w-8 h-8 bg-herbal rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-indigo">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -227,7 +227,7 @@ const Privacy = () => {
                       How to Exercise Your Rights:
                     </h4>
                     <ul className="text-indigo/80 space-y-1 ml-4">
-                      <li>• Email: privacy@aarogyamitra.com</li>
+                      <li>• Email: privacy@MediNova.com</li>
                       <li>• Phone: +91-XXXX-XXXXXX</li>
                       <li>• Settings page in your account</li>
                       <li>• Written request to our office</li>

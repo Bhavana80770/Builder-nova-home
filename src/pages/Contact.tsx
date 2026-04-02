@@ -14,7 +14,7 @@ const Contact = () => {
               <div className="w-8 h-8 bg-herbal rounded-lg flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-indigo">AarogyaMitra</h1>
+              <h1 className="text-lg font-bold text-indigo">MediNova</h1>
             </div>
             <Link to="/">
               <Button variant="outline" size="sm">
@@ -171,19 +171,19 @@ const Contact = () => {
                       <p className="font-semibold text-indigo">
                         General Inquiries
                       </p>
-                      <p className="text-indigo/80">support@aarogyamitra.com</p>
+                      <p className="text-indigo/80">support@MediNova.com</p>
                     </div>
                     <div>
                       <p className="font-semibold text-indigo">
                         Medical Support
                       </p>
-                      <p className="text-indigo/80">medical@aarogyamitra.com</p>
+                      <p className="text-indigo/80">medical@MediNova.com</p>
                     </div>
                     <div>
                       <p className="font-semibold text-indigo">
                         Technical Issues
                       </p>
-                      <p className="text-indigo/80">tech@aarogyamitra.com</p>
+                      <p className="text-indigo/80">tech@MediNova.com</p>
                     </div>
                   </div>
                 </CardContent>
@@ -298,7 +298,7 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-indigo/80">
-                    AarogyaMitra Healthcare Solutions
+                    MediNova Healthcare Solutions
                     <br />
                     Rural Health Innovation Center
                     <br />
@@ -319,7 +319,7 @@ const Contact = () => {
               </h4>
               <p className="text-indigo/80 text-sm">
                 For immediate medical emergencies, call <strong>108</strong> or
-                visit your nearest hospital. AarogyaMitra is for consultation
+                visit your nearest hospital. MediNova is for consultation
                 and guidance, not emergency treatment.
               </p>
             </div>

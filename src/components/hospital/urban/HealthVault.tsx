@@ -21,7 +21,7 @@ import { toast } from "sonner";
 
 // Cloudinary Configuration (Unsigned)
 const CLOUDINARY_CLOUD_NAME = "de8opipom";
-const CLOUDINARY_UPLOAD_PRESET = "medicare_upload";
+const CLOUDINARY_UPLOAD_PRESET = "medinova_upload";
 
 interface MedicalReport {
   id: string;
@@ -36,9 +36,9 @@ interface MedicalReport {
 const HealthVault = () => {
   const { t } = useLanguage();
   const [reports, setReports] = useState<MedicalReport[]>([
-    { id: "1", name: "Annual_Full_Body_Checkup_2026.pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", date: "Jan 12, 2026", type: "Lab Report", size: "1.2 MB", status: "Stored" },
-    { id: "2", name: "Chest_XRay_Digital_Scan.png", url: "https://res.cloudinary.com/demo/image/upload/v1/sample.jpg", date: "Feb 05, 2026", type: "Radiology", size: "3.5 MB", status: "Encrypted" },
-    { id: "3", name: "Prescription_Dr_Mehta_Feb.jpg", url: "https://res.cloudinary.com/demo/image/upload/v1619000000/sample.jpg", date: "Feb 28, 2026", type: "Prescription", size: "0.8 MB", status: "Syncing" },
+    { id: "1", name: "Diabetes_Type2_Progress_Report_2026.pdf", url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", date: "Jan 12, 2026", type: "Disease Report", size: "1.2 MB", status: "Stored" },
+    { id: "2", name: "Hypertension_Cardiac_Risk_Analysis.pdf", url: "https://res.cloudinary.com/demo/image/upload/v1/sample.jpg", date: "Feb 05, 2026", type: "Cardiology", size: "3.5 MB", status: "Encrypted" },
+    { id: "3", name: "Chronic_Kidney_Management_Plan.pdf", url: "https://res.cloudinary.com/demo/image/upload/v1619000000/sample.jpg", date: "Feb 28, 2026", type: "Disease Report", size: "0.8 MB", status: "Syncing" },
   ]);
   const [isUploading, setIsUploading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -196,7 +196,7 @@ const HealthVault = () => {
 
             <div className="mt-8 p-4 bg-navy-100/30 rounded-2xl border border-navy-50 flex items-center gap-4">
               <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center">
-                <Cloud className="w-5 h-5 text-blue-500" />
+                <Cloud className="w-5 h-5 text-emerald-500" />
               </div>
               <div className="flex-1">
                 <div className="h-2 w-full bg-navy-200/50 rounded-full overflow-hidden">
@@ -204,7 +204,7 @@ const HealthVault = () => {
                     initial={{ width: 0 }}
                     animate={{ width: "65%" }}
                     transition={{ duration: 1, delay: 0.5 }}
-                    className="h-full bg-blue-500" 
+                    className="h-full bg-emerald-500" 
                   />
                 </div>
                 <p className="text-[10px] font-black text-navy-400 mt-1 uppercase tracking-wider">650MB / 1GB {t('healthVault.stored')}</p>
@@ -278,14 +278,15 @@ const HealthVault = () => {
                           <span className="w-1 h-1 bg-navy-200 rounded-full hidden sm:block" />
                           <span className={cn(
                              "px-2 py-0.5 rounded-full",
-                             report.status === "Encrypted" ? "bg-emerald-50 text-emerald-500" : "bg-blue-50 text-blue-500"
+                             report.status === "Encrypted" ? "bg-emerald-50 text-emerald-500" : "bg-navy-50 text-navy-500"
                           )}>
                             {t(`healthVault.${report.status.toLowerCase()}`)}
                           </span>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2">
+                      {/* RIGHT SECTION - flex-shrink-0 and gap-5 to match center section density */}
+                      <div className="flex items-center gap-5 flex-shrink-0">
                         <button
                           onClick={() => window.open(report.url, "_blank")}
                           className="p-3 bg-navy-50 text-navy-400 rounded-xl hover:bg-emerald-500 hover:text-white transition-all shadow-sm"

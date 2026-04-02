@@ -4,10 +4,10 @@ import Footer from "@/components/hospital/Footer";
 import BackToTop from "@/components/hospital/BackToTop";
 import ChatWidget from "@/components/hospital/ChatWidget";
 import CookieBanner from "@/components/hospital/CookieBanner";
-import VoiceAssistant from "@/components/hospital/ai/VoiceAssistant";
 
-// Import the premium Services component the user liked
+// Import the premium Services and AI components
 import PremiumServices from "@/components/hospital/home/Services";
+import DiseasePredictor from "@/components/hospital/ai/DiseasePredictor";
 
 const ServicesPage = () => {
   return (
@@ -17,13 +17,13 @@ const ServicesPage = () => {
       
       <div className="flex-1">
         <PremiumServices />
+        <DiseasePredictor />
       </div>
 
       <Footer />
       <BackToTop />
       <ChatWidget />
       <CookieBanner />
-      <VoiceAssistant />
     </main>
   );
 };

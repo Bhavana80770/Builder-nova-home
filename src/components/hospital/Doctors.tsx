@@ -2,9 +2,11 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Award, Calendar, ChevronRight, Search, UserRoundX } from "lucide-react";
 import { useDoctors } from "@/hooks/useDoctors";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Doctors = () => {
   const { filteredDoctors, searchTerm, setSearchTerm } = useDoctors();
+  const { t } = useLanguage();
 
   return (
     <section id="doctors" className="py-24 bg-navy-50/30 relative">
@@ -19,7 +21,7 @@ const Doctors = () => {
               className="text-emerald-600 font-bold text-sm tracking-wider uppercase mb-3 flex items-center gap-2"
             >
               <Award className="w-4 h-4" />
-              <span>Expert Team members</span>
+              <span>{t("doctors.tag")}</span>
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
@@ -28,7 +30,7 @@ const Doctors = () => {
               viewport={{ once: true }}
               className="text-4xl md:text-5xl font-bold text-navy-500 font-sans"
             >
-              Meet Our Dedicated <span className="text-emerald-500">Specialists</span>
+              {t("doctors.title").split(" ").map((word, i) => i > 2 ? <span key={i} className="text-emerald-500 ml-1">{word}</span> : word + " ")}
             </motion.h2>
           </div>
 
@@ -43,7 +45,7 @@ const Doctors = () => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-navy-300 w-5 h-5 transition-colors group-focus-within:text-emerald-500" />
             <input 
               type="text" 
-              placeholder="Search by name or specialty..."
+              placeholder={t("doctors.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-12 pr-4 py-4 bg-white border border-navy-100 rounded-2xl focus:ring-2 focus:ring-emerald-500 ring-offset-2 transition-all outline-none text-navy-500 font-medium shadow-sm hover:border-emerald-200"
@@ -85,17 +87,17 @@ const Doctors = () => {
                       {doctor.name}
                     </h3>
                     <p className="text-emerald-600 font-bold text-sm mb-4">
-                      {doctor.specialty}
+                      {t(`specialties.${doctor.specialty}`)}
                     </p>
 
                     <div className="flex items-center justify-center gap-4 py-4 px-2 bg-navy-50 rounded-2xl mb-6 mt-auto">
                       <div className="text-center">
-                        <div className="text-navy-400 text-[10px] uppercase font-bold tracking-wider">EXP</div>
+                        <div className="text-navy-400 text-[10px] uppercase font-bold tracking-wider">{t("doctors.exp")}</div>
                         <div className="text-navy-500 font-bold text-sm">{doctor.experience}</div>
                       </div>
                       <div className="w-px h-8 bg-navy-200/50" />
                       <div className="text-center">
-                        <div className="text-navy-400 text-[10px] uppercase font-bold tracking-wider">Rating</div>
+                        <div className="text-navy-400 text-[10px] uppercase font-bold tracking-wider">{t("doctors.rating")}</div>
                         <div className="text-navy-500 font-bold text-sm">{doctor.rating}</div>
                       </div>
                     </div>
@@ -108,7 +110,7 @@ const Doctors = () => {
                       className="w-full bg-navy-500 text-white py-3 rounded-2xl font-bold hover:bg-emerald-500 transition-all flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-emerald-200"
                     >
                       <Calendar className="w-4 h-4" />
-                      Book Now
+                      {t("doctors.bookNow")}
                     </button>
                   </div>
                 </motion.div>
@@ -123,14 +125,14 @@ const Doctors = () => {
                   <UserRoundX className="w-12 h-12 text-navy-300" />
                 </div>
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-navy-500">No Specialists Found</h3>
-                  <p className="text-navy-400">Try searching for another name or specialty.</p>
+                  <h3 className="text-2xl font-bold text-navy-500">{t("doctors.noFound")}</h3>
+                  <p className="text-navy-400">{t("doctors.noFoundDesc")}</p>
                 </div>
                 <button 
                   onClick={() => setSearchTerm("")}
                   className="text-emerald-600 font-bold hover:underline"
                 >
-                  Clear Search
+                  {t("doctors.clearSearch")}
                 </button>
               </motion.div>
             )}

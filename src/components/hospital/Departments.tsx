@@ -5,9 +5,11 @@ import {
 } from "lucide-react";
 import { departmentsData, Department } from "../../data/departmentsData";
 import DepartmentModal from "./DepartmentModal";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Departments = () => {
   const [selectedDept, setSelectedDept] = useState<Department | null>(null);
+  const { t } = useLanguage();
 
   return (
     <section id="departments" className="py-24 bg-white relative overflow-hidden">
@@ -24,7 +26,7 @@ const Departments = () => {
             viewport={{ once: true }}
             className="text-emerald-600 font-bold text-sm tracking-wider uppercase mb-3 px-4 py-1 glass border-emerald-100/50 w-fit mx-auto rounded-full"
           >
-            Our Specialties
+            {t("departments.tag")}
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -33,7 +35,7 @@ const Departments = () => {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold text-navy-500 font-sans"
           >
-            Specialized <span className="text-emerald-500 text-gradient">Departments</span>
+            {t("departments.title").split(" ").map((word, i) => i === 1 ? <span key={i} className="text-emerald-500 text-gradient ml-1">{word}</span> : word + " ")}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -42,14 +44,14 @@ const Departments = () => {
             viewport={{ once: true }}
             className="text-navy-400 mt-4 max-w-2xl mx-auto text-lg"
           >
-            We offer a wide range of specialized medical services to ensure complete care for you and your family.
+            {t("departments.desc")}
           </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {departmentsData.map((dept, index) => (
             <motion.div
-              key={dept.name}
+              key={dept.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -61,16 +63,16 @@ const Departments = () => {
                 <dept.icon className={`${dept.iconColor} w-8 h-8`} />
               </div>
               <h3 className="text-2xl font-bold text-navy-500 mb-3 group-hover:text-emerald-500 transition-colors">
-                {dept.name}
+                {t(`departments.${dept.id}.name`)}
               </h3>
               <p className="text-navy-400 leading-relaxed mb-6">
-                {dept.description}
+                {t(`departments.${dept.id}.desc`)}
               </p>
               <button 
                 onClick={() => setSelectedDept(dept)}
                 className="flex items-center gap-2 text-emerald-600 font-bold hover:gap-4 transition-all uppercase text-xs tracking-widest active:scale-95 origin-left"
               >
-                Learn More
+                {t("services.learnMore")}
                 <MoveRight className="w-4 h-4" />
               </button>
             </motion.div>

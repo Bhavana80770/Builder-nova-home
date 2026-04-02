@@ -30,7 +30,7 @@ class SMSService {
       provider:
         (import.meta.env.VITE_SMS_PROVIDER as SMSConfig["provider"]) || "free",
       apiKey: import.meta.env.VITE_SMS_API_KEY,
-      senderId: import.meta.env.VITE_SMS_SENDER_ID || "AROGYA",
+      senderId: import.meta.env.VITE_SMS_SENDER_ID || "NOVABOT",
       templateId: import.meta.env.VITE_SMS_TEMPLATE_ID,
     };
   }
@@ -92,7 +92,7 @@ class SMSService {
     phoneNumber: string,
     otp: string,
   ): Promise<SMSResponse> {
-    const message = `Your AarogyaMitra verification code is: ${otp}. Valid for 5 minutes. Do not share this code with anyone.`;
+    const message = `Your NovaBot verification code is: ${otp}. Valid for 5 minutes. Do not share this code with anyone.`;
 
     switch (this.config.provider) {
       case "mock":
@@ -176,7 +176,7 @@ class SMSService {
 
     // Clear, prominent logging
     console.clear();
-    console.log("🎉 AarogyaMitra OTP Sent Successfully! 🎉");
+    console.log("🎉 NovaBot OTP Sent Successfully! 🎉");
     console.log("============================================");
     console.log("📱 To Mobile Number:", `+91${phoneNumber}`);
     console.log("🔐 Your Verification Code:", otp);
@@ -292,7 +292,7 @@ class SMSService {
 
     // Browser notification as backup
     if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("AarogyaMitra OTP Sent", {
+      new Notification("NovaBot OTP Sent", {
         body: `Your verification code: ${otp} (Valid for 5 minutes)`,
         icon: "/favicon.ico",
         tag: "otp-notification",
@@ -322,7 +322,7 @@ class SMSService {
 
     // For development, show OTP in browser notification if supported
     if ("Notification" in window && Notification.permission === "granted") {
-      new Notification("AarogyaMitra OTP", {
+      new Notification("NovaBot OTP", {
         body: `Your verification code: ${otp}`,
         icon: "/favicon.ico",
       });

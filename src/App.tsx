@@ -16,8 +16,7 @@ import Footer from "./components/hospital/Footer";
 import NotFound from "./pages/NotFound";
 import BackToTop from "./components/hospital/BackToTop";
 import ChatWidget from "./components/hospital/ChatWidget";
-import CookieBanner from "./components/hospital/CookieBanner";
-import VoiceAssistant from "./components/hospital/ai/VoiceAssistant";
+import CookieBanner from "@/components/hospital/CookieBanner";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import PHCLocator from "./components/hospital/rural/PHCLocator";
 import HealthVault from "./components/hospital/urban/HealthVault";
@@ -70,7 +69,6 @@ const LandingPage = () => {
       <BackToTop />
       <ChatWidget />
       <CookieBanner />
-      <VoiceAssistant />
     </main>
   );
 };
