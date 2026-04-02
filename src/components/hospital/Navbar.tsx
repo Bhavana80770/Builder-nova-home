@@ -27,7 +27,9 @@ const Navbar = () => {
     { name: t("navbar.departments"), href: "#departments" },
     { name: t("navbar.doctors"), href: "#doctors" },
     { name: t("navbar.services"), href: "#services" },
-    { name: t("navbar.tools"), href: "#tools" },
+    { name: t("navbar.telemedicine"), href: "#video-consultation" },
+    { name: t("phcLocator.tag"), href: "#rural-care" },
+    { name: t("healthVault.tag"), href: "#urban-vault" },
     { name: t("navbar.contact"), href: "#contact" },
   ];
 

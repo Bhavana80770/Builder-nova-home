@@ -24,6 +24,7 @@ import HealthVault from "./components/hospital/urban/HealthVault";
 import QueueTracker from "./components/hospital/urban/QueueTracker";
 import Services from "./components/hospital/home/Services";
 import ServicesPage from "./pages/ServicesPage";
+import VideoConsultation from "./components/hospital/VideoConsultation";
 
 
 const queryClient = new QueryClient();
@@ -56,6 +57,7 @@ const LandingPage = () => {
       <Services />
       <PHCLocator />
       <Doctors />
+      <VideoConsultation />
       <HealthTools />
       <HealthVault />
       <Testimonials />

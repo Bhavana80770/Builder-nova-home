@@ -18,6 +18,7 @@ const translations: Record<Language, any> = {
       contact: "Contact",
       book: "Book Appointment",
       tools: "Health Tools",
+      telemedicine: "Telemedicine",
     },
     hero: {
       tag: "Best Medical Care",
@@ -153,6 +154,27 @@ const translations: Record<Language, any> = {
       emergency: "Emergency Med",
       pediatrics: "Pediatrics",
       oncology: "Oncology"
+    },
+    videoConsultation: {
+      tag: "Telemedicine",
+      title: "Real-Time Video Consultation",
+      desc: "Connect with our expert doctors from the comfort of your home. Get instant medical advice, prescriptions, and follow-ups via high-quality video conferencing.",
+      btn: "Join Consultation",
+      popupTitle: "Start Video Consultation?",
+      popupDesc: "You are about to enter a secure video meeting room with our medical staff. Please ensure your camera and microphone are ready.",
+      instrCamera: "Allow access to camera & microphone",
+      instrInternet: "Ensure stable internet connection",
+      confirm: "Yes, Start Call",
+      cancel: "Maybe Later"
+    },
+    chat: {
+      welcome: "👋 Hello! I'm MediBot. How can we help you today?",
+      placeholder: "Ask me anything about your health...",
+      typing: "MediBot is typing...",
+      disclaimer: "⚠️ This AI assistant is for informational purposes only. Consult a doctor for medical diagnosis.",
+      error: "Something went wrong. Please try again.",
+      quickHelp: "Quick Help",
+      send: "Send"
     }
   },
   HI: {
@@ -164,6 +186,7 @@ const translations: Record<Language, any> = {
       contact: "संपर्क",
       book: "अपॉइंटमेंट बुक करें",
       tools: "स्वास्थ्य उपकरण",
+      telemedicine: "टेलीमेडिसिन",
     },
     hero: {
       tag: "सर्वश्रेष्ठ चिकित्सा देखभाल",
@@ -299,6 +322,27 @@ const translations: Record<Language, any> = {
       emergency: "आपातकालीन चिकित्सा",
       pediatrics: "बाल रोग",
       oncology: "कैंसर विज्ञान"
+    },
+    videoConsultation: {
+      tag: "टेलीमेडिसिन",
+      title: "रियल-टाइम वीडियो परामर्श",
+      desc: "अपने घर के आराम से हमारे विशेषज्ञ डॉक्टरों से जुड़ें। उच्च गुणवत्ता वाले वीडियो कॉन्फ्रेंसिंग के माध्यम से तत्काल चिकित्सा सलाह, नुस्खे और फॉलो-अप प्राप्त करें।",
+      btn: "परामर्श में शामिल हों",
+      popupTitle: "वीडियो परामर्श शुरू करें?",
+      popupDesc: "आप हमारे मेडिकल स्टाफ के साथ एक सुरक्षित वीडियो मीटिंग रूम में प्रवेश करने वाले हैं। कृपया सुनिश्चित करें कि आपका कैमरा और माइक्रोफ़ोन तैयार है।",
+      instrCamera: "कैमरा और माइक्रोफ़ोन के लिए अनुमति दें",
+      instrInternet: "स्थिर इंटरनेट कनेक्शन सुनिश्चित करें",
+      confirm: "हाँ, कॉल शुरू करें",
+      cancel: "बाद में"
+    },
+    chat: {
+      welcome: "👋 नमस्ते! मैं मेडीबॉट हूँ। आज हम आपकी क्या मदद कर सकते हैं?",
+      placeholder: "अपने स्वास्थ्य के बारे में कुछ भी पूछें...",
+      typing: "मेडीबॉट टाइप कर रहा है...",
+      disclaimer: "⚠️ यह एआई सहायक केवल सूचनात्मक उद्देश्यों के लिए है।",
+      error: "कुछ गलत हो गया। कृपया पुन: प्रयास करें।",
+      quickHelp: "त्वरित सहायता",
+      send: "भेजें"
     }
   },
   TE: {
@@ -310,6 +354,7 @@ const translations: Record<Language, any> = {
       contact: "సంప్రదించండి",
       book: "అపాయింట్మెంట్ బుక్ చేయండి",
       tools: "ఆరోగ్య సాధనాలు",
+      telemedicine: "టెలిమెడిసిన్",
     },
     hero: {
       tag: "ఉత్తమ వైద్య సంరక్షణ",
@@ -445,6 +490,27 @@ const translations: Record<Language, any> = {
       emergency: "ఎమర్జెన్సీ మెడిసిన్",
       pediatrics: "పీడియాట్రిక్స్",
       oncology: "ఆంకాలజీ"
+    },
+    videoConsultation: {
+      tag: "టెలిమెడిసిన్",
+      title: "రియల్ టైమ్ వీడియో సంప్రదింపులు",
+      desc: "మీ ఇంటి వద్ద నుండే మా నిపుణులైన వైద్యులతో కనెక్ట్ అవ్వండి. వీడియో కాన్ఫరెన్స్ ద్వారా తక్షణ సలహాలు పొందండి.",
+      btn: "మీటింగ్‌లో చేరండి",
+      popupTitle: "వీడియో కాల్ ప్రారంభించాలా?",
+      popupDesc: "మీరు మా వైద్య సిబ్బందితో సురక్షితమైన వీడియో మీటింగ్ గదిలోకి ప్రవేశించబోతున్నారు. కెమెరా మరియు మైక్రోఫోన్ సిద్ధంగా ఉంచుకోండి.",
+      instrCamera: "కెమెరా మరియు మైక్రోఫోన్‌ను అనుమతించండి",
+      instrInternet: "స్థిరమైన ఇంటర్నెట్ చూసుకోండి",
+      confirm: "అవును, ప్రారంభించు",
+      cancel: "తర్వాత"
+    },
+    chat: {
+      welcome: "👋 నమస్కారం! నేను మెడిబోట్. మీకు ఎలా సహాయం చేయగలను?",
+      placeholder: "ఆరోగ్యం గురించి ఏదైనా అడగండి...",
+      typing: "మెడిబోట్ టైప్ చేస్తోంది...",
+      disclaimer: "⚠️ ఈ AI సహాయం కేవలం సమాచారం కోసం మాత్రమే.",
+      error: "ఏదో పొరపాటు జరిగింది. మళ్ళీ ప్రయత్నించండి.",
+      quickHelp: "త్వరిత సహాయం",
+      send: "పంపండి"
     }
   },
   TA: {
@@ -456,6 +522,7 @@ const translations: Record<Language, any> = {
       contact: "தொடர்பு",
       book: "முன்பதிவு செய்யுங்கள்",
       tools: "சுகாதார கருவிகள்",
+      telemedicine: "டெலிமெடிசின்",
     },
     hero: {
       tag: "சிறந்த மருத்துவ சிகிச்சை",
@@ -591,6 +658,27 @@ const translations: Record<Language, any> = {
       emergency: "அவசர சிகிச்சை",
       pediatrics: "குழந்தை மருத்துவம்",
       oncology: "புற்றுநோயியல்"
+    },
+    videoConsultation: {
+      tag: "டெலிமெடிசின்",
+      title: "நிகழ்நேர வீடியோ ஆலோசனை",
+      desc: "உங்கள் வீட்டிலிருந்து எங்கள் நிபுணர் மருத்துவர்களுடன் இணையுங்கள். நிகழ்நேர வீடியோ மூலம் ஆலோசனைகளைப் பெறுங்கள்.",
+      btn: "ஆலோசனையில் இணையுங்கள்",
+      popupTitle: "வீடியோ ஆலோசனையைத் தொடங்கவா?",
+      popupDesc: "பாதுகாப்பான வீடியோ கூட்டத்தில் நுழையப் போகிறீர்கள். உங்கள் கேமரா மற்றும் மைக் தயாராக இருப்பதை உறுதி செய்யவும்.",
+      instrCamera: "கேமரா மற்றும் மைக்கை அனுமதிக்கவும்",
+      instrInternet: "சீரான இணையத்தை உறுதிப்படுத்தவும்",
+      confirm: "ஆம், தொடங்கவும்",
+      cancel: "பிறகு"
+    },
+    chat: {
+      welcome: "👋 வணக்கம்! நான் மெடிபாட். நான் உங்களுக்கு எப்படி உதவ முடியும்?",
+      placeholder: "ஏதாவது கேளுங்கள்...",
+      typing: "மெடிபாட் டைப் செய்கிறது...",
+      disclaimer: "⚠️ இந்த AI உதவியாளர் தகவல் நோக்கங்களுக்காக மட்டுமே.",
+      error: "ஏதோ தவறு நடந்துவிட்டது. மீண்டும் முயற்சிக்கவும்.",
+      quickHelp: "விரைவான உதவி",
+      send: "அனுப்பு"
     }
   },
   MR: {
@@ -602,6 +690,7 @@ const translations: Record<Language, any> = {
       contact: "संपर्क",
       book: "अपॉइंटमेंट बुक करा",
       tools: "आरोग्य साधने",
+      telemedicine: "टेलीमेडिसिन",
     },
     hero: {
       tag: "सर्वोत्तम वैद्यकीय सेवा",
@@ -737,6 +826,27 @@ const translations: Record<Language, any> = {
       emergency: "आणीबाणी औषध",
       pediatrics: "बालरोग",
       oncology: "कर्करोग शास्त्र"
+    },
+    videoConsultation: {
+      tag: "टेलीमेडिसिन",
+      title: "रिअल-टाइम व्हिडिओ सल्ला",
+      desc: "तुमच्या घराच्या आरामातून आमच्या तज्ज्ञ डॉक्टरांशी संपर्क साधा. व्हिडिओ कॉन्फरन्सिंगद्वारे झटपट वैद्यकीय सल्ला मिळवा.",
+      btn: "कॉलमध्ये सामील व्हा",
+      popupTitle: "व्हिडिओ सल्ला सुरू करायचा?",
+      popupDesc: "तुम्ही सुरक्षित व्हिडिओ मीटिंग रूममध्ये प्रवेश करणार आहात. कृपया तुमचा कॅमेरा आणि माइक तयार असल्याची खात्री करा.",
+      instrCamera: "कॅमेरा आणि माइकला परवानगी द्या",
+      instrInternet: "स्थिर इंटरनेट कनेक्शन सुनिश्चित करा",
+      confirm: "हो, सुरू करा",
+      cancel: "नंतर"
+    },
+    chat: {
+      welcome: "👋 नमस्कार! मी मेडीबॉट आहे. मी तुम्हाला कशी मदत करू शकतो?",
+      placeholder: "आरोग्याबद्दल काहीही विचारा...",
+      typing: "मेडीबॉट टाईप करत आहे...",
+      disclaimer: "⚠️ हा एआय सहाय्यक फक्त माहितीसाठी आहे.",
+      error: "काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.",
+      quickHelp: "त्वरित मदत",
+      send: "पाठवा"
     }
   },
 };
