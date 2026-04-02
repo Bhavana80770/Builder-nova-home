@@ -31,6 +31,7 @@ const Navbar = () => {
     { name: t("navbar.queue") || "Live Queue", href: "#queue-tracker" },
     { name: t("phcLocator.tag") || "Rural", href: "#rural-care" },
     { name: t("healthVault.tag") || "Urban", href: "#urban-vault" },
+    { name: t("navbar.contact") || "Contact", href: "#contact" },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement> | null, href: string) => {
@@ -105,13 +106,6 @@ const Navbar = () => {
 
         {/* RIGHT: ACTIONS */}
         <div className="flex items-center gap-4 flex-none justify-end flex-shrink-0">
-          <a
-            href="#contact"
-            onClick={(e) => handleLinkClick(e, "#contact")}
-            className="hidden xl:block text-navy-500 hover:text-emerald-500 font-bold text-sm tracking-tight transition-colors whitespace-nowrap"
-          >
-            {t("navbar.contact") || "Contact"}
-          </a>
 
           {/* Language Selector */}
           <div className="relative flex-shrink-0">
