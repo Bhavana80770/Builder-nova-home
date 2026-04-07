@@ -12,20 +12,30 @@ This guide explains how to deploy the MediNova platform from scratch.
 
 ## 🏗️ Step 1: Backend Deployment (Render)
 
-1.  **Create a New Web Service**:
-    *   Sign in to [Render](https://render.com).
-    *   Click **New +** > **Web Service**.
-    *   Connect your GitHub repository.
-2.  **Configure Settings**:
-    *   **Name**: `medinova-backend`
-    *   **Environment**: `Node`
-    *   **Build Command**: `npm install`
-    *   **Start Command**: `node backend/server.js`
-3.  **Environment Variables**:
-    *   Go to the **Environment** tab in Render.
-    *   Add `MONGODB_URI`: (Your MongoDB Atlas connection string).
-    *   Add `PORT`: `5000` (or leave it to Render's default).
-4.  **Deploy**: Render will automatically deploy once you save. **Copy the Service URL** (e.g., `https://medinova-backend.onrender.com`).
+There are two ways to deploy the backend on Render:
+
+### Option A: Blueprint (Recommended - Automatic)
+1. Sign in to [Render](https://render.com).
+2. Go to **Blueprints** > **New Blueprint Instance**.
+3. Connect your GitHub repository.
+4. Render will detect the `render.yaml` file and configure everything automatically.
+5. Add your `MONGODB_URI` in the environment variables.
+
+### Option B: Manual Setup
+1. **Create a New Web Service**:
+    * Sign in to Render. Click **New +** > **Web Service**.
+    * Connect your GitHub repository.
+2. **Configure Settings**:
+    * **Name**: `medinova-backend`
+    * **Environment**: `Node`
+    * **Root Directory**: `backend` *(CRITICAL: Must point to backend folder)*
+    * **Build Command**: `npm install`
+    * **Start Command**: `node server.js`
+3. **Environment Variables**:
+    * Add `MONGODB_URI`: (Your MongoDB connection string).
+    * Add `PORT`: `5000`
+
+4. **Common Errors**: If you see "Git Clone Error", ensure you have connected your GitHub account properly in Render's **Account Settings**.
 
 ---
 

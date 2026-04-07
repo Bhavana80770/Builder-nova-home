@@ -7,7 +7,9 @@
     "build": "vite build",
     "test": "vitest --run",
     "format.fix": "prettier --write .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "install:backend": "cd backend && npm install",
+    "start:backend": "node backend/server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
