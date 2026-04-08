@@ -47,7 +47,7 @@ const ChatWidget = () => {
     setIsTyping(true);
 
     try {
-      const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
       const response = await fetch(`${API_BASE}/api/ai/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,11 +61,11 @@ const ChatWidget = () => {
         const botMsg: Message = { id: Date.now() + 1, text: data.reply, sender: "bot" };
         setMessages((prev) => [...prev, botMsg]);
       } else {
-        throw new Error(data.message);
+        throw new Error(data.reply || data.message || t("chat.error"));
       }
-    } catch (error) {
+    } catch (error: any) {
       setIsTyping(false);
-      const errorMsg: Message = { id: Date.now() + 1, text: t("chat.error"), sender: "bot" };
+      const errorMsg: Message = { id: Date.now() + 1, text: error.message || t("chat.error"), sender: "bot" };
       setMessages((prev) => [...prev, errorMsg]);
     }
   };

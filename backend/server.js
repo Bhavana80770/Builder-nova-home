@@ -1,11 +1,9 @@
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
 import appointmentRoutes from "./routes/appointments.js";
 import aiRoutes from "./routes/ai.js";
-
-dotenv.config();
 
 const app = express();
 

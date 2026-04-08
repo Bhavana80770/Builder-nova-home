@@ -158,11 +158,35 @@ const VoiceChatbot = () => {
 
     // Process the message and generate response
     setIsProcessing(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate processing
+    
+    let response = "";
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:5000";
+      const apiResponse = await fetch(`${API_BASE}/api/ai/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          message: text, 
+          language: languages.find(l => l.code === selectedLanguage)?.name || "English" 
+        }),
+      });
 
-    const response = generateResponse(text);
+      const data = await apiResponse.json();
+      if (data.success && data.reply) {
+        response = data.reply;
+      } else {
+        // Fallback to local logic if API fails or returns error
+        response = generateResponse(text);
+      }
+    } catch (error) {
+      console.error("AI API Error:", error);
+      // Fallback to local logic on network error
+      response = generateResponse(text);
+    }
+
     addAssistantMessage(response);
     setIsProcessing(false);
+
 
     // Check if it's an emergency and show quick action
     if (
