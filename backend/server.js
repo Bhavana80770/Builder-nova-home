@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import appointmentRoutes from "./routes/appointments.js";
+import aiRoutes from "./routes/ai.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 app.use("/api/appointments", appointmentRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Health check route
 app.get("/", (req, res) => {

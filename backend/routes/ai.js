@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 const router = express.Router();
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Validate API Key presence
 if (!process.env.GEMINI_API_KEY) {
@@ -28,11 +29,6 @@ router.post("/predict", async (req, res) => {
         dept: "General Medicine",
         color: "amber"
     };
-
-    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY.includes("AIzaSy")) {
-       // If the key is generic or missing, and we're in a demo/dev context, we can provide a fallback
-       // but ideally we should try the real API first.
-    }
 
     try {
         const prompt = `
@@ -65,22 +61,6 @@ router.post("/predict", async (req, res) => {
         // Provide the fallback response for the user to see the UI working
         return res.json({ success: true, data: fallbackResponse, note: "Using fallback due to API connectivity." });
     }
-
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
-    
-    // Process markdown removal if model includes codeblock formatting
-    const cleanedText = responseText.replace(/```json/gi, '').replace(/```/gi, '').trim();
-    
-    let prediction;
-    try {
-        prediction = JSON.parse(cleanedText);
-    } catch (e) {
-        console.error("Failed to parse AI response:", responseText);
-        return res.status(500).json({ success: false, message: "Failed to parse AI response." });
-    }
-
-    res.json({ success: true, data: prediction });
 
   } catch (err) {
     console.error("Error generating prediction from Gemini:", err);
@@ -128,4 +108,4 @@ router.post("/chat", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
