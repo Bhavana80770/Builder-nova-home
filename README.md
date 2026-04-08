@@ -108,4 +108,3 @@ npm run frontend  # Frontend at port 5173
 
 ---
 
-Designed with ❤️ by **Bhavana** for a healthier world.
